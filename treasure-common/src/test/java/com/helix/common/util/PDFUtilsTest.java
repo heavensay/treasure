@@ -1,8 +1,13 @@
 package com.helix.common.util;
 
+import com.lowagie.text.pdf.BaseFont;
 import org.junit.Test;
+import org.xhtmlrenderer.pdf.ITextFontResolver;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.net.URL;
 
 /**
@@ -39,5 +44,31 @@ public class PDFUtilsTest {
 
     @Test
     public void cvtHtmltextToPdf() {
+    }
+
+    @Test
+    public void cvthtmlToPdf() throws Exception{
+        //lease-agreement-gangqin.htm
+        String url = "D:/work/融资租赁/融租租赁协议/ttt.html";
+        String targetPath = "D:/work/融资租赁/融租租赁协议/1.pdf";
+        String fontPath = "attach/font/simsun.ttc";
+        File targetFile = new File(targetPath);
+        if (targetFile.exists())
+
+        {
+            targetFile.delete();
+        }
+        try (OutputStream os = new FileOutputStream(targetFile))
+        {
+//			PDFEncryption pdfEncryption = new PDFEncryption(null, null, PdfWriter.ALLOW_PRINTING);
+            ITextRenderer renderer = new ITextRenderer();
+//			renderer.setPDFEncryption(pdfEncryption);
+            renderer.setDocument(new File(url));
+            // 解决中文支持
+            ITextFontResolver fontResolver = renderer.getFontResolver();
+            fontResolver.addFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+            renderer.layout();
+            renderer.createPDF(os);
+        }
     }
 }
