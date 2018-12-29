@@ -24,9 +24,9 @@ public class PDFUtilsTest {
          */
         URL url = classLoader.getResource("com/helix/common/util/simple.html");
 
-        File file = new File(url.getFile());
+        File file = new File("D:/work/融资租赁/租赁协议/ttt.html");
         System.out.println(file.getAbsolutePath());
-        PDFUtils.cvtHtmlToPdfByFile(file,"temp.pdf");
+        PDFUtils.cvtHtmlToPdfByFile(file,"D:\\work\\融资租赁\\租赁协议\\1.pdf");
     }
 
     @Test
@@ -49,8 +49,8 @@ public class PDFUtilsTest {
     @Test
     public void cvthtmlToPdf() throws Exception{
         //lease-agreement-gangqin.htm
-        String url = "D:/work/融资租赁/融租租赁协议/ttt.html";
-        String targetPath = "D:/work/融资租赁/融租租赁协议/1.pdf";
+        String url = "D:/work/融资租赁/品类/fur/协议/ttt.html";
+        String targetPath = "D:/work/融资租赁/品类/fur/协议/1.pdf";
         String fontPath = "attach/font/simsun.ttc";
         File targetFile = new File(targetPath);
         if (targetFile.exists())

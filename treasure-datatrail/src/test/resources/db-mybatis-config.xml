@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 引用db.properties配置文件 -->
+    <properties resource="db.properties"/>
+
+    <typeAliases>
+        <typeAlias type="com.helix.datatrail.util.DruidDataSourceFactory" alias="DRUID"/>
+    </typeAliases>
+
+    <!-- 配置分页插件 -->
+    <plugins>
+        <!--<plugin interceptor="com.github.pagehelper.PageHelper">-->
+            <!--&lt;!&ndash; 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库 &ndash;&gt;-->
+            <!--<property name="dialect" value="mysql"/>-->
+        <!--</plugin>-->
+        <plugin interceptor="com.helix.datatrail.interceptor.DataTrailInterceptor"></plugin>
+    </plugins>
+
+    <!-- development : 开发模式 work : 工作模式 -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <!-- 配置数据库连接信息 -->
+            <dataSource type="DRUID">
+                <!-- value属性值引用db.properties配置文件中配置的值 -->
+                <property name="driverClassName" value="${db.driver}"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
+                <property name="validationQuery" value="select now()" />
+                <property name="testWhileIdle" value="true" />
+                <property name="testOnBorrow" value="false" />
+                <property name="testOnReturn" value="false" />
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- mybatis的mapper文件，每个xml配置文件对应一个接口 -->
+    <mappers>
+        <mapper resource="sqlmapper/UserMapper.xml"/>
+    </mappers>
+</configuration>

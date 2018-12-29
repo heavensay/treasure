@@ -24,6 +24,7 @@
         <module>treasure-base</module>
         <module>treasure-parent-bom</module>
         <module>treasure-common</module>
+        <module>treasure-datatrail</module>
     </modules>
 
     <dependencies>

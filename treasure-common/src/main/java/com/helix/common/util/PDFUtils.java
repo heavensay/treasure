@@ -12,6 +12,8 @@ import java.io.OutputStream;
 import java.net.URL;
 
 /**
+ * core-renderer.R8不支持中文换行
+ * 需要使用替换过的jar包；或者其他方式转换html -> pdf，如wkhtmltopdf、xpdf
  * pdf转换工具类
  */
 public class PDFUtils {
