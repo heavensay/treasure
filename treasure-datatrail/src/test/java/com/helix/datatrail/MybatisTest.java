@@ -2,7 +2,8 @@ package com.helix.datatrail;
 
 import com.helix.datatrail.entity.User;
 import com.helix.datatrail.mapper.UserMapper;
-import com.helix.datatrail.util.MybatisUtil;
+import com.helix.datatrail.mapper.util.MybatisUtil;
+import com.helix.datatrail.mapper.util.ThreadLocalSqlSession;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
@@ -28,14 +29,20 @@ public class MybatisTest {
     @Test
     public void createUser(){
         SqlSession sqlSession = MybatisUtil.getSqlSession();
+        ThreadLocalSqlSession.put(sqlSession);
+
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         User user = new User();
         user.setName("Tom");
-        user.setAge(new Random(100).nextInt());
+        user.setAge(new Random().nextInt(100));
         user.setCreateDate(new Date());
+
         int result = userMapper.createUser(user);
         System.out.println(result);
+        sqlSession.commit();
         MybatisUtil.closeSession(sqlSession);
+
+        ThreadLocalSqlSession.clear();
     }
 
 }

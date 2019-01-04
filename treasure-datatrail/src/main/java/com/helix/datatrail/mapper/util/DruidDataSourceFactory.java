@@ -1,4 +1,4 @@
-package com.helix.datatrail.util;
+package com.helix.datatrail.mapper.util;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.datasource.unpooled.UnpooledDataSourceFactory;

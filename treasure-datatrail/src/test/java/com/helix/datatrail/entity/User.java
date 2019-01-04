@@ -1,11 +1,14 @@
 package com.helix.datatrail.entity;
 
+import com.helix.datatrail.annotation.TrailTable;
+
 import java.util.Date;
 
 /**
  * @author lijianyu
  * @date 2018/12/29 16:49
  */
+@TrailTable(tableName = "t_ops_history",identifyName = "id")
 public class User {
 
     private Long id;

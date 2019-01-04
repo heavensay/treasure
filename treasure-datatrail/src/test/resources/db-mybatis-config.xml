@@ -6,10 +6,14 @@
     <!-- 引用db.properties配置文件 -->
     <properties resource="db.properties"/>
 
-    <typeAliases>
-        <typeAlias type="com.helix.datatrail.util.DruidDataSourceFactory" alias="DRUID"/>
-    </typeAliases>
+    <settings>
+        <setting name="logImpl" value="SLF4J"/>
+    </settings>
 
+    <typeAliases>
+        <typeAlias type="com.helix.datatrail.mapper.util.DruidDataSourceFactory" alias="DRUID"/>
+    </typeAliases>
+    
     <!-- 配置分页插件 -->
     <plugins>
         <!--<plugin interceptor="com.github.pagehelper.PageHelper">-->
@@ -41,5 +45,7 @@
     <!-- mybatis的mapper文件，每个xml配置文件对应一个接口 -->
     <mappers>
         <mapper resource="sqlmapper/UserMapper.xml"/>
+        <mapper resource="sqlmapper/OpsHistoryMapper.xml"/>
+        <mapper class="com.helix.datatrail.mapper.DataTrailMapper"/>
     </mappers>
 </configuration>
