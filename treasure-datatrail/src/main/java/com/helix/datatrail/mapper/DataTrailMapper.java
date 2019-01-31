@@ -22,9 +22,9 @@ public interface DataTrailMapper {
             @Result(column = "ops_object_id",property = "opsObjectId"),
             @Result(column = "ops_object_content",property = "opsObjectContent"),
     })
-//    List<OpsHistory> getOpsHistoryById(@Param("tableName")String tableName,@Param("opsObjectId")Long opsObjectId, @Param("opsSearchId")Long opsSearchId,
-//                                       @Param("opsTime")Date opsTime, @Param("opsObjectName")String opsObjectName);
-    List<DataTrailEntity> getOpsHistoryById(@Param("tableName")String tableName, DataTrailEntity dataTrailEntity);
+    List<DataTrailEntity> getOpsHistoryById(@Param("tableName")String tableName,@Param("opsObjectId")Long opsObjectId, @Param("opsSearchId")Long opsSearchId,
+                                       @Param("opsTime")Date opsTime, @Param("opsObjectName")String opsObjectName);
+//    List<DataTrailEntity> getOpsHistoryById(@Param("tableName")String tableName, DataTrailEntity dataTrailEntity);
 
     @Insert("insert into table2 (name) values(#{name})")
     List<DataTrailEntity> insert(@Param("tableName")String tableName, @Param("opsObjectId")Long opsObjectId, @Param("opsSearchId")Long opsSearchId,

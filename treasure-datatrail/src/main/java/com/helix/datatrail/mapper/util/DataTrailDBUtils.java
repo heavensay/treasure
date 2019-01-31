@@ -36,28 +36,10 @@ public class DataTrailDBUtils {
         }
     }
 
-//    public static <T> T queryLastHistoryDataTrail2(String tableName,Long opsObjectId,Long opsSearchId, Date opsDate,Class<T> objectType){
-//        DataTrailMapper trailMapper = MybatisUtil.getSqlSession().getMapper(DataTrailMapper.class);
-//
-//        List<OpsHistory> opsHistory = trailMapper.getOpsHistoryById(tableName,opsObjectId,opsSearchId,opsDate,objectType.getSimpleName());
-//
-//        if(!opsHistory.isEmpty()){
-//            return JSON.parseObject(opsHistory.get(0).getOpsObjectContent(),objectType);
-//        }else{
-//            return null;
-//        }
-//    }
-
-    public static <T> T queryLastHistoryDataTrail2(String tableName, Long opsObjectId, Long opsSearchId, Date opsTime, Class<T> objectType){
+    public static <T> T queryLastHistoryDataTrail2(String tableName,Long opsObjectId,Long opsSearchId, Date opsDate,Class<T> objectType){
         DataTrailMapper trailMapper = MybatisUtil.getSqlSession().getMapper(DataTrailMapper.class);
 
-        DataTrailEntity searchOpsHistory = new DataTrailEntity();
-        searchOpsHistory.setOpsSearchId(opsSearchId);
-        searchOpsHistory.setOpsObjectId(opsObjectId);
-        searchOpsHistory.setOpsTime(opsTime);
-        searchOpsHistory.setOpsObjectName(objectType.getSimpleName());
-
-        List<DataTrailEntity> opsHistory = trailMapper.getOpsHistoryById(tableName,searchOpsHistory);
+        List<DataTrailEntity> opsHistory = trailMapper.getOpsHistoryById(tableName,opsObjectId,opsSearchId,opsDate,objectType.getSimpleName());
 
         if(!opsHistory.isEmpty()){
             return JSON.parseObject(opsHistory.get(0).getOpsObjectContent(),objectType);
@@ -65,4 +47,22 @@ public class DataTrailDBUtils {
             return null;
         }
     }
+
+//    public static <T> T queryLastHistoryDataTrail2(String tableName, Long opsObjectId, Long opsSearchId, Date opsTime, Class<T> objectType){
+//        DataTrailMapper trailMapper = MybatisUtil.getSqlSession().getMapper(DataTrailMapper.class);
+//
+//        DataTrailEntity searchOpsHistory = new DataTrailEntity();
+//        searchOpsHistory.setOpsSearchId(opsSearchId);
+//        searchOpsHistory.setOpsObjectId(opsObjectId);
+//        searchOpsHistory.setOpsTime(opsTime);
+//        searchOpsHistory.setOpsObjectName(objectType.getSimpleName());
+//
+//        List<DataTrailEntity> opsHistory = trailMapper.getOpsHistoryById(tableName,searchOpsHistory);
+//
+//        if(!opsHistory.isEmpty()){
+//            return JSON.parseObject(opsHistory.get(0).getOpsObjectContent(),objectType);
+//        }else{
+//            return null;
+//        }
+//    }
 }

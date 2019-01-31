@@ -18,6 +18,8 @@ public class DataTrailSqlBuilder {
             {
                 SELECT("id,ops_time,ops_operation_identity,ops_object_name,ops_object_id,ops_object_content");
                 FROM(params.get("tableName").toString());
+
+
                 if (params.get("opsObjectId") != null) {
                     WHERE("ops_object_id = " + params.get("opsObjectId"));
                 } else {

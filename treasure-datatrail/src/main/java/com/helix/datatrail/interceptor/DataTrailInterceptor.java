@@ -5,6 +5,7 @@ import com.alibaba.fastjson.PropertyNamingStrategy;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.helix.datatrail.annotation.TrailTable;
 import com.helix.datatrail.entity.DataTrailEntity;
+import com.helix.datatrail.exception.DataTrailException;
 import com.helix.datatrail.mapper.OpsHistoryMapper;
 import com.helix.datatrail.mapper.util.ThreadLocalSqlSession;
 import org.apache.ibatis.executor.Executor;
@@ -33,42 +34,64 @@ public class DataTrailInterceptor implements Interceptor {
 
         MappedStatement ms = (MappedStatement) invocation.getArgs()[0];
         ParameterMap parameterMap = ms.getParameterMap();
-        if (needRecord(parameterMap.getType())) {
-            TrailTable trailTable = parameterMap.getType().getAnnotation(TrailTable.class);
-            String tableName = trailTable.tableName();
-            String identfyName = trailTable.identifyName();
-            String searchIdName = trailTable.searchIdName();
 
-            Object entity = invocation.getArgs()[1];
-            String opsObjectName = entity.getClass().getSimpleName();
+        Object result = invocation.proceed();
 
-            Long opsObjectId = null;
-            Long opsSearchId = null;
-            if(identfyName != null && !"".equals(identfyName)){
-                opsObjectId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(identfyName)).invoke(entity,null);
-            }
-            if(searchIdName != null && !"".equals(searchIdName)){
-                opsSearchId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(searchIdName)).invoke(entity,null);
-            }
-            if(opsObjectId == null && opsSearchId == null){
-                throw new RuntimeException("opsObjectId，opsSearchId不能同时为空");
-            }
-
-            SerializeConfig config = new SerializeConfig();
-            config.propertyNamingStrategy = PropertyNamingStrategy.SnakeCase;
-            String opsObjectContent = JSON.toJSONString(entity,config);
-            DataTrailEntity opsHistory = new DataTrailEntity();
-            opsHistory.setOpsObjectContent(opsObjectContent);
-            opsHistory.setOpsObjectId(opsObjectId);
-            opsHistory.setOpsObjectName(opsObjectName);
-            opsHistory.setOpsSearchId(opsSearchId);
-            opsHistory.setOpsTime(new Date());
-
-            OpsHistoryMapper opsHistoryMapper = ThreadLocalSqlSession.get().getMapper(OpsHistoryMapper.class);
-            opsHistoryMapper.createOpsHistory(opsHistory);
+        OpsEventTypeEnum opsEventType = OpsEventTypeEnum.UNKNOWN;
+        switch (ms.getSqlCommandType()){
+            case INSERT:
+                opsEventType = OpsEventTypeEnum.INSERT;
+                break;
+            case UPDATE:
+                opsEventType = OpsEventTypeEnum.UPDATE;
+                break;
+            case DELETE:
+                opsEventType = OpsEventTypeEnum.DELETE;
+                break;
+            default:
+                opsEventType = OpsEventTypeEnum.UNKNOWN;
         }
 
-        return invocation.proceed();
+        if (needRecord(parameterMap.getType())) {
+            createDataTrial(parameterMap.getType(),invocation.getArgs()[1], opsEventType);
+        }
+
+        return result;
+    }
+
+    private void createDataTrial(Class<?> classType, Object entity, OpsEventTypeEnum opsEventType) throws Throwable{
+        TrailTable trailTable = classType.getAnnotation(TrailTable.class);
+        String tableName = trailTable.tableName();
+        String identfyName = trailTable.identifyName();
+        String searchIdName = trailTable.searchIdName();
+
+        String opsObjectName = entity.getClass().getSimpleName();
+
+        Long opsObjectId = null;
+        Long opsSearchId = null;
+        if(identfyName != null && !"".equals(identfyName)){
+            opsObjectId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(identfyName)).invoke(entity,null);
+        }
+        if(searchIdName != null && !"".equals(searchIdName)){
+            opsSearchId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(searchIdName)).invoke(entity,null);
+        }
+        if(opsObjectId == null && opsSearchId == null){
+            throw new DataTrailException("opsObjectId，opsSearchId不能同时为空");
+        }
+
+        SerializeConfig config = new SerializeConfig();
+        config.propertyNamingStrategy = PropertyNamingStrategy.SnakeCase;
+        String opsObjectContent = JSON.toJSONString(entity,config);
+        DataTrailEntity opsHistory = new DataTrailEntity();
+        opsHistory.setOpsObjectContent(opsObjectContent);
+        opsHistory.setOpsObjectId(opsObjectId);
+        opsHistory.setOpsObjectName(opsObjectName);
+        opsHistory.setOpsSearchId(opsSearchId);
+        opsHistory.setOpsTime(new Date());
+        opsHistory.setOpsEvent(opsEventType.getCode());
+
+        OpsHistoryMapper opsHistoryMapper = ThreadLocalSqlSession.get().getMapper(OpsHistoryMapper.class);
+        opsHistoryMapper.createOpsHistory(opsHistory);
     }
 
     @Override

@@ -22,6 +22,8 @@ public class DataTrailEntity {
 
     private String opsObjectContent;
 
+    private String opsEvent;
+
     public Long getId() {
         return id;
     }
@@ -76,5 +78,13 @@ public class DataTrailEntity {
 
     public void setOpsObjectContent(String opsObjectContent) {
         this.opsObjectContent = opsObjectContent;
+    }
+
+    public String getOpsEvent() {
+        return opsEvent;
+    }
+
+    public void setOpsEvent(String opsEvent) {
+        this.opsEvent = opsEvent;
     }
 }
