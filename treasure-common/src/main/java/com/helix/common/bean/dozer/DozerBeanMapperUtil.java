@@ -47,4 +47,13 @@ public class DozerBeanMapperUtil {
         }
         return destinationList;
     }
+
+    public static void map2Dest(Object source, Object destination) {
+        if(source == null){
+            return;
+        }
+        mapper.map(source, destination);
+    }
+
+
 }
