@@ -10,11 +10,9 @@ public class DataTrailEntity {
 
     private Long id;
 
-    private Long opsSearchId;
+    private String opsEvent;
 
     private Date opsTime;
-
-    private String opsOperationIdentity;
 
     private String opsObjectName;
 
@@ -22,7 +20,9 @@ public class DataTrailEntity {
 
     private String opsObjectContent;
 
-    private String opsEvent;
+    private String opsSearchObjectName;
+
+    private Long opsSearchObjectId;
 
     public Long getId() {
         return id;
@@ -32,12 +32,12 @@ public class DataTrailEntity {
         this.id = id;
     }
 
-    public Long getOpsSearchId() {
-        return opsSearchId;
+    public String getOpsEvent() {
+        return opsEvent;
     }
 
-    public void setOpsSearchId(Long opsSearchId) {
-        this.opsSearchId = opsSearchId;
+    public void setOpsEvent(String opsEvent) {
+        this.opsEvent = opsEvent;
     }
 
     public Date getOpsTime() {
@@ -46,14 +46,6 @@ public class DataTrailEntity {
 
     public void setOpsTime(Date opsTime) {
         this.opsTime = opsTime;
-    }
-
-    public String getOpsOperationIdentity() {
-        return opsOperationIdentity;
-    }
-
-    public void setOpsOperationIdentity(String opsOperationIdentity) {
-        this.opsOperationIdentity = opsOperationIdentity;
     }
 
     public String getOpsObjectName() {
@@ -80,11 +72,19 @@ public class DataTrailEntity {
         this.opsObjectContent = opsObjectContent;
     }
 
-    public String getOpsEvent() {
-        return opsEvent;
+    public String getOpsSearchObjectName() {
+        return opsSearchObjectName;
     }
 
-    public void setOpsEvent(String opsEvent) {
-        this.opsEvent = opsEvent;
+    public void setOpsSearchObjectName(String opsSearchObjectName) {
+        this.opsSearchObjectName = opsSearchObjectName;
+    }
+
+    public Long getOpsSearchObjectId() {
+        return opsSearchObjectId;
+    }
+
+    public void setOpsSearchObjectId(Long opsSearchObjectId) {
+        this.opsSearchObjectId = opsSearchObjectId;
     }
 }

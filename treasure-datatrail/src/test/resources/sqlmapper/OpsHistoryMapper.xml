@@ -4,14 +4,13 @@
     <resultMap id="OpsHistoryMap" type="com.helix.datatrail.entity.DataTrailEntity">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="ops_time" property="opsTime" jdbcType="TIMESTAMP"/>
-        <result column="ops_operation_identity" property="opsOperationIdentity" jdbcType="VARCHAR"/>
         <result column="ops_object_name" property="opsObjectName" jdbcType="VARCHAR"/>
         <result column="ops_object_id" property="opsObjectId" jdbcType="BIGINT"/>
         <result column="ops_object_content" property="opsObjectContent" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="getOpsHistoryById" resultMap="OpsHistoryMap">
-        select id,ops_time,ops_operation_identity,ops_object_name,ops_object_id,ops_object_content
+        select id,ops_time,ops_object_name,ops_object_id,ops_object_content
         from t_ops_history
         WHERE
         <trim prefixOverrides="and">
@@ -28,8 +27,8 @@
     </select>
 
     <insert id="createOpsHistory" parameterType="com.helix.datatrail.entity.DataTrailEntity" useGeneratedKeys="true" keyProperty="id" >
-        INSERT INTO t_ops_history(ops_time,ops_operation_identity,ops_object_name,ops_object_id,ops_object_content)
-          values(#{opsTime},#{opsOperationIdentity},#{opsObjectName},#{opsObjectId},#{opsObjectContent})
+        INSERT INTO t_ops_history(ops_time,ops_object_name,ops_object_id,ops_object_content)
+          values(#{opsTime},#{opsObjectName},#{opsObjectId},#{opsObjectContent})
     </insert>
 
 </mapper>

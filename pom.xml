@@ -18,8 +18,8 @@
     <properties>
         <!-- Test libs -->
         <junit_version>4.12</junit_version>
+        <java.version>1.8</java.version>
     </properties>
-
     <modules>
         <module>treasure-base</module>
         <module>treasure-parent-bom</module>

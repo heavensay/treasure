@@ -6,6 +6,7 @@ import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.helix.datatrail.annotation.TrailTable;
 import com.helix.datatrail.entity.DataTrailEntity;
 import com.helix.datatrail.exception.DataTrailException;
+import com.helix.datatrail.mapper.DataTrailMapper;
 import com.helix.datatrail.mapper.OpsHistoryMapper;
 import com.helix.datatrail.mapper.util.ThreadLocalSqlSession;
 import org.apache.ibatis.executor.Executor;
@@ -82,16 +83,16 @@ public class DataTrailInterceptor implements Interceptor {
         SerializeConfig config = new SerializeConfig();
         config.propertyNamingStrategy = PropertyNamingStrategy.SnakeCase;
         String opsObjectContent = JSON.toJSONString(entity,config);
-        DataTrailEntity opsHistory = new DataTrailEntity();
-        opsHistory.setOpsObjectContent(opsObjectContent);
-        opsHistory.setOpsObjectId(opsObjectId);
-        opsHistory.setOpsObjectName(opsObjectName);
-        opsHistory.setOpsSearchId(opsSearchId);
-        opsHistory.setOpsTime(new Date());
-        opsHistory.setOpsEvent(opsEventType.getCode());
+        DataTrailEntity dataTrailEntity = new DataTrailEntity();
+        dataTrailEntity.setOpsObjectContent(opsObjectContent);
+        dataTrailEntity.setOpsObjectId(opsObjectId);
+        dataTrailEntity.setOpsObjectName(opsObjectName);
+        dataTrailEntity.setOpsSearchObjectId(opsSearchId);
+        dataTrailEntity.setOpsTime(new Date());
+        dataTrailEntity.setOpsEvent(opsEventType.getCode());
 
-        OpsHistoryMapper opsHistoryMapper = ThreadLocalSqlSession.get().getMapper(OpsHistoryMapper.class);
-        opsHistoryMapper.createOpsHistory(opsHistory);
+        DataTrailMapper opsHistoryMapper = ThreadLocalSqlSession.get().getMapper(DataTrailMapper.class);
+        opsHistoryMapper.insert(dataTrailEntity);
     }
 
     @Override
