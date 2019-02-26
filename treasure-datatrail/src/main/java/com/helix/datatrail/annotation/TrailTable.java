@@ -13,17 +13,33 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TrailTable {
 
-    String tableName();
+    /**
+     * 原始表名
+     * @return
+     */
+    String objectTableName() default "";
+
+    /**
+     * 快照表名(数据历史表)
+     * @return
+     */
+    String snapshotTableName() default "";
 
     /**
      * 主键
      * @return
      */
-    String identifyName() default "id";
+    String objectIdName() default "id";
 
     /**
-     * 搜索使用的主键
+     * 搜索使用的对象名称
      * @return
      */
-    String searchIdName() default "";
+    String searchObjectName() default "";
+
+    /**
+     * 搜索使用的对象主键名称
+     * @return
+     */
+    String searchObjectIdName() default "id";
 }

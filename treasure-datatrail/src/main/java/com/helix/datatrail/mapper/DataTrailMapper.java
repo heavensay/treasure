@@ -5,12 +5,17 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author lijianyu
  * @date 2019/1/4 11:08
  */
 public interface DataTrailMapper {
+
+    @Select(" select * from ${tableName} where  ${opsObjectIdName} = #{opsObjectId} ")
+    @ResultType(Map.class)
+    Map getObjectTableRecord(@Param("tableName")String tableName,@Param("opsObjectId")Long opsObjectId,@Param("opsObjectIdName")String opsObjectIdName);
 
     @SelectProvider(type = DataTrailSqlBuilder.class, method = "buildGetOpsHistoryById")
     @Results(id = "_OpsHistory",value = {

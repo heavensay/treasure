@@ -1,6 +1,5 @@
 package com.helix.common.bean;
 
-import com.helix.common.bean.util.GenericPropertyConverter;
 import org.junit.Assert;
 import org.junit.Test;
 

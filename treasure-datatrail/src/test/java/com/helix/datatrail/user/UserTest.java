@@ -49,13 +49,13 @@ public class UserTest {
 
     @Test
     public void queryHistoryDataTrail() {
-        User user = DataTrailDBUtils.queryLastHistoryDataTrail(1L,null,new Date(), User.class);
+        User user = DataTrailDBUtils.queryLastHistoryDataTrailByMapperXML(1L,null,new Date(), User.class);
         Assert.assertNotNull(user);
     }
 
     @Test
     public void queryHistoryDataTrail2q() {
-        User user = DataTrailDBUtils.queryLastHistoryDataTrail2("t_ops_history",1L,null,new Date(), User.class);
+        User user = DataTrailDBUtils.querySnapshotByTime("t_ops_history",1L,null,new Date(), User.class);
         Assert.assertNotNull(user);
     }
 

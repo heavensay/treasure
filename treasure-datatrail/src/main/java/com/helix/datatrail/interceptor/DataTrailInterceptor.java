@@ -7,7 +7,6 @@ import com.helix.datatrail.annotation.TrailTable;
 import com.helix.datatrail.entity.DataTrailEntity;
 import com.helix.datatrail.exception.DataTrailException;
 import com.helix.datatrail.mapper.DataTrailMapper;
-import com.helix.datatrail.mapper.OpsHistoryMapper;
 import com.helix.datatrail.mapper.util.ThreadLocalSqlSession;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -16,6 +15,7 @@ import org.apache.ibatis.plugin.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.Properties;
 
@@ -60,21 +60,41 @@ public class DataTrailInterceptor implements Interceptor {
         return result;
     }
 
+    private void queryBeforeUpdateData(Class classType,Object entity) throws InvocationTargetException, IllegalAccessException {
+        TrailTable trailTable = getTrailTable();
+        String objectTableName = trailTable.objectTableName();
+
+        String objectIdName = trailTable.objectIdName();
+        String opsObjectIdMethod = "get"+toFirstUpperCase(objectIdName);
+
+        try {
+            Long opsObjectId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(opsObjectIdMethod)).invoke(entity,null);
+        } catch (NoSuchMethodException e) {
+            throw new DataTrailException( opsObjectIdMethod + "方法不存在");
+        }
+    }
+
+    private TrailTable getTrailTable(){
+        return null;
+    }
+
     private void createDataTrial(Class<?> classType, Object entity, OpsEventTypeEnum opsEventType) throws Throwable{
         TrailTable trailTable = classType.getAnnotation(TrailTable.class);
-        String tableName = trailTable.tableName();
-        String identfyName = trailTable.identifyName();
-        String searchIdName = trailTable.searchIdName();
+        String snapshotTableName = trailTable.snapshotTableName();
+        String objectTableName = trailTable.objectTableName();
+        String objectIdName = trailTable.objectIdName();
+        String searchObjectName = trailTable.searchObjectName();
+        String searchObjectIdName = trailTable.searchObjectIdName();
 
         String opsObjectName = entity.getClass().getSimpleName();
 
         Long opsObjectId = null;
         Long opsSearchId = null;
-        if(identfyName != null && !"".equals(identfyName)){
-            opsObjectId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(identfyName)).invoke(entity,null);
+        if(objectIdName != null && !"".equals(objectIdName)){
+            opsObjectId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(objectIdName)).invoke(entity,null);
         }
-        if(searchIdName != null && !"".equals(searchIdName)){
-            opsSearchId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(searchIdName)).invoke(entity,null);
+        if(searchObjectIdName != null && !"".equals(searchObjectIdName)){
+            opsSearchId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(searchObjectIdName)).invoke(entity,null);
         }
         if(opsObjectId == null && opsSearchId == null){
             throw new DataTrailException("opsObjectId，opsSearchId不能同时为空");
@@ -88,6 +108,7 @@ public class DataTrailInterceptor implements Interceptor {
         dataTrailEntity.setOpsObjectId(opsObjectId);
         dataTrailEntity.setOpsObjectName(opsObjectName);
         dataTrailEntity.setOpsSearchObjectId(opsSearchId);
+        dataTrailEntity.setOpsSearchObjectName(null);
         dataTrailEntity.setOpsTime(new Date());
         dataTrailEntity.setOpsEvent(opsEventType.getCode());
 
