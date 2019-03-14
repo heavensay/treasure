@@ -4,6 +4,8 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.util.regex.Pattern.*;
+
 /**
  * 常用参数校验工具类
  */
@@ -24,7 +26,7 @@ public class ValidatorUtils {
         if (phone.length() != 11) {
             return false;
         } else {
-            Pattern p = Pattern.compile(regex);
+            Pattern p = compile(regex);
             Matcher m = p.matcher(phone);
             boolean isMatch = m.matches();
             return isMatch;
@@ -41,8 +43,8 @@ public class ValidatorUtils {
         Pattern p1 = null, p2 = null;
         Matcher m = null;
         boolean b = false;
-        p1 = Pattern.compile("^[0][0-9]{2,3}-?[0-9]{5,10}$");  // 验证带区号的
-        p2 = Pattern.compile("^[1-9]{1}[0-9]{5,8}$");         // 验证没有区号的
+        p1 = compile("^[0][0-9]{2,3}-?[0-9]{5,10}$");  // 验证带区号的
+        p2 = compile("^[1-9]{1}[0-9]{5,8}$");         // 验证没有区号的
         if (phone.length() > 9) {
             m = p1.matcher(phone);
             b = m.matches();
@@ -70,7 +72,7 @@ public class ValidatorUtils {
         String str = "[1-9]{2}[0-9]{4}(19|20)[0-9]{2}"
                 + "((0[1-9]{1})|(1[1-2]{1}))((0[1-9]{1})|([1-2]{1}[0-9]{1}|(3[0-1]{1})))"
                 + "[0-9]{3}[0-9x]{1}";
-        Pattern pattern = Pattern.compile(str);
+        Pattern pattern = compile(str);
         return pattern.matcher(identifyCard).matches();
     }
 
