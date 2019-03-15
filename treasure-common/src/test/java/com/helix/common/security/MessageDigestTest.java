@@ -27,6 +27,5 @@ public class MessageDigestTest {
         Signature signature = Signature.getInstance("SHA256WithRSA");
         signature.update(message.getBytes("utf-8"));
         signature.sign();
-
     }
 }
