@@ -40,10 +40,14 @@ public class SignatureUtilTest {
         Assert.assertTrue(match);
     }
 
+    /**
+     *
+     * @throws Exception
+     */
     @Test
     public void signAndVerifyBySha1withRSA()throws Exception{
         //1.初始化密钥
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("DSA");
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(512);
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
 
@@ -54,6 +58,11 @@ public class SignatureUtilTest {
         Assert.assertTrue(match);
     }
 
+    /**
+     * 生成密钥对
+     * @return
+     * @throws Exception
+     */
     private KeyPair generateRsaKeyPair()throws Exception{
         //1.初始化密钥
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
@@ -65,7 +74,7 @@ public class SignatureUtilTest {
     }
 
     /**
-     * sha256withrsa
+     * sha256withrsa算法，拆分有sha256和rsa加解密来对比；发现结果对不上，原因未查明；原则上sha256withrsa=sha256+rsa加解密
      * @throws Exception
      */
     @Test

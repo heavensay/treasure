@@ -65,6 +65,7 @@ public class RSATest {
     private KeyPair generateRsaKeyPair()throws Exception{
         //1.初始化密钥
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        //这是生成的秘钥长度，此处的值也可以是1024或2048。秘钥越大加密后的密文长度也越大，加密解密越慢。加密的原文要比秘钥小些。一般1024足够用了。
         keyPairGenerator.initialize(512);
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
         RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
