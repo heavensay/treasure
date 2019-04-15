@@ -19,7 +19,9 @@ public class MessageDigestTest {
         MessageDigest sha256 = MessageDigest.getInstance("sha-256");
         sha256.update(message.getBytes("utf-8"));
         String hexStr = HexUtil.encodeHexStr(sha256.digest());
+        String hexStr2 = new String(sha256.digest());
         System.out.println(hexStr);
+        System.out.println(hexStr2);
     }
 
     @Test
@@ -27,5 +29,15 @@ public class MessageDigestTest {
         Signature signature = Signature.getInstance("SHA256WithRSA");
         signature.update(message.getBytes("utf-8"));
         signature.sign();
+    }
+
+    @Test
+    public void md5() throws Exception{
+        MessageDigest md5 = MessageDigest.getInstance("md5");
+        md5.update(message.getBytes("utf-8"));
+        String hexStr = HexUtil.encodeHexStr(md5.digest());
+        String hexStr2 = new String(md5.digest());
+        System.out.println(hexStr);
+        System.out.println(hexStr2);
     }
 }

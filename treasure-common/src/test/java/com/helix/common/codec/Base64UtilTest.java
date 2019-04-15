@@ -28,6 +28,7 @@ public class Base64UtilTest {
 
     @Test
     public void urlEcodeAndDecode() throws Exception{
+        String urlStr = "http://www.baidu.com?name=中国";
         System.out.println(Base64Util.urlSafeEncode(urlStr));;
 
         String origStr = Base64Util.urlSafeDecode(Base64Util.urlSafeEncode(urlStr));

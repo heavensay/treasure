@@ -107,4 +107,22 @@ public class RSATest {
 
         Assert.assertEquals(hex1,hex2);//output:fail
     }
+
+    @Test
+    public void rsaEncryptForLength()throws Exception{
+        String str = "abcd";
+        KeyPair keyPair = generateRsaKeyPair();
+
+        //RSA加密
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.ENCRYPT_MODE, keyPair.getPrivate());
+        byte[] encryptBytes = cipher.doFinal(str.getBytes("utf-8"));
+        String hex1 = HexUtil.encodeHexStr(encryptBytes);
+        System.out.println("机密内容：" + hex1);
+
+        KeyPair keyPair2 = generateRsaKeyPair();
+        cipher.init(Cipher.DECRYPT_MODE,keyPair2.getPublic());
+        byte[] decryptBytes = cipher.doFinal(encryptBytes);
+        System.out.println(new String(decryptBytes,"utf-8"));
+    }
 }
