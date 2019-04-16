@@ -46,6 +46,9 @@ public class Base64Util {
         }
     }
 
+    public static String encode(byte[] src){
+        return Base64.getEncoder().encodeToString(src);
+    }
 
     /**
      * 解码使用 URL 和文件名安全型 base64 编码方案

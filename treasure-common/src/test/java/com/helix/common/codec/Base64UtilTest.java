@@ -18,7 +18,7 @@ public class Base64UtilTest {
 
     @Test
     public void encodeAndDecode() throws Exception{
-        System.out.println(Base64Util.encode(str));;
+        System.out.println(Base64Util.encode(str));
 
         String origStr = Base64Util.decode(Base64Util.encode(str));
 
@@ -43,10 +43,11 @@ public class Base64UtilTest {
 
     @Test
     public void encodeJdk() throws Exception{
-        System.out.println(Base64.getEncoder().encodeToString(str.getBytes("utf-8")));;
-        System.out.println(new String(Base64.getEncoder().encode(str.getBytes("utf-8"))));;
-        System.out.println(new String(Base64.getEncoder().encode(str.getBytes("utf-8")),"gbk"));;
-        System.out.println(new String(Base64.getEncoder().encode(str.getBytes("utf-8")),"utf-8"));;
+        System.out.println(Base64.getEncoder().encodeToString(str.getBytes("utf-8")));
+        System.out.println(new String(Base64.getEncoder().encode(str.getBytes("utf-8"))));
+        System.out.println(new String(Base64.getEncoder().encode(str.getBytes("utf-8")),"gbk"));
+        System.out.println(new String(Base64.getEncoder().encode(str.getBytes("utf-8")),"utf-8"));
+        System.out.println(new String(Base64.getEncoder().encode(str.getBytes("utf-8")),"ascii"));
     }
 
     @Test

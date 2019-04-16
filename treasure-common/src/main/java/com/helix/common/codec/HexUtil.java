@@ -1,15 +1,16 @@
 package com.helix.common.codec;
 
+import org.springframework.util.DigestUtils;
+
 import java.io.UnsupportedEncodingException;
 
 /**
  * Hex工具类，16进制转换算法
- * 注意16进制A-F为大写(暂不支持小写)
  */
 public final class HexUtil {
 
     public static final String CHARSET_NAME_UTF8 = "UTF-8";
-    public static final char[] digital = "0123456789ABCDEF".toCharArray();
+    public static final char[] digital = "0123456789abcdef".toCharArray();
 
     public static String encodeHexStr(final byte[] bytes) {
         if (bytes == null) {
@@ -89,12 +90,5 @@ public final class HexUtil {
     }
 
     private HexUtil() {
-    }
-
-    public static void main(String[] args) {
-        String str = "AA";
-//        String str = "sA";
-        System.out.println(HexUtil.encodeHexStr("asdzxc123DDFCCVZ".getBytes()));
-        HexUtil.decodeHexStr(str);
     }
 }
