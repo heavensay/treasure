@@ -1,4 +1,4 @@
-package com.helix.demo.common;
+package com.helix.demo;
 
 import org.apache.commons.jexl2.Expression;
 import org.apache.commons.jexl2.JexlContext;
