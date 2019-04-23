@@ -26,6 +26,7 @@
         <module>treasure-common</module>
         <module>treasure-datatrail</module>
         <module>treasure-demo</module>
+        <module>treasure-spring</module>
     </modules>
 
     <dependencies>
