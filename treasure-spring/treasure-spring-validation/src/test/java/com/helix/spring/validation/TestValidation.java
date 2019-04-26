@@ -1,6 +1,6 @@
-package com.helix.demo.validation;
+package com.helix.spring.validation;
 
-import com.helix.demo.validation.group.ValidationUserAdd;
+import com.helix.spring.validation.group.ValidationUserAdd;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -122,5 +122,24 @@ public class TestValidation {
         UserService userService = new UserService();
         Method m1 = userService.getClass().getMethod("addUser",User.class,String.class);
         ValidationUtil.validatePropertyCompliable(userService,m1,new Object[]{user,null},new Class<?>[0]);
+    }
+
+    /**
+     * 支持方法上@Validated注释分组验证；以及方法参数@Validated注释的验证
+     *
+     * @throws Exception
+     */
+    @Test
+    public void validateMethodProperty()throws Exception{
+        User user = new User();
+        user.setName("tom中");
+        user.setAge(11);
+        user.setId(1);
+        Address address = new Address();
+        user.setAddress(address);
+
+        UserService userService = new UserService();
+        Method m1 = userService.getClass().getMethod("createUser",User.class,String.class);
+        ValidationUtil.validatePropertyCompliable(userService,m1,new Object[]{user,null});
     }
 }

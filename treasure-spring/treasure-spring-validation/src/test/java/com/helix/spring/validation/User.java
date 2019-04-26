@@ -1,7 +1,8 @@
-package com.helix.demo.validation;
+package com.helix.spring.validation;
 
-import com.helix.demo.validation.group.ValidationUserAdd;
-import com.helix.demo.validation.group.ValidationUserUpdate;
+
+import com.helix.spring.validation.group.ValidationUserAdd;
+import com.helix.spring.validation.group.ValidationUserUpdate;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;

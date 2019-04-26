@@ -1,7 +1,5 @@
-package com.helix.demo.validation;
+package com.helix.spring.validation;
 
-
-import com.helix.demo.validation.group.ValidationUserAdd;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

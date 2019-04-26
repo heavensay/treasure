@@ -1,4 +1,4 @@
-package com.helix.demo.validation;
+package com.helix.spring.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,4 +1,4 @@
-package com.helix.demo.validation.group;
+package com.helix.spring.validation.group;
 
 /**
  * @author ljy

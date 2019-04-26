@@ -11,6 +11,9 @@
 
     <artifactId>treasure-spring</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>treasure-spring-validation</module>
+    </modules>
 
 
 </project>

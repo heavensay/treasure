@@ -1,7 +1,5 @@
 package com.helix.common.codec;
 
-import org.springframework.util.DigestUtils;
-
 import java.io.UnsupportedEncodingException;
 
 /**

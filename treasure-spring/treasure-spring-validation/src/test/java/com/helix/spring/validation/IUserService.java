@@ -1,9 +1,6 @@
-package com.helix.demo.validation;
+package com.helix.spring.validation;
 
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author ljy
