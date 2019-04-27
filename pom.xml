@@ -7,20 +7,26 @@
     <parent>
         <groupId>com.helix</groupId>
         <artifactId>treasure-parent-bom</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <!--<relativePath>treasure-parent-bom/pom.xml</relativePath>-->
+        <version>${revision}</version>
+        <relativePath>treasure-parent-bom/pom.xml</relativePath>
     </parent>
 
     <groupId>com.helix</groupId>
     <artifactId>treasure-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <!-- Test libs -->
         <junit_version>4.12</junit_version>
         <java.version>1.8</java.version>
+
+        <!-- for maven compiler plugin -->
+        <java_source_version>1.8</java_source_version>
+        <java_target_version>1.8</java_target_version>
+        <file_encoding>UTF-8</file_encoding>
+        <maven_compiler_version>3.6.0</maven_compiler_version>
     </properties>
+
     <modules>
         <module>treasure-base</module>
         <module>treasure-parent-bom</module>
@@ -48,6 +54,19 @@
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven_compiler_version}</version>
+                <configuration>
+                    <compilerArgument>-proc:none</compilerArgument>
+                    <fork>true</fork>
+                    <source>${java_source_version}</source>
+                    <target>${java_target_version}</target>
+                    <encoding>${file_encoding}</encoding>
+                </configuration>
+            </plugin>
             <!--使单元测试不影响项目的编译-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
