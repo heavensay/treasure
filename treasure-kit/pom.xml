@@ -12,7 +12,7 @@
     <name>treasure-kit</name>
 
     <description>common kit</description>
-    <url></url>
+    <url>https://github.com/heavensay/treasure/tree/master/treasure-kit</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
