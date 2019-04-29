@@ -7,7 +7,7 @@
     <parent>
         <artifactId>treasure-base</artifactId>
         <groupId>com.helix</groupId>
-        <version>${revision}</version>
+        <version>1</version>
         <relativePath>../treasure-base/pom.xml</relativePath>
     </parent>
 
@@ -16,12 +16,13 @@
     <packaging>pom</packaging>
 
     <name>treasure-parent-bom</name>
-    <description>treasure所有项目的父parent，用于定义版本</description>
+    <description>treasure所有项目的父parent，用于定义依赖版本</description>
 
 
     <properties>
         <spring.version>5.0.5.RELEASE</spring.version>
         <spring.boot.version>2.0.2.RELEASE</spring.boot.version>
+        <revision>1.0.1-SNAPSHOT</revision>
     </properties>
 
     <dependencyManagement>

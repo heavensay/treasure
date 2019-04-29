@@ -4,20 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
     <groupId>com.helix</groupId>
     <artifactId>treasure-base</artifactId>
-    <version>${revision}</version>
+    <version>1</version>
     <packaging>pom</packaging>
 
     <name>treasure-base</name>
     <description>
-        框架项目使用此pom作为基础,用于定义build环境和基础properties,并定义deploy profile配置;
+        基础pom,用来设置maven环境
     </description>
 
-
-    <properties>
-        <revision>1.0.2-SNAPSHOT</revision>
-    </properties>
 
     <licenses>
         <license>
@@ -53,19 +55,22 @@
         </repository>
     </distributionManagement>
 
-
     <profiles>
+        <!-- 上传到官方中央仓库配置 -->
         <profile>
-            <id>release-maven-center</id>
+            <id>sonatype-oss-release</id>
             <build>
                 <plugins>
                     <plugin>
+                        <!-- nexus本身有一套发布jar的流程nexus-staging-maven-plugin插件可以是nexus流程处理的客户端.
+                            autoReleaseAfterClose:在close只有自动release,这样不需要上OSSRH网站上手动执行这两部操作
+                         -->
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
                         <version>1.6.3</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>oss-snoatype-repo</serverId>
+                            <serverId>ossrh</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
@@ -86,6 +91,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
+                        <version>2.1.2</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
