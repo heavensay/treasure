@@ -71,7 +71,7 @@
                 <plugins>
                     <plugin>
                         <!-- nexus本身有一套发布jar的流程nexus-staging-maven-plugin插件可以是nexus流程处理的客户端.
-                            autoReleaseAfterClose:在close只有自动release
+                            autoReleaseAfterClose:在close只有自动release,这样不需要上OSSRH网站上手动执行这两部操作
                          -->
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>

@@ -1,9 +1,9 @@
-package com.github.heavensay;
+package com.helix.kit;
 
 import java.io.UnsupportedEncodingException;
 
 /**
- * Hex工具类，16进制转换算法
+ * Hex工具类，16进制转换算法2
  */
 public final class HexUtil {
 
