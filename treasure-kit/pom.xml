@@ -6,7 +6,7 @@
 
     <groupId>com.github.heavensay</groupId>
     <artifactId>treasure-kit</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.5-SNAPSHOT</version>
     <!--<version>1.0.1</version>-->
 
     <name>treasure-kit</name>
@@ -64,7 +64,6 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-
 
     <profiles>
         <profile>

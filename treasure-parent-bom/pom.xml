@@ -15,8 +15,8 @@
     <artifactId>treasure-parent-bom</artifactId>
     <packaging>pom</packaging>
 
-    <name>treasure-parent-bom</name>
-    <description>treasure所有项目的父parent，用于定义依赖版本</description>
+    <name>${project.artifactId}</name>
+    <description>treasure依赖清单</description>
 
 
     <properties>

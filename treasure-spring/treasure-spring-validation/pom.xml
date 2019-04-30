@@ -11,20 +11,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>treasure-spring-validation</artifactId>
-    <name>treasure-spring-validation</name>
+    <name>${project.artifactId}</name>
+    <description>spring validation extended module of the treasure project</description>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
@@ -32,20 +36,10 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>javax.el</groupId>-->
-            <!--<artifactId>javax.el-api</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.glassfish.web</groupId>-->
-            <!--<artifactId>javax.el</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

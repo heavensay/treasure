@@ -4,20 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
-    </parent>
-
+    <!--<parent>-->
+        <!--<groupId>org.sonatype.oss</groupId>-->
+        <!--<artifactId>oss-parent</artifactId>-->
+        <!--<version>7</version>-->
+    <!--</parent>-->
     <groupId>com.helix</groupId>
     <artifactId>treasure-base</artifactId>
     <version>1</version>
     <packaging>pom</packaging>
 
-    <name>treasure-base</name>
+    <name>${project.artifactId}</name>
     <description>
-        基础pom,用来设置maven环境
+        xxx公司基础pom,用来设置maven环境，设置deploy分发环境
     </description>
 
 
