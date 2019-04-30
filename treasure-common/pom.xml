@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>treasure-parent</artifactId>
-        <groupId>com.helix</groupId>
+        <groupId>com.github.heavensay</groupId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
 
-    <groupId>com.helix</groupId>
+    <groupId>com.github.heavensay</groupId>
     <artifactId>treasure-common</artifactId>
     <packaging>jar</packaging>
     <!--<version>1.0-SNAPSHOT</version>-->

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>treasure-parent</artifactId>
-        <groupId>com.helix</groupId>
+        <groupId>com.github.heavensay</groupId>
         <version>${revision}</version>
     </parent>
     <packaging>jar</packaging>
@@ -14,12 +14,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.helix</groupId>
+            <groupId>com.github.heavensay</groupId>
             <artifactId>treasure-common</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.helix</groupId>
+            <groupId>com.github.heavensay</groupId>
             <artifactId>treasure-spring-validation</artifactId>
             <version>${revision}</version>
         </dependency>

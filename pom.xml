@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.helix</groupId>
+        <groupId>com.github.heavensay</groupId>
         <artifactId>treasure-parent-bom</artifactId>
         <version>${revision}</version>
         <relativePath>treasure-parent-bom/pom.xml</relativePath>
     </parent>
 
-    <groupId>com.helix</groupId>
+    <groupId>com.github.heavensay</groupId>
     <artifactId>treasure-parent</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>

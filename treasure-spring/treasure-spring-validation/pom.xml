@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>treasure-spring</artifactId>
-        <groupId>com.helix</groupId>
+        <groupId>com.github.heavensay</groupId>
         <version>${revision}</version>
     </parent>
     <packaging>jar</packaging>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

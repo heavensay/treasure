@@ -6,18 +6,17 @@
 
     <parent>
         <artifactId>treasure-base</artifactId>
-        <groupId>com.helix</groupId>
+        <groupId>com.github.heavensay</groupId>
         <version>1</version>
         <relativePath>../treasure-base/pom.xml</relativePath>
     </parent>
 
-    <groupId>com.helix</groupId>
+    <groupId>com.github.heavensay</groupId>
     <artifactId>treasure-parent-bom</artifactId>
     <packaging>pom</packaging>
-
     <name>${project.artifactId}</name>
     <description>treasure依赖清单</description>
-
+    <version>${revision}</version>
 
     <properties>
         <spring.version>5.0.5.RELEASE</spring.version>
