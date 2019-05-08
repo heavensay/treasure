@@ -43,6 +43,12 @@ public class SupportValidatedMethodInterceptor extends MethodValidationIntercept
         this.validator = validator;
     }
 
+    /**
+     * 扩展了invoke，增加验证方法实体参数上有@validated注解的参数
+     * @param invocation
+     * @return
+     * @throws Throwable
+     */
     @Override
     @SuppressWarnings("unchecked")
     public Object invoke(MethodInvocation invocation) throws Throwable {

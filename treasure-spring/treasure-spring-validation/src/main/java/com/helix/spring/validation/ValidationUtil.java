@@ -11,7 +11,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * 支持编程式进行validateion校验
+ * 支持编程式进行validation校验
  */
 public class ValidationUtil {
 
@@ -74,7 +74,7 @@ public class ValidationUtil {
 
     /**
      * 方法参数验证 兼容spring @validated注解验证
-     *
+     * 支持分组验证
      * @param object
      * @param method
      * @param parameterValues
@@ -110,6 +110,7 @@ public class ValidationUtil {
 
     /**
      * 支持方法上@Validated注释分组验证；以及方法参数@Validated注释的验证
+     * 支持分组验证
      * @param <T>
      * @param object
      * @param method

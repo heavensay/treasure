@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
  */
 public class UserService implements IUserService{
 
-    public void addUser(@Validated(value = ValidationUserAdd.class) @NotNull User user, @NotNull(message = "用户名不能为空1111",groups = ValidationUserUpdate.class)String username){
-//    public void addUser(@Valid User user, @NotNull(message = "用户名不能为空") String username){
+//    public void addUser(@Validated(value = ValidationUserAdd.class) @NotNull User user, @NotNull(message = "用户名不能为空1111",groups = ValidationUserUpdate.class)String username){
+    public void addUser(@Valid User user, @NotNull(message = "用户名不能为空") String username){
         System.out.println("add user success");
     }
 

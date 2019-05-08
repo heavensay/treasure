@@ -96,11 +96,15 @@ public class TestValidation {
     }
 
 
+    /**
+     * {@link javax.validation.executable.ExecutableValidator#validateParameters} 支持@Valid；不支持spring @validated注解，既也不支持分组验证
+     * @throws Exception
+     */
     @Test
     public void validMethodParams()throws Exception{
         User user = new User();
         user.setName("tom");
-        user.setAge(11);
+        user.setAge(1);
         user.setId(1);
         Address address = new Address();
         user.setAddress(address);
