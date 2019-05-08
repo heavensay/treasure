@@ -12,6 +12,8 @@
 
     <artifactId>treasure-package</artifactId>
 
+    <description>合并所有项目</description>
+
     <dependencies>
         <dependency>
             <groupId>com.github.heavensay</groupId>
@@ -30,7 +32,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -43,8 +45,8 @@
                             <!-- 包含要合并的模块 -->
                             <artifactSet>
                                 <includes>
-                                    <include>com.helix:treasure-common</include>
-                                    <include>com.helix:treasure-spring-validation</include>
+                                    <include>com.github.heavensay:treasure-common</include>
+                                    <include>com.github.heavensay:treasure-spring-validation</include>
                                 </includes>
                             </artifactSet>
                             <!-- 包含号合并的资源文件 -->

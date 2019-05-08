@@ -13,12 +13,11 @@
     <artifactId>treasure-base</artifactId>
     <version>1</version>
     <packaging>pom</packaging>
-
     <name>${project.artifactId}</name>
+    <url>https://github.com/heavensay/treasure</url>
     <description>
         xxx公司基础pom,用来设置maven环境，设置deploy分发环境
     </description>
-
 
     <licenses>
         <license>
