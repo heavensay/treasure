@@ -9,57 +9,36 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-
     <groupId>com.github.heavensay</groupId>
     <artifactId>treasure-common</artifactId>
     <packaging>jar</packaging>
-    <!--<version>1.0-SNAPSHOT</version>-->
+
+    <description>项目包含通用的工具类</description>
 
     <dependencies>
         <dependency>
             <groupId>net.sf.dozer</groupId>
             <artifactId>dozer</artifactId>
-            <version>5.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
+            <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>2.3.22</version>
-        </dependency>
-
-        <!-- pdf转换不支持中文换行-->
-        <dependency>
-            <groupId>org.xhtmlrenderer</groupId>
-            <artifactId>core-renderer</artifactId>
-            <version>R8</version>
-        </dependency>
-
-        <!--<dependency>-->
-        <!--<groupId>pdf</groupId>-->
-        <!--<artifactId>core-renderer_WLD</artifactId>-->
-        <!--<version>1.0</version>-->
-        <!--</dependency>-->
-         <!--PDF related  支持中文换行-->
-        <dependency>
-            <groupId>com.lowagie</groupId>
-            <artifactId>itext</artifactId>
-            <version>2.0.8</version>
-        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.46</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 </project>

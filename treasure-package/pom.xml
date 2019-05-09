@@ -7,82 +7,26 @@
         <groupId>com.github.heavensay</groupId>
         <version>${revision}</version>
     </parent>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+    <modules>
+        <module>treasure-all</module>
+        <module>treasure-independent</module>
+    </modules>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>treasure-package</artifactId>
 
-    <description>合并所有项目</description>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.github.heavensay</groupId>
-            <artifactId>treasure-common</artifactId>
-            <version>${revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.heavensay</groupId>
-            <artifactId>treasure-spring-validation</artifactId>
-            <version>${revision}</version>
-        </dependency>
-    </dependencies>
+    <description>子模块合并打包</description>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <createSourcesJar>true</createSourcesJar>
-                            <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
-                            <!-- 包含要合并的模块 -->
-                            <artifactSet>
-                                <includes>
-                                    <include>com.github.heavensay:treasure-common</include>
-                                    <include>com.github.heavensay:treasure-spring-validation</include>
-                                </includes>
-                            </artifactSet>
-                            <!-- 包含号合并的资源文件 -->
-                            <!--<transformers>-->
-                                <!--<transformer-->
-                                        <!--implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">-->
-                                    <!--<resource>META-INF/xxxxx-->
-                                    <!--</resource>-->
-                                <!--</transformer>-->
-                            <!--</transformers>-->
-
-                            <!--<filters>-->
-                                <!--<filter>-->
-                                    <!--<artifact>junit:junit</artifact>-->
-                                    <!--<includes>-->
-                                        <!--<include>junit/framework/**</include>-->
-                                        <!--<include>org/junit/**</include>-->
-                                    <!--</includes>-->
-                                    <!--<excludes>-->
-                                        <!--<exclude>org/junit/experimental/**</exclude>-->
-                                        <!--<exclude>org/junit/runners/**</exclude>-->
-                                    <!--</excludes>-->
-                                <!--</filter>-->
-                                <!--<filter>-->
-                                    <!--<artifact>*:*</artifact>-->
-                                    <!--<excludes>-->
-                                        <!--<exclude>META-INF/*.SF</exclude>-->
-                                        <!--<exclude>META-INF/*.DSA</exclude>-->
-                                        <!--<exclude>META-INF/*.RSA</exclude>-->
-                                    <!--</excludes>-->
-                                <!--</filter>-->
-                            <!--</filters>-->
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>

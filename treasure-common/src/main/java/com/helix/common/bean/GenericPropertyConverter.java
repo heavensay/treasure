@@ -3,7 +3,6 @@ package com.helix.common.bean;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.ClassUtils;
 
@@ -24,8 +23,6 @@ import java.util.function.Function;
  * @date 2018/8/28 17:29
  */
 public class GenericPropertyConverter {
-
-    public static final org.slf4j.Logger log = LoggerFactory.getLogger(GenericPropertyConverter.class);
 
     public static final char UNDERLINE_CHAR = '_';
 
@@ -85,8 +82,7 @@ public class GenericPropertyConverter {
         try {
             targetObj = targetClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            log.error("{}实例化失败:{}", targetClass.getName(), e.getMessage());
-            throw new RuntimeException(e);
+            throw new RuntimeException(targetClass.getName()+"实例化失败:"+e.getMessage(),e);
         }
 
         Class<?> originClass = originObj.getClass();
@@ -136,8 +132,6 @@ public class GenericPropertyConverter {
                         }
                         targetWriteMethod.invoke(targetObj, value);
                     } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                        log.error("通用的风格属性名转换时出错\n{}", e.getMessage());
-
                         throw new RuntimeException("通用的风格属性名转换时出错", e);
                     }
                 }
