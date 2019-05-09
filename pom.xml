@@ -33,7 +33,6 @@
     </properties>
 
     <modules>
-        <module>treasure-base</module>
         <module>treasure-parent-bom</module>
         <module>treasure-common</module>
         <module>treasure-datatrail</module>
@@ -91,6 +90,33 @@
                 <configuration>
                     <skip>${skip_maven_deploy}</skip>
                 </configuration>
+            </plugin>
+
+            <!-- 在install，deploy前，对生成的pom进行操作，处理仅用于处理revision变量 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.1.0</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

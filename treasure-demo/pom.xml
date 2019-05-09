@@ -17,6 +17,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.github.heavensay</groupId>
+            <artifactId>treasure-common</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
             <groupId>org.easyrules</groupId>
             <artifactId>easyrules-core</artifactId>
             <version>2.4.0</version>

@@ -15,6 +15,7 @@
     <artifactId>treasure-parent-bom</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
+    <url>https://github.com/heavensay/treasure</url>
     <description>treasure依赖清单</description>
     <version>${revision}</version>
 
