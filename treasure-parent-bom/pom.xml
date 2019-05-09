@@ -20,9 +20,9 @@
     <version>${revision}</version>
 
     <properties>
+        <revision>1.0.2-SNAPSHOT</revision>
         <spring.version>5.0.5.RELEASE</spring.version>
         <spring.boot.version>2.0.2.RELEASE</spring.boot.version>
-        <revision>1.0.1-SNAPSHOT</revision>
         <fastjson.version>1.2.46</fastjson.version>
         <freeemarker.vaersion>2.3.22</freeemarker.vaersion>
         <dozer.version>5.5.1</dozer.version>
