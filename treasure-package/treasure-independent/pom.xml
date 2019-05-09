@@ -5,7 +5,7 @@
     <parent>
         <artifactId>treasure-package</artifactId>
         <groupId>com.github.heavensay</groupId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -38,7 +38,7 @@
                             <!-- 包含要合并的模块 -->
                             <artifactSet>
                                 <includes>
-                                    <include>com.github.heavensay:treasure-common</include>
+                                    <!--<include>com.github.heavensay:treasure-common</include>-->
                                 </includes>
                             </artifactSet>
                         </configuration>

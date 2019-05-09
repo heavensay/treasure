@@ -1,6 +1,5 @@
 package com.helix.spring.validation;
 
-import lombok.extern.java.Log;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.SmartFactoryBean;
@@ -19,7 +18,6 @@ import java.util.Set;
  * @author ljy
  * @date 2019/4/20 12:14
  */
-@Log
 public class SupportValidatedMethodInterceptor extends MethodValidationInterceptor {
 
     private final Validator validator;
