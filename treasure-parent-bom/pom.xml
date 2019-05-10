@@ -20,7 +20,7 @@
     <version>${revision}</version>
 
     <properties>
-        <revision>1.0.3-SNAPSHOT</revision>
+        <revision>1.0.4-SNAPSHOT</revision>
         <charset.common>UTF-8</charset.common>
 
         <!-- dependency version -->

@@ -8,9 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public abstract class DateUtils extends PropertyEditorSupport {
+public abstract class DateUtil extends PropertyEditorSupport {
 
-    public static final org.slf4j.Logger log = LoggerFactory.getLogger(DateUtils.class);
+    public static final org.slf4j.Logger log = LoggerFactory.getLogger(DateUtil.class);
 
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
@@ -236,7 +236,7 @@ public abstract class DateUtils extends PropertyEditorSupport {
 
     public static boolean isToday(Date date) {
         Date d = new Date();
-        return DateUtils.getDate(date, YYYYMMDD).equals(DateUtils.getDate(d, YYYYMMDD));
+        return DateUtil.getDate(date, YYYYMMDD).equals(DateUtil.getDate(d, YYYYMMDD));
     }
 
     /**

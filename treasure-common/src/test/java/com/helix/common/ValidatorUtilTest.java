@@ -7,14 +7,14 @@ import org.junit.Test;
  * @author ljy
  * @date 2019/5/9 20:34
  */
-public class RegexUtilsTest {
+public class ValidatorUtilTest {
 
     /**
      * 验证邮箱
      */
     @Test
     public void testCheckEmail() {
-        boolean result = RegexUtils.checkEmail("dsds@163.com");
+        boolean result = ValidatorUtil.checkEmail("dsds@163.com");
         Assert.assertTrue(result);
     }
 
@@ -23,7 +23,7 @@ public class RegexUtilsTest {
      */
     @Test
     public void testCheckIdCard() {
-        boolean result = RegexUtils.checkIdCard("432403193902273273");
+        boolean result = ValidatorUtil.checkIdCard("432403193902273273");
         Assert.assertTrue(result);
     }
 
@@ -32,7 +32,7 @@ public class RegexUtilsTest {
      */
     @Test
     public void testCheckMobile() {
-        boolean result = RegexUtils.checkMobile("+8613620285733");
+        boolean result = ValidatorUtil.checkMobile("+8613620285733");
         Assert.assertTrue(result);
     }
 
@@ -41,7 +41,7 @@ public class RegexUtilsTest {
      */
     @Test
     public void testCheckPhone() {
-        boolean result = RegexUtils.checkPhone("+860738-4630706");
+        boolean result = ValidatorUtil.checkPhone("+860738-4630706");
         Assert.assertTrue(result);
     }
 
@@ -50,7 +50,7 @@ public class RegexUtilsTest {
      */
     @Test
     public void testCheckDigit() {
-        boolean result = RegexUtils.checkDigit("123132");
+        boolean result = ValidatorUtil.checkDigit("123132");
         Assert.assertTrue(result);
     }
 
@@ -59,7 +59,7 @@ public class RegexUtilsTest {
      */
     @Test
     public void testCheckChinese() {
-        boolean result = RegexUtils.checkChinese("中文");
+        boolean result = ValidatorUtil.checkChinese("中文");
         Assert.assertTrue(result);
     }
 
@@ -68,7 +68,7 @@ public class RegexUtilsTest {
      */
     @Test
     public void testCheckPostcode() {
-        boolean result = RegexUtils.checkPostcode("417100");
+        boolean result = ValidatorUtil.checkPostcode("417100");
         Assert.assertTrue(result);
     }
 
@@ -77,7 +77,7 @@ public class RegexUtilsTest {
      */
     @Test
     public  void testCheckURL() {
-        boolean result = RegexUtils.checkURL("http://blog.csdn.com:80/xyang81/article/details?name=&abc=中文");
+        boolean result = ValidatorUtil.checkURL("http://blog.csdn.com:80/xyang81/article/details?name=&abc=中文");
         Assert.assertTrue(result);
     }
 
@@ -86,7 +86,7 @@ public class RegexUtilsTest {
      */
     @Test
     public void testCheckIpAddress() {
-        boolean result = RegexUtils.checkIpAddress("192.1.22.255");
+        boolean result = ValidatorUtil.checkIpAddress("192.1.22.255");
         Assert.assertTrue(result);
     }
 
@@ -95,7 +95,7 @@ public class RegexUtilsTest {
      */
     @Test
     public void checkOrganizationCode() {
-        boolean result = RegexUtils.checkOrganizationCode("MA28W5W7-7");
+        boolean result = ValidatorUtil.checkOrganizationCode("MA28W5W7-7");
         Assert.assertTrue(result);
     }
 
@@ -104,6 +104,6 @@ public class RegexUtilsTest {
      */
     @Test
     public void checkUSCI(){
-        Assert.assertTrue(RegexUtils.checkUSCI("91330108MA28W5W77R"));
+        Assert.assertTrue(ValidatorUtil.checkUSCI("91330108MA28W5W77R"));
     }
 }
