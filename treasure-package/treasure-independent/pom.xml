@@ -12,14 +12,6 @@
     <artifactId>treasure-independent</artifactId>
     <description>打包子模块，所有子模块都是独立的，不依赖第三方jar包</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.github.heavensay</groupId>
-            <artifactId>treasure-common</artifactId>
-            <version>${revision}</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -38,7 +30,6 @@
                             <!-- 包含要合并的模块 -->
                             <artifactSet>
                                 <includes>
-                                    <!--<include>com.github.heavensay:treasure-common</include>-->
                                 </includes>
                             </artifactSet>
                         </configuration>

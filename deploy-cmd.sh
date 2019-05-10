@@ -9,9 +9,5 @@ cd treasure-base
 mvn clean deploy -P sonatype-oss-release -N
 
 
--- 发布treasure-parent-bom
-cd treasure-parent-bom
-mvn clean deploy -P sonatype-oss-release -Drevison=xxx-Release -N
-
 -- 发布treasure-parent
-mvn clean deploy -P sonatype-oss-release -Drevison=xxx-Release -N
+mvn clean deploy -P sonatype-oss-release -Drevision=xxx-Release

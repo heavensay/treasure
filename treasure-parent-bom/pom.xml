@@ -21,6 +21,9 @@
 
     <properties>
         <revision>1.0.2-SNAPSHOT</revision>
+        <charset_common>UTF-8</charset_common>
+
+        <!-- dependency version -->
         <spring.version>5.0.5.RELEASE</spring.version>
         <spring.boot.version>2.0.2.RELEASE</spring.boot.version>
         <fastjson.version>1.2.46</fastjson.version>
@@ -35,14 +38,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--<dependency>-->
-                <!--<groupId>org.springframework</groupId>-->
-                <!--<artifactId>spring-framework-bom</artifactId>-->
-                <!--<version>${spring.version}</version>-->
-                <!--<scope>import</scope>-->
-                <!--<type>pom</type>-->
-            <!--</dependency>-->
-
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

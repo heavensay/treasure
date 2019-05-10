@@ -28,8 +28,16 @@
         <!-- for maven compiler plugin -->
         <java_source_version>1.8</java_source_version>
         <java_target_version>1.8</java_target_version>
-        <file_encoding>UTF-8</file_encoding>
+
+        <!-- plugin version -->
         <maven_compiler_version>3.6.0</maven_compiler_version>
+        <maven.source.verision>2.1.2</maven.source.verision>
+        <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
+        <nexus.staging.maven.version>1.6.3</nexus.staging.maven.version>
+        <maven.javadoc.version>3.0.1</maven.javadoc.version>
+        <maven.surefire.version>2.19.1</maven.surefire.version>
+        <maven.deploy.version>2.8.2</maven.deploy.version>
+        <flatten.maven.version>1.1.0</flatten.maven.version>
     </properties>
 
     <modules>
@@ -50,6 +58,79 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>relese</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- nexus本身有一套发布jar的流程nexus-staging-maven-plugin插件可以是nexus流程处理的客户端.
+                            autoReleaseAfterClose:在close只有自动release,这样不需要上OSSRH网站上手动执行这两部操作
+                         -->
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${nexus.staging.maven.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven.javadoc.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- java docs生成的时候检验不严格，warning警告，而不是报错误 -->
+                                    <doclint>none</doclint>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <show>public</show>
+                            <charset>${charset_common}</charset>
+                            <encoding>${charset_common}</encoding>
+                            <docencoding>${charset_common}</docencoding>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven.source.verision}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven.gpg.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
@@ -63,14 +144,14 @@
                     <fork>true</fork>
                     <source>${java_source_version}</source>
                     <target>${java_target_version}</target>
-                    <encoding>${file_encoding}</encoding>
+                    <encoding>${charset_common}</encoding>
                 </configuration>
             </plugin>
             <!--使单元测试不影响项目的编译-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>${maven.surefire.version}</version>
                 <configuration>
                     <skip>true</skip><!--跳过单元测试-->
                     <!--<testFailureIgnore>true</testFailureIgnore>--><!--这个网上很多的解决方式是这个,其实这个,其实这个配置后打包还是会编译单元测试类的,只是忽略编译单元测试类的错误.-->
@@ -80,17 +161,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
+                <version>${maven.deploy.version}</version>
                 <configuration>
                     <skip>${skip_maven_deploy}</skip>
                 </configuration>
             </plugin>
 
-            <!-- 在install，deploy前，对生成的pom进行操作，处理仅用于处理revision变量 -->
+            <!-- 在install，deploy前，对生成的pom进行操作，对变量的替换等，可以对revision变量进行替换 -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.1.0</version>
+                <version>${flatten.maven.version}</version>
                 <configuration>
                     <updatePomFile>true</updatePomFile>
                     <flattenMode>resolveCiFriendliesOnly</flattenMode>
