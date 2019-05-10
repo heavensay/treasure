@@ -10,4 +10,4 @@ mvn clean deploy -P sonatype-oss-release -N
 
 
 -- 发布treasure-parent
-mvn clean deploy -P sonatype-oss-release -Drevision=xxx-Release
+mvn clean deploy -P release -Drevision=xxx-Release

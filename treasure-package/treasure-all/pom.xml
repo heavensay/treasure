@@ -41,7 +41,7 @@
                             <!-- 会生成dependency-reduced-pom.xml文件，里面有打包会的依赖信息 -->
                             <createDependencyReducedPom>true</createDependencyReducedPom>
                             <createSourcesJar>true</createSourcesJar>
-                            <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+                            <promoteTransitiveDependencies>false</promoteTransitiveDependencies>
                             <!-- 包含要合并的模块 -->
                             <artifactSet>
                                 <includes>
@@ -55,4 +55,39 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven.javadoc.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadoc</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <doclint>none</doclint>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <includeDependencySources>true</includeDependencySources>
+                            <dependencySourceIncludes>
+                                <dependencySourceInclude>com.github.heavensay:treasure-*</dependencySourceInclude>
+                            </dependencySourceIncludes>
+                            <show>public</show>
+                            <charset>${charset.common}</charset>
+                            <encoding>${charset.common}</encoding>
+                            <docencoding>${charset.common}</docencoding>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

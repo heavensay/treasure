@@ -20,6 +20,7 @@
     <properties>
         <!-- common properties -->
         <skip_maven_deploy>false</skip_maven_deploy>
+        <project.build.sourceEncoding>${charset.common}</project.build.sourceEncoding>
 
         <!-- Test libs -->
         <junit_version>4.12</junit_version>
@@ -28,16 +29,6 @@
         <!-- for maven compiler plugin -->
         <java_source_version>1.8</java_source_version>
         <java_target_version>1.8</java_target_version>
-
-        <!-- plugin version -->
-        <maven_compiler_version>3.6.0</maven_compiler_version>
-        <maven.source.verision>2.1.2</maven.source.verision>
-        <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
-        <nexus.staging.maven.version>1.6.3</nexus.staging.maven.version>
-        <maven.javadoc.version>3.0.1</maven.javadoc.version>
-        <maven.surefire.version>2.19.1</maven.surefire.version>
-        <maven.deploy.version>2.8.2</maven.deploy.version>
-        <flatten.maven.version>1.1.0</flatten.maven.version>
     </properties>
 
     <modules>
@@ -60,7 +51,7 @@
 
     <profiles>
         <profile>
-            <id>relese</id>
+            <id>release</id>
             <build>
                 <plugins>
                     <plugin>
@@ -69,7 +60,6 @@
                          -->
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>${nexus.staging.maven.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
@@ -80,7 +70,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven.javadoc.version}</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -95,15 +84,14 @@
                         </executions>
                         <configuration>
                             <show>public</show>
-                            <charset>${charset_common}</charset>
-                            <encoding>${charset_common}</encoding>
-                            <docencoding>${charset_common}</docencoding>
+                            <charset>${charset.common}</charset>
+                            <encoding>${charset.common}</encoding>
+                            <docencoding>${charset.common}</docencoding>
                         </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>${maven.source.verision}</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -116,7 +104,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven.gpg.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -138,20 +125,18 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven_compiler_version}</version>
                 <configuration>
                     <compilerArgument>-proc:none</compilerArgument>
                     <fork>true</fork>
                     <source>${java_source_version}</source>
                     <target>${java_target_version}</target>
-                    <encoding>${charset_common}</encoding>
+                    <encoding>${charset.common}</encoding>
                 </configuration>
             </plugin>
             <!--使单元测试不影响项目的编译-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.version}</version>
                 <configuration>
                     <skip>true</skip><!--跳过单元测试-->
                     <!--<testFailureIgnore>true</testFailureIgnore>--><!--这个网上很多的解决方式是这个,其实这个,其实这个配置后打包还是会编译单元测试类的,只是忽略编译单元测试类的错误.-->
@@ -161,7 +146,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>${maven.deploy.version}</version>
                 <configuration>
                     <skip>${skip_maven_deploy}</skip>
                 </configuration>
@@ -171,7 +155,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>${flatten.maven.version}</version>
                 <configuration>
                     <updatePomFile>true</updatePomFile>
                     <flattenMode>resolveCiFriendliesOnly</flattenMode>
