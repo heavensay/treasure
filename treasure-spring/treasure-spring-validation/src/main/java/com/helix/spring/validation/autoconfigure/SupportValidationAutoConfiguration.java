@@ -6,6 +6,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnResource;
 import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
 import org.springframework.boot.validation.MessageInterpolatorFactory;
@@ -26,6 +27,7 @@ import javax.validation.executable.ExecutableValidator;
 @ConditionalOnClass(ExecutableValidator.class)
 @ConditionalOnResource(resources = "classpath:META-INF/services/javax.validation.spi.ValidationProvider")
 @AutoConfigureBefore(value = ValidationAutoConfiguration.class)
+@ConditionalOnProperty(prefix = "helix.enhance.validation",name = "enabled",havingValue = "true")
 //@Import(PrimaryDefaultValidatorPostProcessor.class)
 public class SupportValidationAutoConfiguration {
 

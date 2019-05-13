@@ -14,6 +14,13 @@ validation注解增强插件
 
 ## 引用方式
 
+###springboot 
+
+在springboot有以下两种引入方式
+
+1. 在application.yml/application.properties中配置helix.enhance.validation.enabled=true
+
+2. 直接引入，可自定义属性内容
 ```java
     /**
      * 配置Validaiton，使用国际化配置文件来展示验证信息

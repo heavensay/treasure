@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "helix.enhance.validation.enabled",
+      "type": "java.lang.Boolean",
+      "description": "增强springboot validation功能",
+      "defaultValue": false
+    }
+  ]
+}
