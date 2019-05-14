@@ -34,7 +34,7 @@ import java.security.cert.X509Certificate;
 	4. 读 response
 	5. 释放连接。无论执行方法是否成功，都必须释放连接
 	6. 对得到后的内容进行处理
- * @author banana
+ * @author ljy
  *
  */
 public class TestHttps {

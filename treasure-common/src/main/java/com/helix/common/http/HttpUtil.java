@@ -40,6 +40,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *@author ljy
+ *@date 2019/5/14 19:35
+ */
 public class HttpUtil {
 
     protected static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
