@@ -1,6 +1,7 @@
 package com.helix.common.json;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
 import org.junit.Test;
@@ -98,6 +99,37 @@ public class FastJsonTest {
 
         Object e3 = JSONPath.eval(studentJsonObject,"$.homes.addresses[street='s2']");
         System.out.println("$.homes.addresses[street='s2'] content:"+e3);
+    }
+
+    @Test
+    public void join(){
+        JSONObject jsonOne = new JSONObject();
+        JSONObject jsonTwo = new JSONObject();
+        JSONArray jsonThree = new JSONArray();
+        JSONObject jsonThree1_1 = new JSONObject();
+        jsonThree1_1.put("a","1-1-1");
+        jsonThree1_1.put("b","1-1-2");
+        JSONObject jsonThree1_2 = new JSONObject();
+        jsonThree1_2.put("a","1-2-1");
+        jsonThree1_2.put("b","1-2-2");
+
+        jsonOne.put("name", "kewen");
+        jsonOne.put("age", "24");
+
+        jsonTwo.put("hobbit", "Dota");
+        jsonTwo.put("hobbit2", "wow");
+
+        jsonThree.add(jsonThree1_1);
+        jsonThree.add(jsonThree1_2);
+
+        JSONObject jsonFour = new JSONObject();
+
+        jsonFour.putAll(jsonOne);
+        jsonFour.putAll(jsonTwo);
+        jsonFour.put("arrayObjectTest",jsonThree);
+
+        System.out.println(jsonFour.toString());
+        //{"hobbit":"Dota","hobbit2":"wow","name":"kewen","arrayObjectTest":[{"a":"1-1-1","b":"1-1-2"},{"a":"1-2-1","b":"1-2-2"}],"age":"24"}
     }
 }
 
