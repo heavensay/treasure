@@ -65,16 +65,16 @@ public class FreemarkerTest {
 		Configuration cfg = new Configuration();
 		cfg.setDefaultEncoding("UTF-8");
 
-		File templatePath = new File("D:/work/融资租赁/租赁协议");
+		File templatePath = new File("D:\\work\\upgrade\\云块v13-contract");
 		System.out.println(templatePath.getAbsolutePath());
 		cfg.setDirectoryForTemplateLoading(templatePath);
 		cfg.setObjectWrapper(new DefaultObjectWrapper());
 
 		/* 获取模板文件 */
-		Template template = cfg.getTemplate("lease-agreement-common-bside.ftl");
+		Template template = cfg.getTemplate("ddd.html");
 
 		/* 生成输出到文件 */
-		File fileDir = new File("D:/work/融资租赁/租赁协议/ttt.html");
+		File fileDir = new File("D:\\work\\upgrade\\云块v13-contract\\dest.html");
 		// 指定生成输出的文件
 		Writer writer = new FileWriter(fileDir);
 
