@@ -48,15 +48,10 @@
 
 
         <!-- pdf转换不支持中文换行-->
-        <!--<dependency>-->
-            <!--<groupId>org.xhtmlrenderer</groupId>-->
-            <!--<artifactId>core-renderer</artifactId>-->
-            <!--<version>R8</version>-->
-        <!--</dependency>-->
         <dependency>
-            <groupId>pdf</groupId>
-            <artifactId>core-renderer_WLD</artifactId>
-            <version>1.0</version>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>core-renderer</artifactId>
+            <version>R8</version>
         </dependency>
         <!--PDF related  支持中文换行-->
         <dependency>

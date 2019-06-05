@@ -12,19 +12,15 @@ import java.io.OutputStream;
 import java.net.URL;
 
 /**
- * core-renderer.R8不支持中文换行
+ * core-renderer.R8不支持中文换行;还需要中文字体simsun.ttc支持
  * 需要使用替换过的jar包；或者其他方式转换html -> pdf，如wkhtmltopdf、xpdf
  * pdf转换工具类
  */
 public class PDFUtils {
 
-    private static String ABSOLUTE_FONT_PATH = null;
+    private static String DEFAULT_FONT_PATH = "simsun.ttc";
 
-    private static String RELATIVE_FONT_PATH = "simsun.ttc";
-
-    static {
-        ABSOLUTE_FONT_PATH = PDFUtils.class.getClassLoader().getResource(RELATIVE_FONT_PATH).getFile();
-    }
+    private static String fontPath = DEFAULT_FONT_PATH;
 
     /**
      * 转换html文件为pdf，并存放到<code>targetPath<code/>下面
@@ -46,7 +42,7 @@ public class PDFUtils {
             ITextFontResolver fontResolver = renderer.getFontResolver();
             //font_path获取不到字体文件，可以试试把下面注释去掉，执行
             //fontResolver.addFont("/com/helix/common/util/font/simsun.ttc", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-            fontResolver.addFont(ABSOLUTE_FONT_PATH, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+            fontResolver.addFont(DEFAULT_FONT_PATH, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
             renderer.layout();
             renderer.createPDF(os);
             renderer.finishPDF();
@@ -74,7 +70,7 @@ public class PDFUtils {
             ITextFontResolver fontResolver = renderer.getFontResolver();
             //font_path获取不到字体文件，可以试试把下面注释去掉，执行
             //fontResolver.addFont("/com/helix/common/util/font/simsun.ttc", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-            fontResolver.addFont(ABSOLUTE_FONT_PATH, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+            fontResolver.addFont(DEFAULT_FONT_PATH, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
             renderer.layout();
             renderer.createPDF(os);
         }
@@ -92,20 +88,15 @@ public class PDFUtils {
         renderer.setDocumentFromString(htmlText);
         // 解决中文支持
         ITextFontResolver fontResolver = renderer.getFontResolver();
-        fontResolver.addFont(ABSOLUTE_FONT_PATH, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+        fontResolver.addFont(DEFAULT_FONT_PATH, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
         renderer.layout();
         renderer.createPDF(os);
         renderer.finishPDF();
         os.flush();
     }
 
-    public static void main(String[] args) {
-        File html = new File("D:/work/融资租赁/融租租赁协议/ttt.html");
-        try {
-            cvtHtmlToPdfByFile(html, "D:/work/融资租赁/融租租赁协议/ttt.pdf");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
+    public static void setFnotPath(String fnotPath){
+        PDFUtils.fontPath = fnotPath;
+    }
 }
