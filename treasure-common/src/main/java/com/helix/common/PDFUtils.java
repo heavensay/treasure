@@ -13,12 +13,12 @@ import java.net.URL;
 
 /**
  * core-renderer.R8不支持中文换行;还需要中文字体simsun.ttc支持
- * 需要使用替换过的jar包；或者其他方式转换html -> pdf，如wkhtmltopdf、xpdf
+ * 需要使用替换过的jar包；或者其他方式转换html -> pdf，如wkhtmltopdf(exe)、xpdf(exe)、itextpdf(jar)
  * pdf转换工具类
  */
 public class PDFUtils {
 
-    private static String DEFAULT_FONT_PATH = "simsun.ttc";
+    private static String DEFAULT_FONT_PATH = "font/simsun.ttc";
 
     private static String fontPath = DEFAULT_FONT_PATH;
 
@@ -96,6 +96,10 @@ public class PDFUtils {
     }
 
 
+    /**
+     * util中改变属性值，这种设计模式有问题；
+     * @param fnotPath
+     */
     public static void setFnotPath(String fnotPath){
         PDFUtils.fontPath = fnotPath;
     }

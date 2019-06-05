@@ -32,4 +32,5 @@ dependency-reduced-pom.xml
 Thumbs.db
 *.orig
 
-
+#other ignore
+*.ttc
