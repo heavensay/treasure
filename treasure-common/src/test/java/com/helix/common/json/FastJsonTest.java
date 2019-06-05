@@ -101,6 +101,9 @@ public class FastJsonTest {
         System.out.println("$.homes.addresses[street='s2'] content:"+e3);
     }
 
+    /**
+     * json节点属性
+     */
     @Test
     public void join(){
         JSONObject jsonOne = new JSONObject();
@@ -131,6 +134,21 @@ public class FastJsonTest {
         System.out.println(jsonFour.toString());
         //{"hobbit":"Dota","hobbit2":"wow","name":"kewen","arrayObjectTest":[{"a":"1-1-1","b":"1-1-2"},{"a":"1-2-1","b":"1-2-2"}],"age":"24"}
     }
+
+
+    /**
+     * 按照json xpath规则设置属性值
+     */
+    @Test
+    public void set(){
+        JSONObject jsonObject = new JSONObject();
+        JSONPath.set(jsonObject,"$user.name","tom");
+        System.out.println(jsonObject.toJSONString());
+        JSONPath.set(jsonObject,"$user.name","");
+        System.out.println(jsonObject.toJSONString());
+    }
+
+
 }
 
 class Student{
