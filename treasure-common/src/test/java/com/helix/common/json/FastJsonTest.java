@@ -1,12 +1,19 @@
 package com.helix.common.json;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPath;
+import com.alibaba.fastjson.*;
+import com.alibaba.fastjson.parser.DefaultJSONParser;
+import com.alibaba.fastjson.parser.Feature;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.util.TypeUtils;
+import com.sun.org.apache.xpath.internal.SourceTree;
+import org.junit.Assert;
 import org.junit.Test;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,10 +30,14 @@ public class FastJsonTest {
     private Student student;
 
     private JSONObject studentJsonObject;
+
+    private String studentJsonStr;
+
     {
         {
             student  = new Student();
             student.setName("tom");
+            student.setOpenTime(new Date());
 
             Address address1 = new Address();
             address1.setStreet("s1");
@@ -58,6 +69,7 @@ public class FastJsonTest {
 
             //在json text中导航查找数据
             studentJsonObject = JSON.parseObject(JSON.toJSONString(student));
+            studentJsonStr = JSON.toJSONString(student);
         }
     }
 
@@ -65,7 +77,7 @@ public class FastJsonTest {
      * 一层查询
      */
     @Test
-    public void xpathJson(){
+    public void pathJson(){
         System.out.println(JSON.toJSONString(student));
         System.out.println("===================");
         //在json text中导航查找数据
@@ -149,6 +161,107 @@ public class FastJsonTest {
     }
 
 
+    /**
+     * 从json字符串中查找path查询内容
+     */
+    @Test
+    public void extract(){
+        Object r = JSONPath.extract(studentJsonStr,"$.homes");
+        System.out.println("type:"+r.getClass()+",content:"+r.toString());
+
+        Object name = JSONPath.extract(studentJsonStr,"$.name");
+        System.out.println("type:"+name.getClass()+",content:"+name.toString());
+
+        Object openTime = JSONPath.extract(studentJsonStr,"$.openTime");
+        System.out.println("type:"+openTime.getClass()+",content:"+openTime.toString());
+
+        System.out.println(JSON.parseObject("{'fff':123}",String.class));
+    }
+
+    /**
+     * eval直接从json字符串中进行path搜索，找不到；可以使用{@link JSONPath#extract(String, String)}方法来进行搜索
+     */
+    @Test
+    public void eval(){
+        Object result = JSONPath.eval(studentJsonStr,"$");
+        Assert.assertNotNull(result);
+
+        Object name = JSONPath.eval(studentJsonStr,"$.name");
+        Assert.assertNull(name);
+    }
+
+    /**
+     * 反序列化能够自动识别如下日期格式
+     * ISO-8601日期格式
+     * yyyy-MM-dd
+     * yyyy-MM-dd HH:mm:ss
+     * yyyy-MM-dd HH:mm:ss.SSS
+     * 毫秒数字
+     * 毫秒数字字符串
+     * .NET JSON日期格式
+     * new Date(198293238)
+     */
+    @Test
+    public void deserializationDate() {
+//        JSONObject.DEFFAULT_DATE_FORMAT="yyyy-MM-dd";//设置日期格式,全局设置
+        Date date = new Date();
+        //输出毫秒值
+        System.out.println(JSON.toJSONString(date));
+        //默认格式为yyyy-MM-dd HH:mm:ss
+        System.out.println(JSON.toJSONString(date, SerializerFeature.WriteDateUseDateFormat));
+        //根据自定义格式输出日期   第一个参数是obj类型
+        System.out.println(JSON.toJSONStringWithDateFormat(date, "yyyy-MM-dd", SerializerFeature.WriteDateUseDateFormat));
+
+        String json = "{'openTime':'1560324503429'}";
+        Student student = JSON.parseObject(json,Student.class);
+        String json2 = "{'openTime':'2019-06-06'}";
+        Student student2 = JSON.parseObject(json2,Student.class);
+        Assert.assertNotNull(student2.getOpenTime());
+    }
+
+    /**
+     * 数组/列表转换
+     */
+    @Test
+    public void array(){
+        String json = "['a','b']";
+        JSONArray jsonArray = (JSONArray)JSON.parse(json);
+        Assert.assertTrue(jsonArray.toArray(new String[0]).length>0);
+
+        List<String> list = JSON.parseArray(json,String.class);
+        Assert.assertTrue(list.size()>0);
+    }
+
+    /**
+     * 具有泛型的POJO反序列化
+     */
+    @Test
+    public void genericDeserializale(){
+        BeanParent<BeanSon> beanParent = new BeanParent<BeanSon>();
+        beanParent.setName("parent");
+        BeanSon beanSon = new BeanSon();
+        beanSon.setLabel("son");
+        beanParent.setData(beanSon);
+        BeanGrandson beanGrandson = new BeanGrandson();
+        beanGrandson.setAge(18);
+        beanSon.setResult(beanGrandson);
+
+        String json = JSON.toJSONString(beanParent);
+
+        //通过构造新的Class(Class也是Type的父类)实例，来表名反序列化对象类型
+        BeanParent bp = JSON.parseObject(json,new TypeReference<BeanParent<BeanSon<BeanGrandson>>>(){});
+        Assert.assertNotNull(bp.getData());
+
+
+        //通过构造Type实例，来表名反序列化对象类型
+//        ParameterizedType parentType = ParameterizedTypeImpl.make(BeanParent.class,new Type[]{BeanSon.class},null);
+        ParameterizedType sonType = ParameterizedTypeImpl.make(BeanSon.class,new Type[]{BeanGrandson.class},null);
+        ParameterizedType parentType = ParameterizedTypeImpl.make(BeanParent.class,new Type[]{sonType},null);
+        BeanParent bp2 = JSON.parseObject(json,parentType);
+        Assert.assertNotNull(bp2.getData());
+
+
+    }
 }
 
 class Student{
@@ -156,6 +269,7 @@ class Student{
 
     private List<Home> homes;
 
+    private Date openTime;
 
     public String getName() {
         return name;
@@ -171,6 +285,14 @@ class Student{
 
     public void setHomes(List<Home> homes) {
         this.homes = homes;
+    }
+
+    public Date getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(Date openTime) {
+        this.openTime = openTime;
     }
 }
 
