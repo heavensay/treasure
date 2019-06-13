@@ -1,5 +1,6 @@
 package com.helix.demo.lang.reflect;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -86,9 +87,20 @@ public class TypeTest {
      */
     @Test
     public void classGenericType() throws Exception{
-        A<String> a = new A<String>(new String("ddd"));
-        Type bType = ((TypeVariable)a.getClass().getTypeParameters()[0]).getBounds()[0];
-        System.out.println(bType);
+//        A<String> a = new A<String>(new String("ddd"));//<String>在运行时会擦除，保留不下来
+        Class clazz = A.class;
+//        Class clazz = String.class;
+
+        System.out.println("getGenericSuperclass:"+StringUtils.join(clazz.getGenericSuperclass(),","));
+        System.out.println("getGenericInterfaces:"+StringUtils.join(clazz.getGenericInterfaces(),","));
+        //class是数组时，返回数组中元素的的class类型；否则返回null
+        System.out.println("getComponentType:"+StringUtils.join(clazz.getComponentType(),","));
+        System.out.println("getTypeName:"+StringUtils.join(clazz.getTypeName(),","));
+        //获取class的泛型描述信息
+        System.out.println("getTypeParameters:"+StringUtils.join(clazz.getTypeParameters(),","));
+        //获取泛型的上边界；边界没明确设置，则返回Object
+        Type bType = ((TypeVariable)clazz.getTypeParameters()[0]).getBounds()[0];
+        System.out.println("getBounds:"+bType);
     }
 
     /**
