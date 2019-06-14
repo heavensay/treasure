@@ -98,9 +98,28 @@ public class TypeTest {
         System.out.println("getTypeName:"+StringUtils.join(clazz.getTypeName(),","));
         //获取class的泛型描述信息
         System.out.println("getTypeParameters:"+StringUtils.join(clazz.getTypeParameters(),","));
+
         //获取泛型的上边界；边界没明确设置，则返回Object
         Type bType = ((TypeVariable)clazz.getTypeParameters()[0]).getBounds()[0];
         System.out.println("getBounds:"+bType);
+    }
+
+    /**
+     * 获取方法参数中的泛型类型
+     * 如果参数中类型是嵌套行泛型，还需要判断
+     * @throws Exception
+     */
+    @Test
+    public void methodGenericTypeInfo() throws Exception{
+        A a = new A<String>(new String("ddd"));
+        Method method = a.getClass().getMethod("getList",List.class);
+        System.out.println(method.getReturnType());
+        System.out.println(method.getGenericReturnType());
+        System.out.println("getGenericParameterTypes:"+StringUtils.join(method.getGenericParameterTypes()));
+        System.out.println("getParameterTypes:"+StringUtils.join(method.getParameterTypes()));
+
+        Type type = ((ParameterizedType)method.getParameters()[0].getParameterizedType()).getActualTypeArguments()[0];
+        System.out.println(type);
     }
 
     /**
