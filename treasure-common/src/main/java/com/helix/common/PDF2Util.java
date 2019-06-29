@@ -17,7 +17,7 @@ import java.net.URL;
  * 想要支持中文换行，需要使用特质的core-renderer.jar包；或者其他方式转换html -> pdf，如wkhtmltopdf(exe)、xpdf(exe)、itextpdf(jar)
  * pdf转换工具类
  */
-public class PDFUtils {
+public class PDF2Util {
 
     private static String DEFAULT_FONT_PATH = "font/simsun.ttc";
 
@@ -102,6 +102,6 @@ public class PDFUtils {
      * @param fnotPath
      */
     public static void setFnotPath(String fnotPath){
-        PDFUtils.fontPath = fnotPath;
+        PDF2Util.fontPath = fnotPath;
     }
 }
