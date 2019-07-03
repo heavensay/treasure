@@ -1,27 +1,523 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-    <head>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-            <title>
-            </title>
-            <style>
-            </style>
-        </meta>
-    </head>
-    <body style="font-family: SimSun">
-        <div style="text-align: center;">
-            <b>
-                <span style="font-weight:bold;">
-                    测试内容ABC123测试内容ABC123测试内容ABC123测试内容ABC123测试内容ABC123订单123订单123订单123订单123订单123订单123
-                    订单123订单123订单123订单123对对对
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>
+    </title>
+    <style id="wiz_custom_css">
+    </style>
+    </meta>
+    <style media="all" type="text/css">
+        body{
+            font-family: SimSun;
+        }
+    </style>
+</head>
+<body>
+<!--         <#escape x as x?html> -->
+
+<h1 align="center">票据资产转让合同</h1>
+<p align="right">
+            <span>
+                编号：${(draftContractId)!}
+            </span>
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    <b>
+                <span>
+                    甲方(受让人)：
                 </span>
-            </b>
-            <b>
-                <span style="font-weight:bold;">
-                   甲方根据本协议及[融先生]网络平台规则，在平台注册账号信息，同时成为[融先生]网络平台会员。经友好协商，本着平等、自愿、公平、诚实信用的原则，乙方通过自身运营的[融先生]网络平台，借助计算机网络技术服务手段、为甲方提供消费金融计算机网络技术咨询服务，双方就相关事宜达成协议如下：对对对反反复复
+    </b>
+    <span>
+                ${(assignee)!}
+            </span>
+</p>
+<p>
+    <b>
+                <span>
+                    乙方(转让人)：
                 </span>
-            </b>
-            <br/>
-        </div>
-    </body>
+    </b>
+    <span>
+                ${(transferor)!}
+            </span>
+</p>
+<p>
+<p>
+                <span lang="EN-US">
+                    <br/>
+                </span>
+</p>
+<p>
+    <b>
+                    <span>
+                        鉴于：
+                    </span>
+    </b>
+</p>
+<p>
+                <span>
+                    甲、乙双方已于
+                    <u>
+                        ${(signDate?date("yyyy-MM-dd")?string("yyyy"))!}
+                    </u>
+                    年
+                    <u>
+                        ${(signDate?date("yyyy-MM-dd")?string("MM"))!}
+                    </u>
+                    月
+                    <u>
+                         ${(signDate?date("yyyy-MM-dd")?string("dd"))!}
+                    </u>
+                    日签署编号为：
+                    <u>
+                        ${((draftContractNo))!"__"}
+                    </u>
+                    的《合作协议》（以下简称“合作协议”），就双方在云块商票区块链系统中的相关合作进行了约定。
+                </span>
+</p>
+<p>
+                <span>
+                    现甲、乙双方依据《中华人民共和国合同法》、《中华人民共和国票据法》及相关法律法规的规定，本着平等、自愿、诚实、信用的原则，经充分协商，就合作协议项下有关票据资产转让事宜达成如下条款，以资共同遵照执行。
+                </span>
+</p>
+<p>
+    <b>
+                    <span>
+                        第一条 转让标的
+                    </span>
+    </b>
+</p>
+<p>
+                <span>
+                    乙方自愿按照本合同约定将其合法拥有的票据（以下简称“标的票据”）资产转让给甲方，标的票据资产票面总金额为人民币
+                    <u>
+                        ${((parValueAmount))!"__"}
+                    </u>
+                    元整（￥
+                    <u>
+                        ${((parValueAmountCapital))!"__"}
+                    </u>
+                    ），乙方保证标的票据均为乙方合法持有的未贴现的尚未到期的电子商业承兑汇票。本合同项下转让的票据资产明细详见本合同附件《票据资产转让清单》。
+                </span>
+</p>
+<p>
+    <b>
+                    <span>
+                        第二条 转让价格
+                    </span>
+    </b>
+</p>
+<p>
+                <span>
+                    （一）本合同项下标的票据的转让基准日为
+                    <u>
+                        ${(transferDate?date("yyyy-MM-dd")?string("yyyy"))!}
+                    </u>
+                    年
+                    <u>
+                        ${(transferDate?date("yyyy-MM-dd")?string("MM"))!}
+                    </u>
+                    月
+                    <u>
+                        ${(transferDate?date("yyyy-MM-dd")?string("dd"))!}
+                    </u>
+                    日。
+                </span>
+</p>
+<p>
+                <span>
+                    （二）本合同项下标的票据资产的转让价格为人民币
+                    <u>
+                        ${((transferAmount))!"__"}
+                    </u>
+                    元整（￥
+                    <u>
+                        ${((transferAmountCapital))!"__"}
+                    </u>
+                    ）（以下简称“转让价款”）。
+                </span>
+</p>
+<p>
+    <b>
+                    <span>
+                        第三条 转让价款的支付
+                    </span>
+    </b>
+</p>
+<p>
+                <span>
+                    （一）转让价款支付的前提条件如下：
+                </span>
+</p>
+<p>
+                <span>
+                    1.本合同已生效；
+                </span>
+</p>
+<p>
+                <span>
+                    2.本合同项下乙方转让的标的票据不存在任何争议、纠纷；
+                </span>
+</p>
+<p>
+                <span>
+                    3.乙方已将标的票据成功背书给甲方。
+                </span>
+</p>
+<p>
+                <span>
+                    （二）甲方应在上述条件全部满足后，在一个工作日内将转让价款及时划付至乙方指定的银行账户。甲方逾期划付转让价款的，应按未划付款项的0.1%/日向乙方支付违约金。
+                </span>
+</p>
+<p>
+    <b>
+                    <span>
+                        第四条 甲方权利义务
+                    </span>
+    </b>
+</p>
+<p>
+                <span>
+                    （一）按照本合同约定支付转让价款；
+                </span>
+</p>
+<p>
+                <span>
+                    （二）在支付转让价款后，享有与转让标的有关的权利。
+                </span>
+</p>
+<p>
+                <span>
+                    （三）本合同项下的标的票据如遇承兑人拒绝付款，乙方有义务尽最大努力积极向甲方提供必要的协助，以便甲方依法维护自身合法权益，及时回笼票款。
+                </span>
+</p>
+<p>
+    <b>
+                    <span>
+                        第五条 乙方权利义务
+                    </span>
+    </b>
+</p>
+<p>
+                <span>
+                    （一）按照本合同约定取得转让价款；
+                </span>
+</p>
+<p>
+                <span>
+                    （二）按本合同约定和甲方要求，向甲方交付标的票据及相关资料；
+                </span>
+</p>
+<p>
+                <span>
+                    （三）协助甲方办理标的票据资产转让所需的相关手续；
+                </span>
+</p>
+<p>
+                <span>
+                    （四）乙方应对《票据资产转让清单》的票据履行审核、挑选等职责，确保票据真实、要素完备、背书有效、资料齐全。
+                </span>
+</p>
+<p>
+                <span>
+                    （五）乙方保证，其向甲方申请办理转让的所有承兑汇票在转让之前不存在被利害关系人申请挂失止付、公示催告或被有权机关采取查封、冻结等保全或执行措施的情形。
+                </span>
+</p>
+<p>
+                <span>
+                    （六）乙方同意对标的票据的到期足额兑付承担连带保证责任，如标的票据到期后未能成功兑付，乙方同意在标的票据到期后3日内无条件向持票人支付全部未付款项，否则乙方应向甲方支付人民币
+                    <u>
+                        壹拾万元
+                    </u>
+                    整违约金，并向甲方赔偿其全部相关损失，包括但不限于相关直接损失、间接损失、相关诉讼费、律师费、差旅费、调查取证费、公证费等。
+                </span>
+</p>
+<p>
+    <b>
+                    <span>
+                        第六条 承诺与保证
+                    </span>
+    </b>
+</p>
+<p>
+                <span>
+                    （一）甲方的承诺与保证：
+                </span>
+</p>
+<p>
+                <span>
+                    1.保证以合法的资金受让票据资产；
+                </span>
+</p>
+<p>
+                <span>
+                    2.为签署本合同所需的内部授权程序都已完成；
+                </span>
+</p>
+<p>
+                <span>
+                    3.向乙方受让票据资产为其真实意愿表达；
+                </span>
+</p>
+<p>
+                <span>
+                    4.保守其因本合同的履行而知悉的乙方的商业机密、业务信息、协议，但法律法规另有规定的除外；
+                </span>
+</p>
+<p>
+                <span>
+                    5.不得从事有损乙方利益、信誉和形象的行为。
+                </span>
+</p>
+<p>
+                <span>
+                    （二）乙方的承诺与保证：
+                </span>
+</p>
+<p>
+                <span>
+                    1.向甲方转让票据资产已经得到乙方内部必要的授权；
+                </span>
+</p>
+<p>
+                <span>
+                    2.乙方真实享有票据权利，向甲方转让的票据依法可以转让，不存在任何限制转让情形；
+                </span>
+</p>
+<p>
+                <span>
+                    3.向甲方转让的票据上不存在任何优于甲方的票据权利，没有超过票据权利的行使期限；
+                </span>
+</p>
+<p>
+                <span>
+                    4.向甲方转让的票据真实、合法、有效，在转让给乙方之前票据所记载事项完整，票据背书连续，没有被伪造、变造的签章，并对其直接前手背书的真实性负责；
+                </span>
+</p>
+<p>
+                <span>
+                    5.保守其因本合同的履行而知悉的甲方的商业机密、业务信息、协议，但法律法规另有规定的除外；
+                </span>
+</p>
+<p>
+                <span>
+                    6.不得从事有损甲方利益、信誉和形象的行为。
+                </span>
+</p>
+<p>
+    <b>
+                    <span>
+                        第七条 违约责任
+                    </span>
+    </b>
+</p>
+<p>
+                <span>
+                    任何一方违反本合同项下任何承诺及保证或违反本合同项下任何其他义务，则构成违约。守约方有权要求违约方限期纠正违约事件并采取补救措施。违约方的违约行为给对方造成损失的，应予赔偿，赔偿范围包括但不限于相关直接损失、间接损失、相关诉讼费、律师费、差旅费、公证费、调查取证费等。
+                </span>
+</p>
+<p>
+    <b>
+                    <span>
+                        第八条 争议解决
+                    </span>
+    </b>
+</p>
+<p>
+                <span>
+                    本合同项下产生的纠纷，双方先行协商解决，协商不成的，可向甲方所在地法院提起诉讼
+                </span>
+</p>
+<p>
+    <b>
+                    <span>
+                        第九条 合同的生效
+                    </span>
+    </b>
+</p>
+<p>
+                <span>
+                    本合同一式贰份，经双方盖章之日起正式生效，双方各执壹份，具有同等法律效力。本合同所附的票据资产转让清单作为本合同附件，与本合同具有同等法律效力。
+                </span>
+</p>
+<p>
+    <b>
+                    <span>
+                        第十条 其他约定
+                    </span>
+    </b>
+</p>
+<p>
+                <span>
+                    1.本协议系合作协议框架下的具体业务协议，合作协议中约定的担保等内容均无条件适用于本协议。
+                </span>
+</p>
+<p>
+                <span>
+                    2.各保证人按照其所出具的《兑付承诺函》的相关规定对本协议项下标的票据的到期兑付承担连带保证责任担保。
+                </span>
+</p>
+<p>
+                <span>
+                    3.本合同自签订之日起生效，至本合同项下双方权利义务全部履行完毕之日终止。本合同未尽事宜，由双方协商并签订补充协议确定，补充协议与本合同具有同等法律效力。
+                </span>
+</p>
+<p class="MsoNormal">
+                <span>
+                    <br/>
+                </span>
+</p>
+<div style="height:50px">
+    <div style="text-align:left;position: absolute;"><b>甲方（盖章）：</b></div>
+    <div style="text-align:left;position: absolute;padding-left: 400px"><b>乙方（盖章）：</b></div>
+</div>
+<p>
+</p>
+
+<div style="height:50px">
+    <div style="text-align:left;position: absolute;"><b>法定代表人：</b>${(assigneeLegalPerson)!}</div>
+    <div style="text-align:left;position: absolute;padding-left: 400px"><b>法定代表人：</b>${(transferorLegalPerson)!}</div>
+</div>
+<p>
+                <span>
+                    <b>签署日期：</b>
+                </span>
+    <span>
+                </span>
+    <span>
+                    ${(signDate?date("yyyy-MM-dd")?string("yyyy"))!}年
+                </span>
+    <span>
+                </span>
+    <span>
+                    ${(signDate?date("yyyy-MM-dd")?string("MM"))!}月
+                </span>
+    <span>
+                </span>
+    <span>
+                    ${(signDate?date("yyyy-MM-dd")?string("dd"))!}日
+                </span>
+    <span>
+                </span>
+</p>
+<p>
+                <span>
+                </span>
+</p>
+<div>
+    <br/>
+    <br/>
+    <br/>
+</div>
+<p>
+    <b>
+                    <span>
+                        附件：
+                    </span>
+    </b>
+</p>
+<p align="center" style="text-align:center">
+    <b>
+                    <span style="font-size:14.0pt;">
+                        票据资产转让清单
+                    </span>
+    </b>
+</p>
+<p>
+                <span>
+                </span>
+</p>
+<table align="center" border="1" cellpadding="0" cellspacing="0">
+    <tr align="left" height="48.4pt">
+        <td width="96">
+            <p>
+                            <span>
+                                票号
+                            </span>
+            </p>
+        </td>
+        <td width="96">
+            <p>
+                            <span>
+                                承兑人
+                            </span>
+            </p>
+        </td>
+        <td width="73">
+            <p>
+                            <span>
+                                票面金额
+                            </span>
+            </p>
+        </td>
+        <td width="96">
+            <p>
+                            <span>
+                                出票日
+                            </span>
+            </p>
+        </td>
+        <td width="96">
+            <p>
+                            <span>
+                                到期日
+                            </span>
+            </p>
+        </td>
+    </tr>
+
+    <#if drafts?? >
+    <#list drafts as draft>
+    <tr align="left" height="48.4pt">
+        <td width="96">
+            <p>
+                            <span>
+                                ${(draft.draftNumber)!}
+                            </span>
+            </p>
+        </td>
+        <td width="96">
+            <p>
+                            <span>
+                                ${(draft.acceptor)!}
+                            </span>
+            </p>
+        </td>
+        <td width="73">
+            <p>
+                            <span>
+                                ${(draft.draftAmount)!}
+                            </span>
+            </p>
+        </td>
+        <td width="96">
+            <p>
+                            <span>
+                                ${(draft.effectiveDate)!}
+                            </span>
+            </p>
+        </td>
+        <td width="96">
+            <p>
+                            <span>
+                                ${(draft.maturityDate)!}
+                            </span>
+            </p>
+        </td>
+    </tr>
+</#list>
+</#if>
+</table>
+<p>
+</p>
+<div>
+    <br/>
+</div>
+<!-- </#escape>         -->
+</p>
+</body>
 </html>

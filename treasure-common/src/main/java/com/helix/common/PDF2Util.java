@@ -1,107 +1,66 @@
 package com.helix.common;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.pdf.BaseFont;
-import org.xhtmlrenderer.pdf.ITextFontResolver;
-import org.xhtmlrenderer.pdf.ITextRenderer;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URL;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorkerFontProvider;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
+
+import java.io.*;
+import java.nio.charset.Charset;
 
 /**
- * core-renderer.R8不支持中文换行;
- * 还需要中文字体simsun.ttc支持
- * 想要支持中文换行，需要使用特质的core-renderer.jar包；或者其他方式转换html -> pdf，如wkhtmltopdf(exe)、xpdf(exe)、itextpdf(jar)
- * pdf转换工具类
+ * pdf工具类，支持html转pdf，使用itextpdf，xmlworker
+ * 大部分windows系统自带宋体，可直接中文中文；linux可以系统安装字体，或者直接{@link #createFront(String)}加载字体来支持
  */
 public class PDF2Util {
 
-    private static String DEFAULT_FONT_PATH = "font/simsun.ttc";
-
-    private static String fontPath = DEFAULT_FONT_PATH;
+    private static XMLWorkerHelper worker = XMLWorkerHelper.getInstance();
+    private static XMLWorkerFontProvider xmlWorkerFontProvider = new XMLWorkerFontProvider();
 
     /**
-     * 转换html文件为pdf，并存放到<code>targetPath<code/>下面
-     * @param htmlFile html文件
-     * @param targetPath pdf存放的路径
-     * @throws Exception
+     * html转pdf
+     * @param htmlPath html文件路径
+     * @param pdfPath pdf路径
      */
-    public static void cvtHtmlToPdfByFile(File htmlFile, String targetPath) throws Exception {
-        String url = htmlFile.toURI().toURL().toString();
-        File targetFile = new File(targetPath);
-        if (targetFile.exists()){
-            targetFile.delete();
-        }
+    public static void html2Pdf(String htmlPath,String pdfPath){
+        Document document = new Document(PageSize.LETTER);
 
-        try (OutputStream os = new FileOutputStream(targetFile)) {
-            ITextRenderer renderer = new ITextRenderer();
-            renderer.setDocument(url);
-            // 解决中文支持
-            ITextFontResolver fontResolver = renderer.getFontResolver();
-            //font_path获取不到字体文件，可以试试把下面注释去掉，执行
-            //fontResolver.addFont("/com/helix/common/util/font/simsun.ttc", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-            fontResolver.addFont(DEFAULT_FONT_PATH, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-            renderer.layout();
-            renderer.createPDF(os);
-            renderer.finishPDF();
+        PdfWriter pdfWriter = null;
+        try {
+            pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+            document.open();
+            FileInputStream fis = new FileInputStream(new File(htmlPath));
+            InputStream inCssFile = null;
+            worker.parseXHtml(pdfWriter, document,fis, inCssFile,
+                    Charset.forName("UTF-8"), xmlWorkerFontProvider);
+            document.close();
+        } catch (DocumentException | IOException e) {
+            throw new RuntimeException("html转pdf错误",e);
         }
     }
 
     /**
-     * 转换html文件为pdf，并存放到<code>targetPath<code/>下面
-     * @param htmlURL html文件URL
-     * @param targetPath pdf存放的路径
-     * @throws Exception
+     * 添加字体
+     * @param frontPath 字体路径
      */
-    public static void cvtHtmlToPdfByURL(URL htmlURL, String targetPath) throws Exception {
-        String url = htmlURL.toURI().toURL().toString();
-        File targetFile = new File(targetPath);
-        if (targetFile.exists())
-
-        {
-            targetFile.delete();
-        }
-        try (OutputStream os = new FileOutputStream(targetFile)) {
-            ITextRenderer renderer = new ITextRenderer();
-            renderer.setDocument(url);
-            // 解决中文支持
-            ITextFontResolver fontResolver = renderer.getFontResolver();
-            //font_path获取不到字体文件，可以试试把下面注释去掉，执行
-            //fontResolver.addFont("/com/helix/common/util/font/simsun.ttc", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-            fontResolver.addFont(DEFAULT_FONT_PATH, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-            renderer.layout();
-            renderer.createPDF(os);
-        }
+    public static void createFront(String frontPath){
+        xmlWorkerFontProvider.getFont(frontPath);
     }
 
     /**
-     * html转pdf，note：os关闭由传入方控制
-     * 传输内容
-     * @param htmlText html内容
-     * @param os pdf输出流
-     * @throws Exception
+     * 字体设置
      */
-    public static void cvtHtmltextToPdf(String htmlText, OutputStream os) throws IOException, DocumentException {
-        ITextRenderer renderer = new ITextRenderer();
-        renderer.setDocumentFromString(htmlText);
-        // 解决中文支持
-        ITextFontResolver fontResolver = renderer.getFontResolver();
-        fontResolver.addFont(DEFAULT_FONT_PATH, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-        renderer.layout();
-        renderer.createPDF(os);
-        renderer.finishPDF();
-        os.flush();
-    }
-
-
-    /**
-     * util中改变属性值，这种设计模式有问题；
-     * @param fnotPath
-     */
-    public static void setFnotPath(String fnotPath){
-        PDF2Util.fontPath = fnotPath;
+    public static class FrontConfig{
+        /**
+         * 添加字体
+         * 添加一次既可
+         * @param frontPath 字体路径
+         */
+        public static void createFront(String frontPath){
+            xmlWorkerFontProvider.getFont(frontPath);
+        }
     }
 }

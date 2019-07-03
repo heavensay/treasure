@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.net.URL;
 
 /**
+ * @deprecated 很久没人维护了，而且对中文换行需要改源码，不建议使用 instead by {@link PDF2Util}
  * core-renderer.R8不支持中文换行;
  * 还需要中文字体simsun.ttc支持
  * 想要支持中文换行，需要使用特质的core-renderer.jar包；或者其他方式转换html -> pdf，如wkhtmltopdf(exe)、xpdf(exe)、itextpdf(jar)
