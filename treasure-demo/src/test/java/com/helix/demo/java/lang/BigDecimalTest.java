@@ -1,4 +1,4 @@
-package com.helix.demo.lang;
+package com.helix.demo.java.lang;
 
 import org.junit.Test;
 
