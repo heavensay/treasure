@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ *
+ * 泛型类型测试
  * @author ljy
  * @date 2019/6/12 20:47
  */

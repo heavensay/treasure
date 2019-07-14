@@ -6,7 +6,9 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * BeanInfo:提供有关Bean的显式信息的接口，其中包含类的属性，方法、事件等显式信息，可以通过Introspector底层反射机制获取
@@ -20,6 +22,9 @@ public class JavaBeansTest {
 
     /**
      * 获取bean的信息
+     * Introspector内审是根据方法的命名规则来的:getXXX,setXXX,isXXX,removeXXX,addXXX
+     * 子类的属性也会获取到；方法中命名不规范的获取不到；
+     *
      * @throws Exception
      */
     @Test
@@ -28,7 +33,7 @@ public class JavaBeansTest {
 
         Arrays.stream(beanInfo.getPropertyDescriptors()).forEach( pd ->{
             print("name",pd.getName());
-            print("name",pd.getDisplayName());
+            print("displayname",pd.getDisplayName());
         });
     }
 

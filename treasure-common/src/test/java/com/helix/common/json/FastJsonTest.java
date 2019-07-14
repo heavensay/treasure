@@ -259,8 +259,25 @@ public class FastJsonTest {
         ParameterizedType parentType = ParameterizedTypeImpl.make(BeanParent.class,new Type[]{sonType},null);
         BeanParent bp2 = JSON.parseObject(json,parentType);
         Assert.assertNotNull(bp2.getData());
+    }
 
+    /**
+     * 今天在做一个递归的时候遇到输出的数据有$.data[2].indexs[0]的情况，在网上查询了fastjson默认对重复的引用使用ref方式。
+     *
+     * DisableCircularReferenceDetect：消除对同一对象循环引用的问题，默认为false
+     *
+     * FastJson提供了SerializerFeature.DisableCircularReferenceDetect这个序列化选项，用来关闭引用检测。关闭引用检测后，重复引用对象时就不会被$ref代替，但是在循环引用时也会导致StackOverflowError异常。
+     */
+    @Test
+    public void recycle(){
+        List list = new ArrayList();
+        Recycle recycle = new Recycle();
+        recycle.setLabel("label1");
+        recycle.setBeans(list);
+//        recycle.setBeans(new ArrayList());
 
+        list.add(recycle);
+        System.out.println(JSON.toJSONString(list));
     }
 }
 
@@ -336,5 +353,26 @@ class Address{
 
     public void setDoorNo(String doorNo) {
         this.doorNo = doorNo;
+    }
+}
+
+class Recycle{
+    private String label;
+    private List beans;
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public List getBeans() {
+        return beans;
+    }
+
+    public void setBeans(List beans) {
+        this.beans = beans;
     }
 }

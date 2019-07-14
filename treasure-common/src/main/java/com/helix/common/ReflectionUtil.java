@@ -10,8 +10,19 @@ import java.util.Arrays;
  */
 public class ReflectionUtil {
 
+    private static Class[] primitiveWrappers = new Class[]{
+            Boolean.class,
+            Byte.class,
+            Character.class,
+            Short.class,
+            Integer.class,
+            Long.class,
+            Float.class,
+            Double.class,
+            Void.class
+    };
+
     /**
-     *
      * @param clazz
      * @param name
      * @param paramTypes
@@ -38,8 +49,9 @@ public class ReflectionUtil {
     /**
      * Attempt to find a {@link Field field} on the supplied {@link Class} with the
      * supplied {@code name}. Searches all superclasses up to {@link Object}.
+     *
      * @param clazz the class to introspect
-     * @param name the name of the field
+     * @param name  the name of the field
      * @return the corresponding Field object, or {@code null} if not found
      */
     public static Field findField(Class<?> clazz, String name) {
@@ -50,12 +62,13 @@ public class ReflectionUtil {
      * Attempt to find a {@link Field field} on the supplied {@link Class} with the
      * supplied {@code name} and/or {@link Class type}. Searches all superclasses
      * up to {@link Object}.
+     *
      * @param clazz the class to introspect
-     * @param name the name of the field (may be {@code null} if type is specified)
-     * @param type the type of the field (may be {@code null} if name is specified)
+     * @param name  the name of the field (may be {@code null} if type is specified)
+     * @param type  the type of the field (may be {@code null} if name is specified)
      * @return the corresponding Field object, or {@code null} if not found
      */
-    public static Field findField(Class<?> clazz,String name,Class<?> type) {
+    public static Field findField(Class<?> clazz, String name, Class<?> type) {
         Asserts.notNull(clazz, "Class must not be null");
         Asserts.isTrue(name != null || type != null, "Either name or type of the field must be specified");
         Class<?> searchType = clazz;
@@ -72,4 +85,17 @@ public class ReflectionUtil {
         return null;
     }
 
+    /**
+     * 判断是否为8种基础类型的包装类和Void类型
+     * @param type
+     * @return
+     */
+    public static boolean isWrapPrimitive(Class type){
+        for (Class primitiveWrapper : primitiveWrappers) {
+            if(primitiveWrapper == type){
+                return true;
+            }
+        }
+        return false;
+    }
 }
