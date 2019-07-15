@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnWebApplication
-@ConditionalOnProperty(prefix = "helix.enhance.dict",name = "enabled",havingValue = "true")
+@ConditionalOnProperty(prefix = "helix.enhance.dict.mapping",name = "enabled",havingValue = "true")
 public class DictMapperAutoConfiguration {
 
     @Bean
