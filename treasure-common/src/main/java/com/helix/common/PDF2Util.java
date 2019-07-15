@@ -13,7 +13,7 @@ import java.nio.charset.Charset;
 
 /**
  * pdf工具类，支持html转pdf，使用itextpdf，xmlworker
- * 大部分windows系统自带宋体，可直接中文中文；linux可以系统安装字体，或者直接{@link #createFront(String)}加载字体来支持
+ * 大部分windows系统自带宋体，可直接支持中文；linux可以系统安装字体，或者直接{@link #createFront(String)}加载字体来支持
  */
 public class PDF2Util {
 

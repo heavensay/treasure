@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "helix.enhance.dict.enabled",
+      "type": "java.lang.Boolean",
+      "description": "response body内容字典转换",
+      "defaultValue": false
+    }
+  ]
+}

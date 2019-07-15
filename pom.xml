@@ -38,6 +38,7 @@
         <module>treasure-demo</module>
         <module>treasure-spring</module>
         <module>treasure-package</module>
+        <module>treasure-dict</module>
     </modules>
 
     <dependencies>

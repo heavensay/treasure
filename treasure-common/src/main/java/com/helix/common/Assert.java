@@ -4,7 +4,7 @@ package com.helix.common;
  * @author ljy
  * @date 2019/3/1 18:55
  */
-public class Asserts {
+public class Assert {
     public static void notNull(Object instance){
         if(instance == null){
             throw new NullPointerException("参数不能为空");

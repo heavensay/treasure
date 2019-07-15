@@ -2,7 +2,9 @@ package com.helix.common;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author ljy
@@ -29,8 +31,8 @@ public class ReflectionUtil {
      * @return
      */
     public static Method findMethod(Class<?> clazz, String name, Class<?>... paramTypes) {
-        Asserts.notNull(clazz, "Class must not be null");
-        Asserts.notNull(name, "Method name must not be null");
+        Assert.notNull(clazz, "Class must not be null");
+        Assert.notNull(name, "Method name must not be null");
 
         Class<?> searchType = clazz;
         while (searchType != null) {
@@ -69,8 +71,8 @@ public class ReflectionUtil {
      * @return the corresponding Field object, or {@code null} if not found
      */
     public static Field findField(Class<?> clazz, String name, Class<?> type) {
-        Asserts.notNull(clazz, "Class must not be null");
-        Asserts.isTrue(name != null || type != null, "Either name or type of the field must be specified");
+        Assert.notNull(clazz, "Class must not be null");
+        Assert.isTrue(name != null || type != null, "Either name or type of the field must be specified");
         Class<?> searchType = clazz;
         while (Object.class != searchType && searchType != null) {
             Field[] fields = clazz.getDeclaredFields();
@@ -97,5 +99,19 @@ public class ReflectionUtil {
             }
         }
         return false;
+    }
+
+
+    public static List<Field> getAllField(Class clazz){
+        final List<Field> allFields = new ArrayList<Field>();
+        Class<?> currentClass = clazz;
+        while (currentClass != null) {
+            final Field[] declaredFields = currentClass.getDeclaredFields();
+            for (Field field : declaredFields) {
+                allFields.add(field);
+            }
+            currentClass = currentClass.getSuperclass();
+        }
+        return allFields;
     }
 }

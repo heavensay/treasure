@@ -18,9 +18,23 @@ public class ObjectTest {
         System.out.println("==============");
         Son son3 = new Son("tom",18);
     }
+
+    /**
+     *
+     */
+    @Test
+    public void fieldExtendTest(){
+        Parent p = new Son();
+        System.out.println(p.getName());
+
+        Son s = new Son();
+        System.out.println(s.getName());
+    }
 }
 
 class Parent{
+    public String name = "Parent";
+
     public Parent(){
         System.out.println("i am parent");
     }
@@ -28,9 +42,17 @@ class Parent{
     public Parent(String name){
         System.out.println("i am parent:"+name);
     }
+
+    public String getName() {
+        return name;
+    }
 }
 
 class Son extends Parent{
+//    public String name = "Son";
+
+    public Integer name = 1;
+
     public Son(){
         System.out.println("i am son");
     }

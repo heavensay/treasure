@@ -126,8 +126,8 @@ public abstract class DateUtil extends PropertyEditorSupport {
      * @return
      */
     public static int getDayCount(Date date1, Date date2) {
-        Asserts.notNull(date1);
-        Asserts.notNull(date2);
+        Assert.notNull(date1);
+        Assert.notNull(date2);
         Calendar cal1 = getDateZeroCalendar(date1);
         Calendar cal2 = getDateZeroCalendar(date2);
         long between_days = Math.abs((cal1.getTime().getTime() - cal2.getTime().getTime()) / (1000 * 3600 * 24));
