@@ -1,9 +1,7 @@
-package com.helix.dict.spring.bodyadvice;
+package com.helix.dict.spring.dict.bodyadvice;
 
 import com.helix.dict.SysDictManager;
 import com.helix.dict.introspect.DictBeanIntrospector;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -20,8 +18,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @RestControllerAdvice
 //@DependsOn("globalResponseHandler")
 public class DictMapperResponseBodyAdvice implements ResponseBodyAdvice<Object> {
-
-    Logger logger = LoggerFactory.getLogger(DictMapperResponseBodyAdvice.class);
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {

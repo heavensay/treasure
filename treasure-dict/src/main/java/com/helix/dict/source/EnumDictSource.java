@@ -12,17 +12,17 @@ import java.util.Map;
  * @author ljy
  * @date 2019/7/9 21:35
  */
-public class EnumDictSourceCollect extends AbstarctDictSourceCollect {
+public class EnumDictSource extends AbstarctDictSource {
 
-    public final static EnumDictSourceCollect INSTANCE = new EnumDictSourceCollect();
+    public final static EnumDictSource INSTANCE = new EnumDictSource();
 
-    private EnumDictSourceCollect(){}
+    private EnumDictSource(){}
 
-    private List<Class> list = new ArrayList();
+    private List<Class<? extends Enum>> clazzList = new ArrayList();
 
     @Override
     public void loadData() {
-        list.stream().forEach(enumClass->{
+        clazzList.stream().forEach(enumClass->{
             loadEnumData(enumClass);
         });
     }
@@ -31,9 +31,9 @@ public class EnumDictSourceCollect extends AbstarctDictSourceCollect {
      * 存储枚举字典数据
      * @param enumClass
      */
-    public void loadEnumData(Class enumClass){
-        if(!list.contains(enumClass)){
-            list.add(enumClass);
+    public void loadEnumData(Class<? extends Enum> enumClass){
+        if(!clazzList.contains(enumClass)){
+            clazzList.add(enumClass);
         }
         Map<DictKey,Object> map = DictEnumSourceHelper.resolveEnumSource(enumClass);
         getDictData().putAll(map);

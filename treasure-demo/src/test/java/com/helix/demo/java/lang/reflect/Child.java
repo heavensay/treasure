@@ -12,6 +12,10 @@ public class Child extends Parent{
 
     public Integer size;
 
+    private static String staticField;
+
+    public static String publicStaticField;
+
     public String getName() {
         return name;
     }

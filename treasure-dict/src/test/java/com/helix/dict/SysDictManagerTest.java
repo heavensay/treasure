@@ -2,7 +2,7 @@ package com.helix.dict;
 
 import com.helix.dict.annotation.DictConfiguration;
 import com.helix.dict.bean.*;
-import com.helix.dict.source.EnumDictSourceCollect;
+import com.helix.dict.source.EnumDictSource;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,10 +24,10 @@ public class SysDictManagerTest {
     @Before
     public void beanInit(){
         //字典数据源注册
-        EnumDictSourceCollect.INSTANCE.loadEnumData(CountryEnum.class);
-        EnumDictSourceCollect.INSTANCE.loadEnumData(HelloEnum.class);
-        EnumDictSourceCollect.INSTANCE.loadEnumData(DigitEnum.class);
-        EnumDictSourceCollect.INSTANCE.loadEnumData(AnimalEnum.class);
+        EnumDictSource.INSTANCE.loadEnumData(CountryEnum.class);
+        EnumDictSource.INSTANCE.loadEnumData(HelloEnum.class);
+        EnumDictSource.INSTANCE.loadEnumData(DigitEnum.class);
+        EnumDictSource.INSTANCE.loadEnumData(AnimalEnum.class);
 
         helloBean = new HelloBean();
         helloBean.setName("susan");
@@ -93,6 +93,19 @@ public class SysDictManagerTest {
         map.put("hellobean2",helloBean2);
 
         SysDictManager.mapping(map);
+        Assert.assertNotNull(helloBean.getCountryText());
+        Assert.assertNotNull(helloBean.getDigitText());
+        Assert.assertNotNull(helloBean2.getCountryText());
+        Assert.assertNotNull(helloBean2.getDigitText());
+    }
+
+    /**
+     * 测试数组类型，字典转换
+     */
+    @Test
+    public void mappingForArray() {
+        HelloBean[][] helloBeanArray = new HelloBean[][]{{helloBean},{helloBean2}};
+        SysDictManager.mapping(helloBeanArray);
         Assert.assertNotNull(helloBean.getCountryText());
         Assert.assertNotNull(helloBean.getDigitText());
         Assert.assertNotNull(helloBean2.getCountryText());

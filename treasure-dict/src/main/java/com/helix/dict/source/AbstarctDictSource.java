@@ -11,11 +11,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author ljy
  * @date 2019/7/9 21:35
  */
-public abstract class AbstarctDictSourceCollect implements IDictSource {
+public abstract class AbstarctDictSource implements IDictSource {
 
-    public AbstarctDictSourceCollect(){}
-
-    private List<Class> list = new ArrayList();
+    public AbstarctDictSource(){}
 
     private Map<DictKey, Object> dictDatas = new ConcurrentHashMap();
 

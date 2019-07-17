@@ -10,6 +10,8 @@ public class Parent {
 
     private String asset;
 
+    public String publicParentField1;
+
     public String getName() {
         return name;
     }

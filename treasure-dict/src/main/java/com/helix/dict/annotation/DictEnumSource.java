@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 提供Enum的元数据，用于收集Enum字典数据
+ * 只注释在Enum类
  * @author ljy
  * @date 2019/7/5 18:52
  */

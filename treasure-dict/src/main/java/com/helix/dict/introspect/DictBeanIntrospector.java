@@ -37,6 +37,12 @@ public class DictBeanIntrospector {
 
     private static Map<Class, List<DictMetadata>> cache = new ConcurrentHashMap<>();
 
+    private final static List arrayDictMetadatas = new ArrayList();
+
+    static {
+        arrayDictMetadatas.add(new ArrayDictMetadata());
+    }
+
     /**
      * 按照bean命名规范来进行解析；field的名字和类型要跟bean规范的方法对应起来；
      * @param beanClass
@@ -50,8 +56,15 @@ public class DictBeanIntrospector {
         if (cache.containsKey(beanClass)) {
             return cache.get(beanClass);
         }
+
+        //数组class
+        if(beanClass.isArray()){
+            return arrayDictMetadatas;
+        }
+
         //是实体类
         List<Field>  fields = getAllField(beanClass);
+
 
         removeDuplicateField(fields);
 

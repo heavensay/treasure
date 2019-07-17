@@ -1,16 +1,14 @@
 package com.helix.dict;
 
 import com.helix.dict.annotation.DictConfiguration;
-import com.helix.dict.introspect.DictBeanIntrospector;
-import com.helix.dict.introspect.DictMetadata;
-import com.helix.dict.introspect.ObjectDictMetadata;
-import com.helix.dict.introspect.PrimitiveDictMetadata;
+import com.helix.dict.introspect.*;
 import com.helix.dict.source.DefaultDictSourceManage;
-import com.helix.dict.source.EnumDictSourceCollect;
+import com.helix.dict.source.EnumDictSource;
 import com.helix.dict.source.IDictSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +26,7 @@ public final class SysDictManager{
     private static DefaultDictSourceManage dictSourceManage = new DefaultDictSourceManage();
 
     static{
-        dictSourceManage.register(EnumDictSourceCollect.INSTANCE);
+        dictSourceManage.register(EnumDictSource.INSTANCE);
     }
 
     /**
@@ -51,7 +49,7 @@ public final class SysDictManager{
                     Class writeMethodParameterClass = pdm.getValueLabelWriteMethod().getParameters()[0].getType();
 
                     if(valueLabel != null && !writeMethodParameterClass.isAssignableFrom(valueLabel.getClass())){
-                        logger.debug("class:{},field:{},字典值类型{}与写方法的入参类型{}不匹配",instance.getClass(),pdm.getFieldName(),
+                        logger.info("class:{},field:{},字典值类型{}与写方法的入参类型{}不匹配",instance.getClass(),pdm.getFieldName(),
                                 valueLabel.getClass().getName(),writeMethodParameterClass.getName());
                     }
 
@@ -62,6 +60,12 @@ public final class SysDictManager{
                     ObjectDictMetadata objectDictMetadata = (ObjectDictMetadata) dm;
                     Object bean = objectDictMetadata.getObjectFieldReadMethod().invoke(instance, null);
                     mapping(bean);
+                }else if(dm instanceof ArrayDictMetadata){
+                    ArrayDictMetadata arrayDictMetadata = (ArrayDictMetadata) dm;
+                    int length = Array.getLength(instance);
+                    for (int i=0;i<length;i++){
+                        mapping(Array.get(instance,i));
+                    }
                 }
             } catch (IllegalAccessException | InvocationTargetException e) {
                 throw new RuntimeException("字典翻译失败", e);

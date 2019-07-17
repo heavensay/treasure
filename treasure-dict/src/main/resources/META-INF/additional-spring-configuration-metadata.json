@@ -1,10 +1,23 @@
 {
+  "groups":[
+
+  ],
   "properties": [
     {
       "name": "helix.enhance.dict.mapping.enabled",
       "type": "java.lang.Boolean",
       "description": "response body内容字典转换",
       "defaultValue": false
+    },{
+      "name": "helix.enhance.dict.enum.autocollect",
+      "type": "java.lang.Boolean",
+      "description": "是否自动收集枚举类型字典数据",
+      "defaultValue": true
+    },{
+      "name": "helix.enhance.dict.enum.autocollect.path",
+      "type": "java.lang.String",
+      "description": "自动收集枚举类型字典数据的路径，包括子路径；默认main class路径",
+      "defaultValue": null
     }
   ]
 }

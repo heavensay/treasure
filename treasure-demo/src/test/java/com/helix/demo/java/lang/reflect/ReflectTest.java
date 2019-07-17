@@ -39,7 +39,7 @@ public class ReflectTest {
     }
 
     /**
-     * getFields
+     * getFields:获取public field信息，包括父类的信息;
      */
     @Test
     public void getFields(){
@@ -50,7 +50,7 @@ public class ReflectTest {
     }
 
     /**
-     * getDeclaredFields获取class的所有field，不会获取父类的field
+     * getDeclaredFields获取class的所有field(包括private，protected，public)，不会获取父类的field
      */
     @Test
     public void getDeclaredFields(){
@@ -129,6 +129,19 @@ public class ReflectTest {
         System.out.println("Void is primitive type："+VoidType.isPrimitive());//false
     }
 
+    @Test
+    public void arrayClassInfo()throws Exception{
+        Child c1 = new Child();
+        Child c2 = new Child();
+        Child[] cs = new Child[]{c1,c2};
+        Class arrayClass = cs.getClass();
+        System.out.println("class child info");
+        printClassInfo(Child.class);
+
+        System.out.println("class child[] info");
+        printClassInfo(cs.getClass());
+    }
+
     /**
      * 基础类型class和保证类型class比较
      * 结果：不相等
@@ -138,4 +151,35 @@ public class ReflectTest {
         System.out.println(int.class == Integer.class);//false
     }
 
+
+    /**
+     * 打印class信息
+     * @param clazz
+     * @throws Exception
+     */
+    private void printClassInfo(Class clazz) throws Exception{
+        Class superClazz = clazz;
+        while (superClazz!=null){
+            System.out.println("class:"+superClazz.getName()+",field:====");
+            Field[] declaredFieldsFields = superClazz.getDeclaredFields();
+            for (Field declaredFieldsField : declaredFieldsFields) {
+                System.out.println("name:"+declaredFieldsField.getName());
+            }
+            System.out.println("class:"+superClazz.getName()+",field:====");
+
+            System.out.println();
+
+            System.out.println("class:"+superClazz.getName()+",method:====");
+            for (Method method:superClazz.getDeclaredMethods()){
+                System.out.println(method.toString());
+            }
+            System.out.println("class:"+superClazz.getName()+",method:====");
+
+            superClazz = superClazz.getSuperclass();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+        }
+
+    }
 }
