@@ -12,12 +12,12 @@ public class Parent {
 
     private String country;
 
-    @Dict(type = CountryEnum.class,valueColumn = "country")
+    @Dict(type = CountryEnum.class, valueFieldName = "country")
     private String countryText;
 
     private Integer digit;
 
-    @Dict(type = DigitEnum.class,valueColumn = "digit")
+    @Dict(type = DigitEnum.class, valueFieldName = "digit")
     private String digitText;
 
     public String getName() {

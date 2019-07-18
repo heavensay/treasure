@@ -95,7 +95,7 @@ public class DictBeanIntrospector {
                 Class type = dict.type();
                 String category = dict.category();
                 String code = dict.code();
-                String valueColumn = dict.valueColumn();
+                String valueFieldName = dict.valueFieldName();
 
                 Method valueLabelWriteMethod = null;
                 Method valueColumnReadMethod = null;
@@ -114,7 +114,7 @@ public class DictBeanIntrospector {
                                     beanClass, fieldName,field.getType().getName(),writeMethodParater.getName());
                         }
                     }
-                    if (valueColumn.equals(propertyDescriptor.getName())) {
+                    if (valueFieldName.equals(propertyDescriptor.getName())) {
                         valueColumnReadMethod = propertyDescriptor.getReadMethod();
                         readAndWriteMatch++;
                     }
@@ -129,11 +129,11 @@ public class DictBeanIntrospector {
                     continue;
                 }
                 if (valueColumnReadMethod == null) {
-                    logger.info("class:{},属性:{},对应的valueColumn:{}读方法不存在，忽略此属性的字典翻译", beanClass, fieldName,valueColumn);
+                    logger.info("class:{},属性:{},对应的valueColumn:{}读方法不存在，忽略此属性的字典翻译", beanClass, fieldName,valueFieldName);
                     continue;
                 }
 
-                PrimitiveDictMetadata dictMetadata = new PrimitiveDictMetadata(fieldName, type, category, code, valueColumn, valueColumnReadMethod, valueLabelWriteMethod);
+                PrimitiveDictMetadata dictMetadata = new PrimitiveDictMetadata(fieldName, type, category, code, valueFieldName, valueColumnReadMethod, valueLabelWriteMethod);
                 dictMetadata.setValueColumnReadMethod(valueColumnReadMethod);
                 dictMetadata.setValueLabelWriteMethod(valueLabelWriteMethod);
 

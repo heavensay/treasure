@@ -10,11 +10,9 @@ import java.lang.annotation.Target;
 /**
  * 提供pojo上需要翻译的属性的元数据
  * e.g. :
- *  class:User.class(建议表对应的实体class)
+ *  type:User.class(建议表对应的实体class)
  *  category:User(建议表名)
  *  code:gender(建议表中字典字段)
- *  value:man(字典值)
- *  label:男(字典展示文本)
  *
  * @author ljy
  * @date 2019/7/3 17:51
@@ -29,5 +27,9 @@ public @interface Dict {
 
     String code() default DictConfiguration.DEFAULT_CODE;
 
-    String valueColumn();
+    /**
+     * value字段名，从中获取值
+     * @return
+     */
+    String valueFieldName();
 }

@@ -30,7 +30,7 @@ public class DictBeanIntrospectorTest {
 
     class CustomList extends ArrayList{
         private String country;
-        @Dict(type = CountryEnum.class,valueColumn = "country")
+        @Dict(type = CountryEnum.class, valueFieldName = "country")
         private String countryText;
 
         public String getCountry() {
