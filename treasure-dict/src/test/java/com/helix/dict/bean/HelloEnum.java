@@ -1,12 +1,12 @@
 package com.helix.dict.bean;
 
-import com.helix.dict.annotation.DictEnumSource;
+import com.helix.dict.annotation.EnumDictSourceMetadata;
 
 /**
  * @author ljy
  * @date 2019/7/9 20:06
  */
-@DictEnumSource(valueLabelFieldName = "text")
+@EnumDictSourceMetadata(valueLabelFieldName = "text")
 public enum HelloEnum {
     A("你好"),
     B("hello world"),

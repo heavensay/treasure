@@ -1,7 +1,6 @@
 package com.helix.dict;
 
-import com.helix.dict.annotation.Dict;
-import com.helix.dict.annotation.DictEnumSource;
+import com.helix.dict.annotation.EnumDictSourceMetadata;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ClassInfoList;
@@ -23,7 +22,7 @@ public class ClasspathScanTest {
                         .scan();                      // Perform the scan and return a ScanResult
         // Use the ScanResult within the try block, e.g.
 
-        ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(DictEnumSource.class.getName());
+        ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(EnumDictSourceMetadata.class.getName());
 
         for (String s : classInfoList.getNames()) {
             System.out.println("========name:"+s);

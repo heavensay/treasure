@@ -1,6 +1,6 @@
 package com.helix.dict;
 
-import com.helix.dict.annotation.DictEnumSource;
+import com.helix.dict.annotation.EnumDictSourceMetadata;
 import com.helix.dict.source.EnumDictSource;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
@@ -48,7 +48,7 @@ public class EnumDictSourceAutoCollect {
      */
     private ClassInfoList scanEnumDictSourceClass(String packagePath){
         ScanResult scanResult = new ClassGraph().enableAllInfo().whitelistPackages(packagePath).scan();
-        ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(DictEnumSource.class.getName());
+        ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(EnumDictSourceMetadata.class.getName());
         return classInfoList;
     }
 

@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DictEnumSource {
+public @interface EnumDictSourceMetadata {
 
     /*valueFieldName为空代表value为Enum名称*/
     String valueFieldName() default "";

@@ -1,7 +1,7 @@
 package com.helix.dict;
 
 import com.helix.dict.annotation.DictConfiguration;
-import com.helix.dict.annotation.DictEnumSource;
+import com.helix.dict.annotation.EnumDictSourceMetadata;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DictEnumSourceHelper {
 
     public static Map<DictKey,Object> resolveEnumSource(Class<? extends Enum> enumSource){
-        DictEnumSource dictEnumSource = (DictEnumSource) enumSource.getDeclaredAnnotation(DictEnumSource.class);
+        EnumDictSourceMetadata dictEnumSource = (EnumDictSourceMetadata) enumSource.getDeclaredAnnotation(EnumDictSourceMetadata.class);
         if (dictEnumSource == null) {
             return Collections.EMPTY_MAP;
         }
