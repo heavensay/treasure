@@ -11,7 +11,7 @@ import java.util.Map;
  * @author lijianyu
  * @date 2018/10/14 19:35
  */
-public class FreemarkerConfigurationTest {
+public class FreemarkerUtilTest {
 
     /**
      * bean类需public修饰，才能被freemarker处理；
@@ -27,7 +27,7 @@ public class FreemarkerConfigurationTest {
 //        Bean bean = new Bean();
 //        bean.setBrand("雅马哈");
 //        bean.setOpenDate("2018-10-15");
-        FreemarkerConfiguration.processTemplateFile("agreement.ftl",map,sw);
+        FreemarkerUtil.processTemplateFile("agreement.ftl",map,sw);
         Assert.assertNotNull(sw.toString());
         System.out.println(sw.toString());
         sw.close();
