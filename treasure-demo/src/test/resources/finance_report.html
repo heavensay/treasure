@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<style>
+
+    html{
+        /*background-color: yellow;*/
+    }
+
+    body {
+        /*background-color: red;*/
+        font-family: SimSun;
+    }
+
+    .main{
+        position: absolute;
+        width: 80%;
+        /*margin: 0 auto;*/
+        margin-left: 10%;
+        padding-left: 20px;
+        padding-right: 20px;
+        /*background-color: aqua;*/
+    }
+
+    table{
+        width: 100%;
+        border-collapse:collapse;
+        margin: 0 auto;
+        /*border: 0.1px solid;*/
+        box-sizing: border-box;
+    }
+    th,td{
+        padding: 1px;
+        border: 0.1px solid;
+    }
+
+    .tr-align-right{
+        text-align: right;
+    }
+</style>
+
+<body>
+<div class="main">
+    <#assign text="{'name':'opal','age':'30+','addr':'上海上海'}" />
+    <#assign data=text?eval />
+
+
+    <h3>企业信息</h3>
+    <h4>基本信息</h4>
+    <table>
+        <tr>
+            <td width="15%">企业名称</td>
+            <td width="35%">${data.name}</td>
+            <td width="15%">企业类型</td>
+            <td width="35%">${data.age}</td>
+        </tr>
+        <tr>
+            <td width="15%">注册资本</td>
+            <td width="35%"></td>
+            <td width="15%">注册地址</td>
+            <td width="35%"></td>
+        </tr>
+        <tr>
+            <td width="15%">工商注册号</td>
+            <td width="35%"></td>
+            <td width="15%">经营范围</td>
+            <td width="35%"></td>
+        </tr>
+        <tr>
+            <td width="15%">营业开始日期</td>
+            <td width="35%"></td>
+            <td width="15%">营业结束日期</td>
+            <td width="35%"></td>
+        </tr>
+        <tr>
+            <td width="15%">工商登记机关</td>
+            <td width="35%"></td>
+            <td width="15%">法人代表</td>
+            <td width="35%"></td>
+        </tr>
+        <tr>
+            <td width="15%">成立日期</td>
+            <td width="35%"></td>
+            <td width="15%">发照日期</td>
+            <td width="35%"></td>
+        </tr>
+        <tr>
+            <td width="15%">在业状态</td>
+            <td width="35%"></td>
+            <td width="15%">组织机构代码</td>
+            <td width="35%"></td>
+        </tr>
+        <tr>
+            <td width="15%">统一信用代码</td>
+            <td width="35%"></td>
+            <td width="15%">行业</td>
+            <td width="35%"></td>
+        </tr>
+        <tr>
+            <td width="15%">省份</td>
+            <td width="35%"></td>
+            <td width="15%">城市</td>
+            <td width="35%"></td>
+        </tr>
+    </table>
+
+    <h4>主要人员信息</h4>
+    <table>
+        <tr align="center">
+            <td width="20%">职位</td>
+            <td width="80%">姓名</td>
+        </tr>
+        <tr>
+            <td width="20%"></td>
+            <td width="80%"></td>
+        </tr>
+    </table>
+
+    <h4>变更信息</h4>
+    <table>
+        <tr>
+            <td>变更日期</td>
+            <td>变更项目</td>
+            <td>变更前</td>
+            <td>变更后</td>
+        </tr>
+    </table>
+
+    <h4>股东信息</h4>
+    <table>
+        <tr>
+            <td>股东类型</td>
+            <td>姓名</td>
+            <td>证件类型</td>
+            <td>证件号码</td>
+            <td>认缴方式</td>
+            <td>认缴金额</td>
+            <td>认缴时间</td>
+            <td>实缴方式</td>
+            <td>实缴金额</td>
+            <td>实缴时间</td>
+        </tr>
+    </table>
+
+    <h4>经营异常</h4>
+    <table>
+        <tr>
+            <td>列入原因</td>
+            <td>列入日期</td>
+            <td>移出原因</td>
+            <td>移出日期</td>
+        </tr>
+    </table>
+
+    <h4>分支机构</h4>
+    <table>
+        <tr>
+            <td>分支机构</td>
+        </tr>
+    </table>
+
+    <h4>网址信息</h4>
+    <table>
+        <tr>
+            <td>企业网址名称</td>
+            <td>网址类型</td>
+            <td>网址</td>
+            <td>网址来源</td>
+            <td>审核时间</td>
+        </tr>
+    </table>
+
+    <h4>联系信息</h4>
+    <table>
+        <tr>
+            <td>编号</td>
+            <td>地址</td>
+            <td>电话</td>
+            <td>邮件</td>
+        </tr>
+    </table>
+
+
+    <h3>销项票据分析</h3>
+
+    <h4>年度销项票据情况</h4>
+    <table>
+        <tr>
+            <td>统计年份</td>
+            <td>有效发票数</td>
+            <td>有效金额</td>
+            <td>有效税额</td>
+            <td>有效发票数量占比</td>
+            <td>红冲发票数</td>
+            <td>红冲金额</td>
+            <td>红冲税额</td>
+            <td>红冲发票占比</td>
+            <td>最大红冲金额</td>
+            <td>最大红冲时间</td>
+            <td>作废发票数</td>
+            <td>作废发票金额</td>
+            <td>作废发票税额</td>
+            <td>作废发票数量占比</td>
+            <td>最大作废金额</td>
+            <td>最大作废时间</td>
+        </tr>
+    </table>
+
+    <h4>月度销项票据情况</h4>
+    <span>发票数量为正常、作废、红冲状态发票的总数；金额只包含正数及未作废的合计金额。</span>
+    <table>
+        <tr>
+            <td>统计月份</td>
+            <td>有效发票金额</td>
+            <td>有效发票张数</td>
+            <td>作废发票金额</td>
+            <td>作废发票张数</td>
+            <td>红冲发票金额</td>
+            <td>红冲发票张数</td>
+        </tr>
+    </table>
+
+    <h4>综合开票情况分析</h4>
+    <table>
+        <tr>
+            <td rowspan="2">统计年份</td>
+            <td colspan="2" align="center">月均开票情况</td>
+            <td>开票集中月</td>
+            <td>开票间隔</td>
+        </tr>
+        <tr>
+            <td>平均开票金额</td>
+            <td>平均开票数量</td>
+            <td>最大开票量</td>
+            <td>最大间隔时间（天）</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <h4>十大销项票据</h4>
+    <table>
+        <tr>
+            <td>开票时间</td>
+            <td>交易对手名称</td>
+            <td>交易对手税号</td>
+            <td>开票金额</td>
+            <td>开票税额</td>
+        </tr>
+    </table>
+
+    <h4>开票频次十大企业</h4>
+    <span>2018年交易对手总数6家；2017年交易对手总数9家；</span>
+    <table>
+        <tr>
+            <td>统计年月</td>
+            <td>交易企业</td>
+            <td>交易次数</td>
+            <td>交易次数占比</td>
+            <td>交易金额</td>
+            <td>交易金额占比</td>
+        </tr>
+    </table>
+
+    <h4>开票金额十大企业</h4>
+    <span>2018年交易对手总数6家；2017年交易对手总数9家；</span>
+    <table>
+        <tr>
+            <td>统计年月</td>
+            <td>交易企业</td>
+            <td>交易次数（次）</td>
+            <td>交易次数占比</td>
+            <td>交易金额（万元）</td>
+            <td>交易金额占比</td>
+        </tr>
+    </table>
+
+    <h4>销项发票税率占比</h4>
+    <table>
+        <tr>
+            <td>统计年月</td>
+            <td>税率（%）</td>
+            <td>税率数量（次）</td>
+            <td>数量占比（%）</td>
+            <td>不含税金额（万元）</td>
+            <td>税额（万元）</td>
+        </tr>
+    </table>
+
+    <h4>主营商品分析</h4>
+    <table>
+        <tr>
+            <td>统计年月</td>
+            <td>商品名称</td>
+            <td>金额（万元）</td>
+            <td>金额占比（%）</td>
+            <td>出现次数（次）</td>
+            <td>出现次数占比（%）</td>
+        </tr>
+    </table>
+
+    <h4>前十销售区域分布</h4>
+    <table>
+        <tr>
+            <td>统计年份</td>
+            <td>销售区域</td>
+            <td>销售金额（万元）</td>
+            <td>金额占比（%）</td>
+            <td>出现次数（次）</td>
+            <td>出现次数占比（%）</td>
+        </tr>
+    </table>
+
+    <h3>进项票据分析</h3>
+    <h4>年度进项票据情况</h4>
+    <table>
+        <tr>
+            <td>统计年份</td>
+            <td>有效发票数</td>
+            <td>有效金额</td>
+            <td>有效税额</td>
+            <td>有效发票数量占比</td>
+            <td>红冲发票数</td>
+            <td>红冲金额</td>
+            <td>红冲税额</td>
+            <td>红冲发票占比</td>
+            <td>最大红冲金额</td>
+            <td>最大红冲时间</td>
+            <td>作废发票数</td>
+            <td>作废发票金额</td>
+            <td>作废发票税额</td>
+            <td>作废发票数量占比</td>
+            <td>最大作废金额</td>
+            <td>最大作废时间</td>
+        </tr>
+    </table>
+
+    <h4>月度进项票据情况</h4>
+    <span>发票数量为正常、作废、红冲状态发票的总数；金额只包含正数及未作废的合计金额。</span>
+    <table>
+        <tr>
+            <td>统计月份</td>
+            <td>有效发票金额</td>
+            <td>有效发票张数</td>
+        </tr>
+    </table>
+
+    <h4>综合进项情况分析</h4>
+    <table>
+        <tr>
+            <td rowspan="2">统计年份</td>
+            <td colspan="2" align="center">月均进项情况</td>
+            <td>进项收票集中月</td>
+            <td>进项收票间隔</td>
+        </tr>
+        <tr>
+            <td>平均进项金额</td>
+            <td>平均进项数量</td>
+            <td>最大进项票量</td>
+            <td>最大间隔时间（天）</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <h4>十大进项票据</h4>
+    <table>
+        <tr>
+            <td>开票时间</td>
+            <td>交易对手名称</td>
+            <td>交易对手税号</td>
+            <td>进项金额</td>
+            <td>进项税额</td>
+        </tr>
+    </table>
+
+    <h4>采购频次十大企业</h4>
+    <span>2018年交易对手总数14家；2017年交易对手总数1家；</span>
+    <table>
+        <tr>
+            <td>统计年月</td>
+            <td>交易企业</td>
+            <td>交易次数（次）</td>
+            <td>交易次数占比</td>
+            <td>交易金额（万元）</td>
+            <td>交易金额占比</td>
+        </tr>
+    </table>
+
+    <h4>采购金额十大企业</h4>
+    <span>2018年交易对手总数14家；2017年交易对手总数1家；</span>
+    <table>
+        <tr>
+            <td>统计年月</td>
+            <td>交易企业</td>
+            <td>交易次数</td>
+            <td>交易次数占比</td>
+            <td>交易金额（万元）</td>
+            <td>交易金额占比</td>
+        </tr>
+    </table>
+
+    <h4>进项发票税率占比</h4>
+    <table>
+        <tr>
+            <td>统计年月</td>
+            <td>税率</td>
+            <td>税率数量</td>
+            <td>数量占比</td>
+            <td>不含税金额（万元）</td>
+            <td>税额（万元）</td>
+        </tr>
+    </table>
+
+    <h4>采购商品分析</h4>
+    <table>
+        <tr>
+            <td>统计年月</td>
+            <td>商品名称</td>
+            <td>金额（万元）</td>
+            <td>金额占比</td>
+            <td>次数</td>
+            <td>次数占比</td>
+        </tr>
+    </table>
+
+    <h4>采购区域分布</h4>
+    <table>
+        <tr>
+            <td>统计年份</td>
+            <td>区域</td>
+            <td>金额（万元）</td>
+            <td>金额占比</td>
+            <td>次数（次）</td>
+            <td>次数占比</td>
+        </tr>
+    </table>
+
+    <h4>能源消耗情况</h4>
+    <span>说明：能源消耗金额占为总进项发票总金额的占比；</span>
+    <table>
+        <tr>
+            <td>统计年份</td>
+            <td>能源类型</td>
+            <td>金额</td>
+            <td>金额占比</td>
+        </tr>
+    </table>
+
+    <h3>上下游交易分析</h3>
+    <h4>上游企业分析</h4>
+    <table>
+        <tr>
+            <td colspan="3">年度十大新企业</td>
+            <td colspan="3">年度十大流失企业</td>
+        </tr>
+        <tr>
+            <td>企业名称</td>
+            <td>交易次数（次）</td>
+            <td>交易金额（万元）</td>
+            <td>企业名称</td>
+            <td>交易次数（次）</td>
+            <td>交易金额（万元）</td>
+        </tr>
+    </table>
+
+    <h4>下游企业分析</h4>
+    <table>
+        <tr>
+            <td colspan="3">年度十大新企业</td>
+            <td colspan="3">年度十大流失企业</td>
+        </tr>
+        <tr>
+            <td>企业名称</td>
+            <td>交易次数（次）</td>
+            <td>交易金额（万元）</td>
+            <td>企业名称</td>
+            <td>交易次数（次）</td>
+            <td>交易金额（万元）</td>
+        </tr>
+    </table>
+
+    <h4>关联交易分析</h4>
+    <table>
+        <tr>
+            <td>统计年份</td>
+            <td>交易对手名称</td>
+            <td>交易含税金额</td>
+            <td>交易税额</td>
+        </tr>
+    </table>
+</div>
+
+
+
+</body>
+</html>
