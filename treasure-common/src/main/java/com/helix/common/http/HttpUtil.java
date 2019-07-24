@@ -1,5 +1,7 @@
 package com.helix.common.http;
 
+import com.helix.common.Assert;
+import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
@@ -17,6 +19,8 @@ import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -29,20 +33,20 @@ import org.slf4j.LoggerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *@author ljy
- *@date 2019/5/14 19:35
+ * @author ljy
+ * @date 2019/5/14 19:35
  */
 public class HttpUtil {
 
@@ -210,6 +214,13 @@ public class HttpUtil {
         return format2String(httpPost);
     }
 
+    /**
+     * post->Content-Type:application/x-www-form-urlencoded
+     * @param url
+     * @param params
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     public static String post(String url, Map<String, Object> params)
             throws UnsupportedEncodingException {
         HttpPost httpPost = new HttpPost(url);
@@ -218,6 +229,14 @@ public class HttpUtil {
         return format2String(httpPost);
     }
 
+    /**
+     * post->Content-Type:application/x-www-form-urlencoded
+     * @param url
+     * @param headers
+     * @param params
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     public static String post(String url,
                               Map<String, Object> headers, Map<String, Object> params)
             throws UnsupportedEncodingException {
@@ -231,6 +250,59 @@ public class HttpUtil {
         ArrayList<NameValuePair> pairs = covertParams2NVPS(params);
         httpPost.setEntity(new UrlEncodedFormEntity(pairs, DEFAULT_CHAR_SET));
 
+        return format2String(httpPost);
+    }
+
+
+    /**
+     * post->Content-Type:application/json
+     * @param url
+     * @param headers
+     * @param jsonParam
+     * @return
+     */
+    public static String postJson(String url,
+                                  Map<String, Object> headers, String jsonParam) {
+        Assert.notNull(jsonParam,"body params 不能为null");
+        HttpPost httpPost = new HttpPost(url);
+
+        if(headers != null){
+            for (Map.Entry<String, Object> param : headers.entrySet()) {
+                httpPost.addHeader(param.getKey(), String.valueOf(param.getValue()));
+            }
+        }
+        httpPost.setEntity(new StringEntity(jsonParam, ContentType.APPLICATION_JSON));
+
+        return format2String(httpPost);
+    }
+
+    /**
+     * post:multipart/form-data
+     * 支持文件上传
+     * @param url
+     * @param params entity-body参数
+     * @param files 文件列表
+     * @param headers
+     * @return
+     */
+    public static String postMultipart(String url, Map<String, Object> params, Map<String, File> files, Map<String, Object> headers){
+        MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create().setContentType(ContentType.MULTIPART_FORM_DATA.withCharset(Consts.UTF_8));
+
+        Optional.ofNullable(files).orElse(Collections.EMPTY_MAP).forEach((k,v)->{
+            multipartEntityBuilder.addBinaryBody((String)k,(File)v,ContentType.DEFAULT_BINARY,((File) v).getName());
+        });
+
+        Optional.ofNullable(params).orElse(Collections.EMPTY_MAP).forEach((k,v) ->{
+            multipartEntityBuilder.addTextBody((String)k,String.valueOf(v), ContentType.TEXT_PLAIN.withCharset(Consts.UTF_8));
+        });
+
+        HttpPost httpPost = new HttpPost(url);
+
+        Optional.ofNullable(headers).orElse(Collections.EMPTY_MAP).forEach((k,v)->{
+            httpPost.addHeader((String)k, String.valueOf(v));
+        });
+
+        httpPost.setEntity(multipartEntityBuilder.build());
         return format2String(httpPost);
     }
 
@@ -324,10 +396,8 @@ public class HttpUtil {
         String charset = null;
         String regEx = "<meta.*?charset=([[a-z]|[A-Z]|[0-9]|-]*)>";
         Pattern p = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);
-        System.out.println(html);
         Matcher m = p.matcher(html);
-        if (m.groupCount() > 0) {
-            m.find();
+        while (m.find()){
             charset = m.group(1);
         }
         return charset;

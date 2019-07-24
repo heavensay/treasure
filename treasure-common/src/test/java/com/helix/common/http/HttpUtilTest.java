@@ -1,11 +1,8 @@
 package com.helix.common.http;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -13,9 +10,8 @@ import org.apache.http.message.BasicHeader;
 import org.junit.Test;
 
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
@@ -83,5 +79,32 @@ public class HttpUtilTest {
 			out.write(buffer, 0, n);
 		}
 		return out.toString("utf-8");
+	}
+
+	/**
+	 * post:Content-Type:application/json测试
+	 */
+	@Test
+	public void postJson(){
+		String httpUrl = "http://127.0.0.1:8081/hello/jsonParamSimple?name=tom";
+		String jsonBody = "{\"age\":18,\"userName\":\"中国\"}";
+		String result = HttpUtil.postJson(httpUrl,null,jsonBody);
+		System.out.println(result);
+	}
+
+	@Test
+	public void postUpload(){
+		String httpUrl = "http://127.0.0.1:8081/hello/upload?name=tom";
+		File file = new File("D:\\onedrive\\图片\\one_poice.jpg");
+
+		Map mapParam = new HashMap();
+		mapParam.put("msg","msg1");
+
+		Map mapFile = new HashMap();
+		mapFile.put("file",file);
+
+//		String result = HttpUtil.postUpload(httpUrl,mapParam,mapFile,null);
+		String result = HttpUtil.postMultipart(httpUrl,null,null,null);
+		System.out.println(result);
 	}
 }
