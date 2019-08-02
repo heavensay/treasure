@@ -183,30 +183,70 @@ public class HttpUtil {
         return format2String(httpGet);
     }
 
-    public static String get(String url, Map<String, Object> params)
+    public static String get(String url, Map<String, Object> urlParams)
             throws URISyntaxException {
         URIBuilder ub = new URIBuilder(new URI(url));
 
-        ArrayList<NameValuePair> pairs = covertParams2NVPS(params);
+        ArrayList<NameValuePair> pairs = covertParams2NVPS(urlParams);
         ub.addParameters(pairs);
 
         HttpGet httpGet = new HttpGet(ub.build());
         return format2String(httpGet);
     }
 
+    /**
+     *
+     * @param url
+     * @param headers
+     * @param urlParams url中的参数 e.g. (http:test.com?a=1) 参数a=1
+     * @return
+     * @throws URISyntaxException
+     */
     public static String get(String url,
-                             Map<String, Object> headers, Map<String, Object> params) throws URISyntaxException {
-        URIBuilder ub = new URIBuilder(new URI(url));
+                             Map<String, Object> headers, Map<String, Object> urlParams){
 
-        ArrayList<NameValuePair> pairs = covertParams2NVPS(params);
-        ub.addParameters(pairs);
+        URI uri = buildURI(url,urlParams);
+        HttpGet httpGet = new HttpGet(uri);
+        addHttpHeader(httpGet,headers);
 
-        HttpGet httpGet = new HttpGet(ub.build());
-
-        for (Map.Entry<String, Object> param : headers.entrySet()) {
-            httpGet.addHeader(param.getKey(), String.valueOf(param.getValue()));
-        }
         return format2String(httpGet);
+    }
+
+    /**
+     * 附件下载
+     * @param url
+     * @param headers
+     * @param urlParams
+     * @return byte array containing the entity content. May be null if
+     *   {@link HttpEntity#getContent()} is null.
+     */
+    public static byte[] getAnnex(String url,
+                             Map<String, Object> headers, Map<String, Object> urlParams){
+        HttpGet httpGet = null;
+        URI uri = buildURI(url,urlParams);
+        httpGet = new HttpGet(uri);
+        addHttpHeader(httpGet,headers);
+        return format2Byte(httpGet);
+    }
+
+    private static URI buildURI(String url,Map<String,Object> urlParams){
+        URIBuilder ub = null;
+        try {
+            ub = new URIBuilder(new URI(url));
+            if(urlParams != null){
+                ArrayList<NameValuePair> pairs = covertParams2NVPS(urlParams);
+                ub.addParameters(pairs);
+            }
+            return ub.build();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void addHttpHeader(HttpRequestBase httpRequestBase,Map<String, Object> headers){
+        Optional.ofNullable(headers).orElse(Collections.EMPTY_MAP).forEach((k,v) -> {
+            httpRequestBase.addHeader((String) k, v == null?"":v.toString());
+        });
     }
 
     public static String post(String url) {
@@ -217,14 +257,14 @@ public class HttpUtil {
     /**
      * post->Content-Type:application/x-www-form-urlencoded
      * @param url
-     * @param params
+     * @param
      * @return
      * @throws UnsupportedEncodingException
      */
-    public static String post(String url, Map<String, Object> params)
+    public static String post(String url, Map<String, Object> bodyParams)
             throws UnsupportedEncodingException {
         HttpPost httpPost = new HttpPost(url);
-        ArrayList<NameValuePair> pairs = covertParams2NVPS(params);
+        ArrayList<NameValuePair> pairs = covertParams2NVPS(bodyParams);
         httpPost.setEntity(new UrlEncodedFormEntity(pairs, DEFAULT_CHAR_SET));
         return format2String(httpPost);
     }
@@ -233,12 +273,12 @@ public class HttpUtil {
      * post->Content-Type:application/x-www-form-urlencoded
      * @param url
      * @param headers
-     * @param params
+     * @param bodyParams
      * @return
      * @throws UnsupportedEncodingException
      */
     public static String post(String url,
-                              Map<String, Object> headers, Map<String, Object> params)
+                              Map<String, Object> headers, Map<String, Object> bodyParams)
             throws UnsupportedEncodingException {
         HttpPost httpPost = new HttpPost(url);
 
@@ -247,7 +287,7 @@ public class HttpUtil {
                     .addHeader(param.getKey(), String.valueOf(param.getValue()));
         }
 
-        ArrayList<NameValuePair> pairs = covertParams2NVPS(params);
+        ArrayList<NameValuePair> pairs = covertParams2NVPS(bodyParams);
         httpPost.setEntity(new UrlEncodedFormEntity(pairs, DEFAULT_CHAR_SET));
 
         return format2String(httpPost);
@@ -280,19 +320,19 @@ public class HttpUtil {
      * post:multipart/form-data
      * 支持文件上传
      * @param url
-     * @param params entity-body参数
+     * @param bodyParams entity-body参数
      * @param files 文件列表
      * @param headers
      * @return
      */
-    public static String postMultipart(String url, Map<String, Object> params, Map<String, File> files, Map<String, Object> headers){
+    public static String postMultipart(String url, Map<String, Object> bodyParams, Map<String, File> files, Map<String, Object> headers){
         MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create().setContentType(ContentType.MULTIPART_FORM_DATA.withCharset(Consts.UTF_8));
 
         Optional.ofNullable(files).orElse(Collections.EMPTY_MAP).forEach((k,v)->{
             multipartEntityBuilder.addBinaryBody((String)k,(File)v,ContentType.DEFAULT_BINARY,((File) v).getName());
         });
 
-        Optional.ofNullable(params).orElse(Collections.EMPTY_MAP).forEach((k,v) ->{
+        Optional.ofNullable(bodyParams).orElse(Collections.EMPTY_MAP).forEach((k,v) ->{
             multipartEntityBuilder.addTextBody((String)k,String.valueOf(v), ContentType.TEXT_PLAIN.withCharset(Consts.UTF_8));
         });
 
@@ -309,9 +349,12 @@ public class HttpUtil {
     private static ArrayList<NameValuePair> covertParams2NVPS(
             Map<String, Object> params) {
         ArrayList<NameValuePair> pairs = new ArrayList<NameValuePair>();
-        for (Map.Entry<String, Object> param : params.entrySet()) {
-            pairs.add(new BasicNameValuePair(param.getKey(), String
-                    .valueOf(param.getValue())));
+
+        if(params != null){
+            for (Map.Entry<String, Object> param : params.entrySet()) {
+                pairs.add(new BasicNameValuePair(param.getKey(), String
+                        .valueOf(param.getValue())));
+            }
         }
 
         return pairs;
@@ -358,13 +401,38 @@ public class HttpUtil {
             }
 
         } catch (IOException e) {
-            System.out.println(e);
+            throw new RuntimeException(e);
         } finally {
             close(response);
         }
         return result;
     }
 
+    /**
+     * 以String类型获取reposne内容
+     *
+     * @param request
+     * @return String
+     */
+    private static byte[] format2Byte(HttpRequestBase request) {
+        byte[] result = null;
+        CloseableHttpResponse response = null;
+        try {
+            response = httpClient.execute(request);
+            HttpEntity entity = response.getEntity();
+
+            if (entity != null) {
+                result = EntityUtils.toByteArray(entity);
+                EntityUtils.consume(entity);
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(response);
+        }
+        return result;
+    }
 
     /**
      * 尝试关闭response
@@ -380,7 +448,7 @@ public class HttpUtil {
             EntityUtils.consume(resp.getEntity());//会自动释放连接
             resp.close();
         } catch (IOException e) {
-            logger.error("aa", e);
+            throw new RuntimeException(e);
         }
     }
 

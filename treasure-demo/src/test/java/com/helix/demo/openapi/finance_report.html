@@ -380,7 +380,13 @@
     </table>
 
     <h4>开票频次十大企业</h4>
-    <span>2018年交易对手总数6家；2017年交易对手总数9家；</span>
+    <span>
+            <#if (data.sales.topCorpByCount)??>
+                <#list data.sales.topCorpByCount as tmpTopCorpByCount>
+                    ${(tmpTopCorpByCount.year)}年交易对手总数${(tmpTopCorpByCount.count)}家；
+                </#list>
+    </#if>
+    </span>
     <table>
         <tr>
             <td>统计年月</td>
@@ -409,7 +415,14 @@
     </table>
 
     <h4>开票金额十大企业</h4>
-    <span>2018年交易对手总数6家；2017年交易对手总数9家；</span>
+    <span>
+        <#if (data.sales.topCorpByAmount)??>
+            <#list data.sales.topCorpByAmount as tmpTopCorpByAmount>
+                ${(tmpTopCorpByAmount.year)}年交易对手总数${(tmpTopCorpByAmount.count)}家；
+            </#list>
+        </#if>
+    </span>
+
     <table>
         <tr>
             <td>统计年月</td>

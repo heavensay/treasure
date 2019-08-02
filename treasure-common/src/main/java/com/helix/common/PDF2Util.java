@@ -43,6 +43,29 @@ public class PDF2Util {
     }
 
     /**
+     * html转pdf，note：os关闭由传入方控制
+     * 传输内容
+     * @param htmlContent html内容
+     * @param os pdf输出流
+     * @throws Exception
+     */
+    public static void htmlContentToPdf(String htmlContent, OutputStream os){
+        Document document = new Document(PageSize.LETTER);
+
+        PdfWriter pdfWriter = null;
+        try(ByteArrayInputStream bais = new ByteArrayInputStream(htmlContent.getBytes("utf-8"));) {
+            pdfWriter = PdfWriter.getInstance(document, os);
+            document.open();
+            InputStream inCssFile = null;
+            worker.parseXHtml(pdfWriter, document,bais, inCssFile,
+                    Charset.forName("UTF-8"), xmlWorkerFontProvider);
+            document.close();
+        } catch (DocumentException | IOException e) {
+            throw new RuntimeException("html转pdf错误",e);
+        }
+    }
+
+    /**
      * 添加字体
      * @param frontPath 字体路径
      */

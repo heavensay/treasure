@@ -107,4 +107,12 @@ public class HttpUtilTest {
 		String result = HttpUtil.postMultipart(httpUrl,null,null,null);
 		System.out.println(result);
 	}
+
+	@Test
+	public void getAnnex()throws Exception{
+		byte[] result = HttpUtil.getAnnex("https://statics.lianlianloan.com/system/documents/path/yunkuai/develop/company/e414e64a-e835-44e9-bd35-d9282ef00827.jpg",null,null);
+		FileOutputStream file = new FileOutputStream("D:/fff.jpg");
+		file.write(result);
+		file.close();
+	}
 }
