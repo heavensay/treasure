@@ -13,12 +13,11 @@ import java.nio.charset.Charset;
 
 /**
  * pdf工具类，支持html转pdf，使用itextpdf，xmlworker
- * 大部分windows系统自带宋体，可直接支持中文；linux可以系统安装字体，或者直接{@link #createFront(String)}加载字体来支持
+ * 大部分windows系统自带宋体，可直接支持中文；linux可以系统安装字体，或者直接{@link FontConfig#createFront(String)}加载字体来支持
  */
 public class PDF2Util {
 
     private static XMLWorkerHelper worker = XMLWorkerHelper.getInstance();
-    private static XMLWorkerFontProvider xmlWorkerFontProvider = new XMLWorkerFontProvider();
 
     /**
      * html转pdf
@@ -35,7 +34,7 @@ public class PDF2Util {
             FileInputStream fis = new FileInputStream(new File(htmlPath));
             InputStream inCssFile = null;
             worker.parseXHtml(pdfWriter, document,fis, inCssFile,
-                    Charset.forName("UTF-8"), xmlWorkerFontProvider);
+                    Charset.forName("UTF-8"), FontConfig.getXmlWorkerFontProvider());
             document.close();
         } catch (DocumentException | IOException e) {
             throw new RuntimeException("html转pdf错误",e);
@@ -58,7 +57,7 @@ public class PDF2Util {
             document.open();
             InputStream inCssFile = null;
             worker.parseXHtml(pdfWriter, document,bais, inCssFile,
-                    Charset.forName("UTF-8"), xmlWorkerFontProvider);
+                    Charset.forName("UTF-8"), FontConfig.getXmlWorkerFontProvider());
             document.close();
         } catch (DocumentException | IOException e) {
             throw new RuntimeException("html转pdf错误",e);
@@ -66,24 +65,31 @@ public class PDF2Util {
     }
 
     /**
-     * 添加字体
-     * @param frontPath 字体路径
-     */
-    public static void createFront(String frontPath){
-        xmlWorkerFontProvider.getFont(frontPath);
-    }
-
-    /**
      * 字体设置
      */
-    public static class FrontConfig{
+    public static class FontConfig {
+
+        private static XMLWorkerFontProvider xmlWorkerFontProvider = new XMLWorkerFontProvider();
+
         /**
          * 添加字体
          * 添加一次既可
-         * @param frontPath 字体路径
+         * @param fontPath 字体路径
          */
-        public static void createFront(String frontPath){
-            xmlWorkerFontProvider.getFont(frontPath);
+        public static void createFront(String fontPath){
+            xmlWorkerFontProvider.getFont(fontPath);
+        }
+
+        public static void register(String fontPath){
+            xmlWorkerFontProvider.register(fontPath);
+        }
+
+        public static int registerDirectory(String dir){
+            return xmlWorkerFontProvider.registerDirectory(dir);
+        }
+
+        public static XMLWorkerFontProvider getXmlWorkerFontProvider(){
+            return xmlWorkerFontProvider;
         }
     }
 }

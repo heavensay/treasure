@@ -1,5 +1,6 @@
 package com.helix.common;
 
+import com.helix.common.freemarker.FreemarkerUtil;
 import com.itextpdf.text.*;
 import com.itextpdf.text.html.simpleparser.HTMLWorker;
 import com.itextpdf.text.pdf.BaseFont;
@@ -26,8 +27,28 @@ public class PDF2UtilTest {
     }
 
     @Test
+    public void ftl2Pdf() throws Exception{
+        FreemarkerUtil.Conifg.setTemplateDirPath("/Users/liyu/Desktop/work/upgrade/bwtd-20190919");
+        Writer writer = new StringWriter();
+        FreemarkerUtil.processTemplateFile("lease-agreement-bside.html",null,writer);
+
+        File file = new File("/Users/liyu/Desktop/work/upgrade/bwtd-20190919/agreement.html");
+        if(!file.exists()){
+            file.createNewFile();
+        }
+
+        FileWriter fileWriter = new FileWriter(file);
+        fileWriter.write(writer.toString());
+        fileWriter.close();
+
+        PDF2Util.FontConfig.register("/Users/liyu/Desktop/work/upgrade/bwtd-20190919/simsun.ttc");
+        PDF2Util.html2Pdf("/Users/liyu/Desktop/work/upgrade/bwtd-20190919/agreement.html",
+                "/Users/liyu/Desktop/work/upgrade/bwtd-20190919/agreement.pdf");
+    }
+
+    @Test
     public void html2PdfCustomFront() throws Exception{
-        PDF2Util.FrontConfig.createFront("D:/造字工房韵黑体.ttf");
+        PDF2Util.FontConfig.createFront("D:/造字工房韵黑体.ttf");
         String htmlAbsolutePath = this.getClass().getClassLoader().getResource("com/helix/common/simple.html").getPath();
         PDF2Util.html2Pdf(htmlAbsolutePath,"D:/cdcd.pdf");
         PDF2Util.html2Pdf(htmlAbsolutePath,"D:/cdcd2.pdf");
