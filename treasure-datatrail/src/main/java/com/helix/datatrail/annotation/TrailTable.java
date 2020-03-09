@@ -14,12 +14,6 @@ import java.lang.annotation.Target;
 public @interface TrailTable {
 
     /**
-     * 原始表名
-     * @return
-     */
-    String objectTableName() default "";
-
-    /**
      * 快照表名(数据历史表)
      * @return
      */
@@ -30,16 +24,4 @@ public @interface TrailTable {
      * @return
      */
     String objectIdName() default "id";
-
-    /**
-     * 搜索使用的对象名称
-     * @return
-     */
-    String searchObjectName() default "";
-
-    /**
-     * 搜索使用的对象主键名称
-     * @return
-     */
-    String searchObjectIdName() default "id";
 }

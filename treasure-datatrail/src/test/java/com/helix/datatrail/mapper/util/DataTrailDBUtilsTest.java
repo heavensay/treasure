@@ -13,14 +13,8 @@ import java.util.Date;
 public class DataTrailDBUtilsTest {
 
     @Test
-    public void queryHistoryDataTrail() {
-        User user = DataTrailDBUtils.queryLastHistoryDataTrailByMapperXML(1L,null,new Date(), User.class);
-        Assert.assertNotNull(user);
-    }
-
-    @Test
     public void queryHistoryDataTrail2q() {
-        User user = DataTrailDBUtils.querySnapshotByTime("t_ops_history",1L,null,new Date(), User.class);
+        User user = DataTrailDBUtils.queryNewestSnapshotByTime( User.class,1L,new Date());
         Assert.assertNotNull(user);
     }
 }

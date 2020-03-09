@@ -8,7 +8,7 @@ import java.util.Date;
  * @author lijianyu
  * @date 2018/12/29 16:49
  */
-@TrailTable(objectTableName = "user", snapshotTableName = "t_ops_history", objectIdName = "id")
+@TrailTable(snapshotTableName = "ops_history", objectIdName = "id")
 public class User {
 
     private Long id;

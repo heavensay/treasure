@@ -10,13 +10,13 @@
 
     <select id="getUserById" resultMap="UserMap">
         select id,name,age,create_date
-        from t_user
+        from user
         WHERE
         id = #{id}
     </select>
 
     <insert id="createUser" parameterType="com.helix.datatrail.entity.User" useGeneratedKeys="true" keyProperty="id" >
-        INSERT INTO t_user(name,age,create_date)
+        INSERT INTO user(name,age,create_date)
           values(#{name},#{age},#{createDate})
     </insert>
 

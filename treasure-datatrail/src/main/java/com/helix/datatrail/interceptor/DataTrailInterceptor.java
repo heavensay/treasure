@@ -62,7 +62,6 @@ public class DataTrailInterceptor implements Interceptor {
 
     private void queryBeforeUpdateData(Class classType,Object entity) throws InvocationTargetException, IllegalAccessException {
         TrailTable trailTable = getTrailTable();
-        String objectTableName = trailTable.objectTableName();
 
         String objectIdName = trailTable.objectIdName();
         String opsObjectIdMethod = "get"+toFirstUpperCase(objectIdName);
@@ -81,10 +80,7 @@ public class DataTrailInterceptor implements Interceptor {
     private void createDataTrial(Class<?> classType, Object entity, OpsEventTypeEnum opsEventType) throws Throwable{
         TrailTable trailTable = classType.getAnnotation(TrailTable.class);
         String snapshotTableName = trailTable.snapshotTableName();
-        String objectTableName = trailTable.objectTableName();
         String objectIdName = trailTable.objectIdName();
-        String searchObjectName = trailTable.searchObjectName();
-        String searchObjectIdName = trailTable.searchObjectIdName();
 
         String opsObjectName = entity.getClass().getSimpleName();
 
@@ -92,9 +88,6 @@ public class DataTrailInterceptor implements Interceptor {
         Long opsSearchId = null;
         if(objectIdName != null && !"".equals(objectIdName)){
             opsObjectId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(objectIdName)).invoke(entity,null);
-        }
-        if(searchObjectIdName != null && !"".equals(searchObjectIdName)){
-            opsSearchId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(searchObjectIdName)).invoke(entity,null);
         }
         if(opsObjectId == null && opsSearchId == null){
             throw new DataTrailException("opsObjectId，opsSearchId不能同时为空");
@@ -107,13 +100,11 @@ public class DataTrailInterceptor implements Interceptor {
         dataTrailEntity.setOpsObjectContent(opsObjectContent);
         dataTrailEntity.setOpsObjectId(opsObjectId);
         dataTrailEntity.setOpsObjectName(opsObjectName);
-        dataTrailEntity.setOpsSearchObjectId(opsSearchId);
-        dataTrailEntity.setOpsSearchObjectName(null);
         dataTrailEntity.setOpsTime(new Date());
         dataTrailEntity.setOpsEvent(opsEventType.getCode());
 
         DataTrailMapper opsHistoryMapper = ThreadLocalSqlSession.get().getMapper(DataTrailMapper.class);
-        opsHistoryMapper.insert(dataTrailEntity);
+        opsHistoryMapper.insert(dataTrailEntity,snapshotTableName);
     }
 
     @Override

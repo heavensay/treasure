@@ -21,9 +21,7 @@ public class UserTest {
     @Test
     public void getUserById(){
         SqlSession sqlSession = MybatisUtil.getSqlSession();
-//        Mapper test = sqlSession.getMapper(Mapper.class);
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-//        System.out.println(test.countByExample(new Example()));
         User user = userMapper.getUserById(1L);
         MybatisUtil.closeSession(sqlSession);
     }
@@ -48,14 +46,8 @@ public class UserTest {
     }
 
     @Test
-    public void queryHistoryDataTrail() {
-        User user = DataTrailDBUtils.queryLastHistoryDataTrailByMapperXML(1L,null,new Date(), User.class);
-        Assert.assertNotNull(user);
-    }
-
-    @Test
-    public void queryHistoryDataTrail2q() {
-        User user = DataTrailDBUtils.querySnapshotByTime("t_ops_history",1L,null,new Date(), User.class);
+    public void queryNewestSnapshotByTime() {
+        User user = DataTrailDBUtils.queryNewestSnapshotByTime(User.class,3L,new Date());
         Assert.assertNotNull(user);
     }
 

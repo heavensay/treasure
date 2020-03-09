@@ -20,10 +20,6 @@ public class DataTrailEntity {
 
     private String opsObjectContent;
 
-    private String opsSearchObjectName;
-
-    private Long opsSearchObjectId;
-
     public Long getId() {
         return id;
     }
@@ -70,21 +66,5 @@ public class DataTrailEntity {
 
     public void setOpsObjectContent(String opsObjectContent) {
         this.opsObjectContent = opsObjectContent;
-    }
-
-    public String getOpsSearchObjectName() {
-        return opsSearchObjectName;
-    }
-
-    public void setOpsSearchObjectName(String opsSearchObjectName) {
-        this.opsSearchObjectName = opsSearchObjectName;
-    }
-
-    public Long getOpsSearchObjectId() {
-        return opsSearchObjectId;
-    }
-
-    public void setOpsSearchObjectId(Long opsSearchObjectId) {
-        this.opsSearchObjectId = opsSearchObjectId;
     }
 }

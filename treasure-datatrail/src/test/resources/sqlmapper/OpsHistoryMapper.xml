@@ -11,7 +11,7 @@
 
     <select id="getOpsHistoryById" resultMap="OpsHistoryMap">
         select id,ops_time,ops_object_name,ops_object_id,ops_object_content
-        from t_ops_history
+        from ops_history
         WHERE
         <trim prefixOverrides="and">
             <if test="opsObjectId != null">
@@ -27,7 +27,7 @@
     </select>
 
     <insert id="createOpsHistory" parameterType="com.helix.datatrail.entity.DataTrailEntity" useGeneratedKeys="true" keyProperty="id" >
-        INSERT INTO t_ops_history(ops_time,ops_object_name,ops_object_id,ops_object_content)
+        INSERT INTO ops_history(ops_time,ops_object_name,ops_object_id,ops_object_content)
           values(#{opsTime},#{opsObjectName},#{opsObjectId},#{opsObjectContent})
     </insert>
 

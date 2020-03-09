@@ -40,9 +40,6 @@ public class DataTrailSqlBuilder {
                 if (params.get("opsObjectId") != null) {
                     WHERE("ops_object_id = #{opsObjectId}");
                     AND().WHERE("ops_object_name = #{opsObjectName}");
-                } else {
-                    WHERE("ops_search_id = #{opsSearchId}");
-                    AND().WHERE("ops_search_object_name = #{opsSearchObjectName}");
                 }
                 AND().WHERE("ops_time <=#{opsTime}");
                 ORDER_BY(" ops_time desc ");
