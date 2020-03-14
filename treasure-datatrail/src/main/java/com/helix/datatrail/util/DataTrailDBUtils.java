@@ -1,4 +1,4 @@
-package com.helix.datatrail.mapper.util;
+package com.helix.datatrail.util;
 
 import com.alibaba.fastjson.JSON;
 import com.helix.datatrail.annotation.TrailTable;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  */
 public class DataTrailDBUtils {
 
-    Logger logger = LoggerFactory.getLogger(DataTrailDBUtils.class);
+    private static Logger logger = LoggerFactory.getLogger(DataTrailDBUtils.class);
 
     /**
      * 获取opsDate之前最新的一条记录
@@ -82,7 +82,7 @@ public class DataTrailDBUtils {
      * @return
      */
     public static List<String> listJsonSnapshotByTime(Class<?> objectType,Long opsObjectId, Date opsDate){
-        DataTrailMapper trailMapper = MybatisUtil.getSqlSession().getMapper(DataTrailMapper.class);
+        DataTrailMapper trailMapper = DataTrailSqlSessionManager.obtainSqlSession().getMapper(DataTrailMapper.class);
 
         String tableName = objectType.getSimpleName();
         String opsObjectName = objectType.getSimpleName();

@@ -1,4 +1,4 @@
-package com.helix.datatrail.mapper.util;
+package com.helix.datatrail.util;
 
 import com.helix.datatrail.entity.User;
 import org.junit.Assert;

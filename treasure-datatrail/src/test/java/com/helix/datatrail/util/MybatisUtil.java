@@ -1,4 +1,4 @@
-package com.helix.datatrail.mapper.util;
+package com.helix.datatrail.util;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -56,4 +56,5 @@ public class MybatisUtil {
     public static void closeSession(SqlSession session) {
         session.close();
     }
+
 }

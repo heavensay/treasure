@@ -1,4 +1,4 @@
-package com.helix.datatrail.mapper.util;
+package com.helix.datatrail.util;
 
 
 abstract public class SqlBuilderUtils

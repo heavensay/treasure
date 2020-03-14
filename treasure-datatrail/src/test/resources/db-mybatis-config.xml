@@ -3,15 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <!-- 引用db.properties配置文件 -->
-    <properties resource="db.properties"/>
-
     <settings>
         <setting name="logImpl" value="SLF4J"/>
     </settings>
 
     <typeAliases>
-        <typeAlias type="com.helix.datatrail.mapper.util.DruidDataSourceFactory" alias="DRUID"/>
+        <typeAlias type="com.helix.datatrail.util.DruidDataSourceFactory" alias="DRUID"/>
     </typeAliases>
     
     <!-- 配置分页插件 -->
@@ -30,10 +27,10 @@
             <!-- 配置数据库连接信息 -->
             <dataSource type="DRUID">
                 <!-- value属性值引用db.properties配置文件中配置的值 -->
-                <property name="driverClassName" value="${db.driver}"/>
-                <property name="url" value="${db.url}"/>
-                <property name="username" value="${db.username}"/>
-                <property name="password" value="${db.password}"/>
+                <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/diy?serverTimezone=Asia/Shanghai"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
                 <property name="validationQuery" value="select now()" />
                 <property name="testWhileIdle" value="true" />
                 <property name="testOnBorrow" value="false" />
@@ -45,7 +42,5 @@
     <!-- mybatis的mapper文件，每个xml配置文件对应一个接口 -->
     <mappers>
         <mapper resource="sqlmapper/UserMapper.xml"/>
-        <mapper resource="sqlmapper/OpsHistoryMapper.xml"/>
-        <mapper class="com.helix.datatrail.mapper.DataTrailMapper"/>
     </mappers>
 </configuration>

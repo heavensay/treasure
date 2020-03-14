@@ -6,10 +6,6 @@ package com.helix.datatrail.exception;
  */
 public class DataTrailException extends RuntimeException{
 
-//    public DataTrailException(){
-//        super();
-//    }
-
     public DataTrailException(String message) {
         super(message);
     }

@@ -21,11 +21,13 @@
    ops_object_name      varchar(30)  comment '操作业务表',
    ops_object_id        bigint(10)  comment '操作业务表id',
    ops_object_content   varchar(3000)  comment '操作业务数据内容',
-   ops_search_object_name varchar(30)  comment '搜索业务表',
-   ops_search_object_id bigint(10)  comment '搜索主键id',
 ```
 
 ###遗留问题
-批量增删数据的，历史流水不能保存；
+批量增删数据的，历史流水不能保存；可以考虑批量操作的时候查询出所有数据，在更新到日志表中；
 表名可以配置，但是历史流水表的字段是固定的，不能变更；
+
+###使用说明
+支持springboot，
+需要项目已经支持mybatis，
 

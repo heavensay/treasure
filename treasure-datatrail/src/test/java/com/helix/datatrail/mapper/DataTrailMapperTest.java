@@ -1,14 +1,11 @@
 package com.helix.datatrail.mapper;
 
 import com.alibaba.fastjson.JSON;
-import com.helix.datatrail.entity.User;
-import com.helix.datatrail.mapper.util.MybatisUtil;
+import com.helix.datatrail.util.MybatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 /**
  * @author lijianyu

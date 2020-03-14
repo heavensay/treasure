@@ -7,7 +7,7 @@ import com.helix.datatrail.annotation.TrailTable;
 import com.helix.datatrail.entity.DataTrailEntity;
 import com.helix.datatrail.exception.DataTrailException;
 import com.helix.datatrail.mapper.DataTrailMapper;
-import com.helix.datatrail.mapper.util.ThreadLocalSqlSession;
+import com.helix.datatrail.util.DataTrailSqlSessionManager;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ParameterMap;
@@ -31,32 +31,33 @@ public class DataTrailInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        System.out.println("===========进入拦截器");
-
         MappedStatement ms = (MappedStatement) invocation.getArgs()[0];
         ParameterMap parameterMap = ms.getParameterMap();
 
         Object result = invocation.proceed();
 
-        OpsEventTypeEnum opsEventType = OpsEventTypeEnum.UNKNOWN;
-        switch (ms.getSqlCommandType()){
-            case INSERT:
-                opsEventType = OpsEventTypeEnum.INSERT;
-                break;
-            case UPDATE:
-                opsEventType = OpsEventTypeEnum.UPDATE;
-                break;
-            case DELETE:
-                opsEventType = OpsEventTypeEnum.DELETE;
-                break;
-            default:
-                opsEventType = OpsEventTypeEnum.UNKNOWN;
+        if (result != null && result instanceof Integer && (Integer)result>0) {
+            if (needRecord(parameterMap.getType())) {
+                logger.debug("开始记录快照数据");
+                OpsEventTypeEnum opsEventType = OpsEventTypeEnum.UNKNOWN;
+                switch (ms.getSqlCommandType()){
+                    case INSERT:
+                        opsEventType = OpsEventTypeEnum.INSERT;
+                        break;
+                    case UPDATE:
+                        opsEventType = OpsEventTypeEnum.UPDATE;
+                        break;
+                    case DELETE:
+                        opsEventType = OpsEventTypeEnum.DELETE;
+                        break;
+                    default:
+                        opsEventType = OpsEventTypeEnum.UNKNOWN;
+                }
+                createDataTrial(parameterMap.getType(),invocation.getArgs()[1], opsEventType);
+            }
+        }else{
+            logger.warn("result:{} unknown,不能记录快照数据",result);
         }
-
-        if (needRecord(parameterMap.getType())) {
-            createDataTrial(parameterMap.getType(),invocation.getArgs()[1], opsEventType);
-        }
-
         return result;
     }
 
@@ -101,9 +102,14 @@ public class DataTrailInterceptor implements Interceptor {
         dataTrailEntity.setOpsObjectId(opsObjectId);
         dataTrailEntity.setOpsObjectName(opsObjectName);
         dataTrailEntity.setOpsTime(new Date());
+//        dataTrailEntity.setOpsEvent(opsEventType.getCode()+"ddddddppppppppccccccccjjjjjjjjjkkkkkkkk");
         dataTrailEntity.setOpsEvent(opsEventType.getCode());
 
-        DataTrailMapper opsHistoryMapper = ThreadLocalSqlSession.get().getMapper(DataTrailMapper.class);
+
+        //事务由外面逻辑来决定提交或回滚
+
+        //事务都由项目来统一提交或回滚；
+        DataTrailMapper opsHistoryMapper = DataTrailSqlSessionManager.obtainSqlSession().getMapper(DataTrailMapper.class);
         opsHistoryMapper.insert(dataTrailEntity,snapshotTableName);
     }
 

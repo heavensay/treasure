@@ -1,4 +1,4 @@
-package com.helix.datatrail.mapper;
+package com.helix.datatrail.mapper.user;
 
 import com.helix.datatrail.entity.User;
 import org.apache.ibatis.annotations.Param;

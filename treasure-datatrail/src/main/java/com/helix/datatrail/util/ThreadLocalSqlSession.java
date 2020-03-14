@@ -1,8 +1,9 @@
-package com.helix.datatrail.mapper.util;
+package com.helix.datatrail.util;
 
 import org.apache.ibatis.session.SqlSession;
 
 /**
+ *
  * @author lijianyu
  * @date 2019/1/2 17:50
  */

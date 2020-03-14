@@ -1,10 +1,10 @@
 package com.helix.datatrail.user;
 
 import com.helix.datatrail.entity.User;
-import com.helix.datatrail.mapper.UserMapper;
-import com.helix.datatrail.mapper.util.DataTrailDBUtils;
-import com.helix.datatrail.mapper.util.MybatisUtil;
-import com.helix.datatrail.mapper.util.ThreadLocalSqlSession;
+import com.helix.datatrail.mapper.user.UserMapper;
+import com.helix.datatrail.util.DataTrailDBUtils;
+import com.helix.datatrail.util.MybatisUtil;
+import com.helix.datatrail.util.ThreadLocalSqlSession;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
