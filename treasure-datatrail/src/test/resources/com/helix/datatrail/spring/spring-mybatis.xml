@@ -34,5 +34,5 @@
         <property name="basePackage" value="com.helix.datatrail.mapper.user"/>
     </bean>
 
-    <bean class="com.helix.datatrail.spring.SpringDatabaseSource"></bean>
+    <bean class="com.helix.datatrail.spring.SpringMybatisContextHolder"></bean>
 </beans>

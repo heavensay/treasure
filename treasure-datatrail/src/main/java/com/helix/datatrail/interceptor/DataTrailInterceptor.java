@@ -12,6 +12,7 @@ import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ParameterMap;
 import org.apache.ibatis.plugin.*;
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +37,7 @@ public class DataTrailInterceptor implements Interceptor {
 
         Object result = invocation.proceed();
 
+        //更新成功之后才进行快照数据记录
         if (result != null && result instanceof Integer && (Integer)result>0) {
             if (needRecord(parameterMap.getType())) {
                 logger.debug("开始记录快照数据");
@@ -86,11 +88,10 @@ public class DataTrailInterceptor implements Interceptor {
         String opsObjectName = entity.getClass().getSimpleName();
 
         Long opsObjectId = null;
-        Long opsSearchId = null;
         if(objectIdName != null && !"".equals(objectIdName)){
             opsObjectId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(objectIdName)).invoke(entity,null);
         }
-        if(opsObjectId == null && opsSearchId == null){
+        if(opsObjectId == null){
             throw new DataTrailException("opsObjectId，opsSearchId不能同时为空");
         }
 
@@ -109,7 +110,9 @@ public class DataTrailInterceptor implements Interceptor {
         //事务由外面逻辑来决定提交或回滚
 
         //事务都由项目来统一提交或回滚；
-        DataTrailMapper opsHistoryMapper = DataTrailSqlSessionManager.obtainSqlSession().getMapper(DataTrailMapper.class);
+        SqlSession sqlSession = DataTrailSqlSessionManager.obtainSqlSession();
+        logger.debug("DataTrail connection of SqlSession aucoCommit:{},isReadOnly:{}",sqlSession.getConnection().getAutoCommit(),sqlSession.getConnection().isReadOnly());
+        DataTrailMapper opsHistoryMapper = sqlSession.getMapper(DataTrailMapper.class);
         opsHistoryMapper.insert(dataTrailEntity,snapshotTableName);
     }
 

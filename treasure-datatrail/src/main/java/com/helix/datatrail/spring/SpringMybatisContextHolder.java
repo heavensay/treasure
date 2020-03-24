@@ -5,7 +5,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-public class SpringDatabaseSource implements ApplicationContextAware {
+/**
+ * 持有spring环境；
+ */
+public class SpringMybatisContextHolder implements ApplicationContextAware {
 
     private static ApplicationContext context = null;
 

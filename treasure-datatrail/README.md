@@ -28,6 +28,38 @@
 表名可以配置，但是历史流水表的字段是固定的，不能变更；
 
 ###使用说明
+项目要支持mybatis
+
 支持springboot，
 需要项目已经支持mybatis，
+####1没有spring环境，使用datatrail组件
+1在业务数据更新前，设置DataTrail组件所需的SqlSession:ThreadLocalSqlSession.put(sqlSession);
+
+2在业务数据更新后，释放线程关联的SqlSession:ThreadLocalSqlSession.clear();
+
+~~~
+try {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    //1在业务数据更新前，设置DataTrail组件所需的SqlSession
+    ThreadLocalSqlSession.put(sqlSession);
+    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+    User user = new User();
+    int result = mapper.createUser(user);
+    sqlSession.commit();
+}finally {
+    //2在业务数据更新后，释放线程关联的SqlSession
+    ThreadLocalSqlSession.clear();
+}
+~~~
+通常来说，更新操作的流程中，事务是手动提交的；以保证业务更新和快照数据的插入同时生效或回滚
+
+####Spring环境下，使用datatrail组件
+需要把spring context注入到datatrail组件中，引入如下配置即可；
+~~~
+    <bean class="com.helix.datatrail.spring.SpringMybatisContextHolder"></bean>    
+~~~
+
+####SpringBoot环境下，使用datatrail组件
+
+
 

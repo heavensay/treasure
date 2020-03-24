@@ -12,13 +12,13 @@
     </typeAliases>
     
     <!-- 配置分页插件 -->
-    <plugins>
-        <!--<plugin interceptor="com.github.pagehelper.PageHelper">-->
-            <!--&lt;!&ndash; 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库 &ndash;&gt;-->
-            <!--<property name="dialect" value="mysql"/>-->
-        <!--</plugin>-->
-        <plugin interceptor="com.helix.datatrail.interceptor.DataTrailInterceptor"></plugin>
-    </plugins>
+<!--    <plugins>-->
+<!--        &lt;!&ndash;<plugin interceptor="com.github.pagehelper.PageHelper">&ndash;&gt;-->
+<!--            &lt;!&ndash;&lt;!&ndash; 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库 &ndash;&gt;&ndash;&gt;-->
+<!--            &lt;!&ndash;<property name="dialect" value="mysql"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;</plugin>&ndash;&gt;-->
+<!--        <plugin interceptor="com.helix.datatrail.interceptor.DataTrailInterceptor"></plugin>-->
+<!--    </plugins>-->
 
     <!-- development : 开发模式 work : 工作模式 -->
     <environments default="development">

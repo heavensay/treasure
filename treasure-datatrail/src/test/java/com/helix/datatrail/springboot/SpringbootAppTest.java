@@ -1,4 +1,4 @@
-package com.helix.datatrail.spring;
+package com.helix.datatrail.springboot;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

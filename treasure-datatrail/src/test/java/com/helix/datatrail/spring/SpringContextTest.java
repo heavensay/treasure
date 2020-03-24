@@ -20,14 +20,6 @@ import java.util.Random;
  */
 public class SpringContextTest {
 
-    @Test
-    public void getUserById(){
-        ApplicationContext context = new ClassPathXmlApplicationContext("com/helix/datatrail/spring/spring-mybatis.xml");
-        UserMapper mapper = context.getBean(UserMapper.class);
-        User user = mapper.getUserById(3L);
-        Assert.assertNotNull(user);
-    }
-
     /**
      * 创建用户，生成快照数据；
      * 事务各管各的
@@ -46,43 +38,14 @@ public class SpringContextTest {
     }
 
     /**
-     * 同一事务中测试
-     * @throws Exception
+     * 查询用户信息
      */
     @Test
-    public void readTwice() throws Exception{
-
+    public void getUserById(){
         ApplicationContext context = new ClassPathXmlApplicationContext("com/helix/datatrail/spring/spring-mybatis.xml");
         UserMapper mapper = context.getBean(UserMapper.class);
-
-        //1.获取事务控制管理器
-        DataSourceTransactionManager txManager = context.getBean(DataSourceTransactionManager.class);
-//        //2.获取事务定义
-//        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-//        //3.设置事务隔离级别，开启新事务
-//        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_SUPPORTS);
-//        //4.获得事务状态
-//        TransactionStatus transactionStatus = txManager.getTransaction(def);
-
-        txManager.getDataSource().getConnection().setAutoCommit(true);
-
-        try{
-            System.out.println("第1次读开始");
-            mapper.getUserById(1L);
-            System.out.println("第1次读结束");
-
-            System.out.println("第2次读开始");
-            mapper.getUserById(1L);
-            System.out.println("第2次读开始");
-        }catch(Exception ex){
-            System.out.println("exception==============");
-            ex.printStackTrace();
-//            System.out.println(ex);
-//            txManager.commit(transactionStatus);
-//            txManager.rollback(transactionStatus);
-        }finally {
-
-        }
+        User user = mapper.getUserById(3L);
+        Assert.assertNotNull(user);
     }
 
     /**

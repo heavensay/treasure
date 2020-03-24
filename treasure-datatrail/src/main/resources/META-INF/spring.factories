@@ -1,0 +1,2 @@
+# 如果有多个XxxxxAutoConfiguration，用逗号分隔
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.helix.datatrail.springboot.autoconfigure.DataTrailAutoConfiguration
