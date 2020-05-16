@@ -38,6 +38,8 @@ public interface DataTrailMapper {
             @Result(column = "ops_object_name",property = "opsObjectName"),
             @Result(column = "ops_object_id",property = "opsObjectId"),
             @Result(column = "ops_object_content",property = "opsObjectContent"),
+            @Result(column = "create_time",property = "createTime"),
+            @Result(column = "modify_time",property = "modifyTime")
     })
     List<DataTrailEntity> getOpsHistoryById(@Param("tableName")String tableName,@Param("opsObjectName")String opsObjectName,@Param("opsObjectId")Long opsObjectId, @Param("opsTime")Date opsTime);
 
@@ -47,8 +49,8 @@ public interface DataTrailMapper {
      * @param snapshotTableName
      * @return
      */
-    @Insert(" INSERT INTO ${snapshotTableName}(ops_time,ops_event,ops_object_name,ops_object_id,ops_object_content) "
-            + "  values(#{trailEntity.opsTime},#{trailEntity.opsEvent},#{trailEntity.opsObjectName},#{trailEntity.opsObjectId},#{trailEntity.opsObjectContent})")
+    @Insert(" INSERT INTO ${snapshotTableName}(ops_time,ops_event,ops_object_name,ops_object_id,ops_object_content,create_time,modify_time) "
+            + "  values(#{trailEntity.opsTime},#{trailEntity.opsEvent},#{trailEntity.opsObjectName},#{trailEntity.opsObjectId},#{trailEntity.opsObjectContent},#{trailEntity.createTime},#{trailEntity.modifyTime})")
     @Options(useGeneratedKeys=true, keyProperty="id")
     int insert(@Param("trailEntity")DataTrailEntity trailEntity,@Param("snapshotTableName")String snapshotTableName);
 }

@@ -1,5 +1,8 @@
 package com.helix.datatrail.springboot;
 
+import com.helix.datatrail.entity.User;
+import com.helix.datatrail.util.DataTrailDBUtils;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +14,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -30,5 +35,12 @@ public class SpringbootAppTest {
 
         mockMvc = defaultMockMvcBuilder.build();
         mockMvc.perform(post("/createUser")).andExpect(status().isOk()).andDo(print());
+    }
+
+    @Test
+    public void query() throws Exception {
+        User user = DataTrailDBUtils.queryNewestSnapshotByTime(User.class, 3L,new Date());
+
+        Assert.assertNotNull(user);
     }
 }

@@ -1,5 +1,6 @@
 package com.helix.datatrail.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -19,6 +20,10 @@ public class DataTrailEntity {
     private Long opsObjectId;
 
     private String opsObjectContent;
+
+    private Date createTime;
+
+    private Date modifyTime;
 
     public Long getId() {
         return id;
@@ -62,6 +67,22 @@ public class DataTrailEntity {
 
     public String getOpsObjectContent() {
         return opsObjectContent;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Timestamp modifyTime) {
+        this.modifyTime = modifyTime;
     }
 
     public void setOpsObjectContent(String opsObjectContent) {

@@ -16,7 +16,6 @@ import java.util.Random;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = {"classpath:com/helix/datatrail/spring/spring-mybatis.xml"},initializers = SpringMybatisContextInitializer.class)
 @ContextConfiguration(locations = {"classpath:com/helix/datatrail/spring/spring-mybatis.xml"})
 public class SpringContextTest2 {
 

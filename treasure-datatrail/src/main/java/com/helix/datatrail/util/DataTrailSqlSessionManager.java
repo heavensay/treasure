@@ -31,22 +31,15 @@ public class DataTrailSqlSessionManager {
             return DataTrailSqlSessionManager.sqlSessionFactory;
         }
 
-        //2 是spring项目，从springfactory中获取；
+        //是spring项目，从springfactory中获取；
         if(isSpringMybatisEnv()){
-            DataTrailSqlSessionManager.sqlSessionFactory = SpringMybatisContextHolder.obtainSqlSessionFactory();
+            registerDataTrailConfig(SpringMybatisContextHolder.obtainSqlSessionFactory());
+
             return DataTrailSqlSessionManager.sqlSessionFactory;
         }else{
             logger.info("非spring环境或spring ApplicationContext没有注入到组件中");
+            return null;
         }
-
-        //2 是spring项目，从springfactory中获取；
-        if(SpringMybatisContextHolder.obtainSqlSessionFactory() != null){
-            return SpringMybatisContextHolder.obtainSqlSessionFactory();
-        }else{
-            logger.info("非spring环境或spring ApplicationContext没有注入到组件中");
-        }
-
-        return sqlSessionFactory;
     }
 
     /*
@@ -54,9 +47,6 @@ public class DataTrailSqlSessionManager {
      */
     public static SqlSession obtainSqlSession() {
         SqlSession sqlSession = null;
-//        if(DataTrailDBConfig.sqlSessionFactory != null){
-//            return DataTrailDBConfig.sqlSessionFactory;
-//        }
         //spring或springboot项目，从springfactory中获取；
         if(isSpringMybatisEnv()){
             logger.debug("support spring mybatis");
@@ -80,6 +70,7 @@ public class DataTrailSqlSessionManager {
     }
 
     /**
+     * 可用于非spring环境注入SqlSessionFactory
      * 初始化Datatrail需要的环境配置
      * @param sqlSessionFactory
      */

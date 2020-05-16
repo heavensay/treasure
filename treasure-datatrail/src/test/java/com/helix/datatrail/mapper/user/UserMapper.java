@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface UserMapper {
 
+    @Select("select * from user where id = #{id}")
     User getUserById(@Param("id") Long id);
 
     @Insert("INSERT INTO user(name,age,create_date) values(#{name},#{age},#{createDate})")

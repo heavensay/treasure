@@ -48,7 +48,7 @@ public class SpringContextTest {
     public void getUserById(){
         ApplicationContext context = new ClassPathXmlApplicationContext("com/helix/datatrail/spring/spring-mybatis.xml");
         UserMapper mapper = context.getBean(UserMapper.class);
-        User user = mapper.getUserById(3L);
+        User user = mapper.getUserById(84L);
         Assert.assertNotNull(user);
     }
 

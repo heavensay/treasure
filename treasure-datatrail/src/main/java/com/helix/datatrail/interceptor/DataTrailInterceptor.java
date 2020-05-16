@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Properties;
 
@@ -105,7 +106,8 @@ public class DataTrailInterceptor implements Interceptor {
         dataTrailEntity.setOpsTime(new Date());
 //        dataTrailEntity.setOpsEvent(opsEventType.getCode()+"ddddddppppppppccccccccjjjjjjjjjkkkkkkkk");
         dataTrailEntity.setOpsEvent(opsEventType.getCode());
-
+        dataTrailEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        dataTrailEntity.setModifyTime(new Timestamp(System.currentTimeMillis()));
 
         //事务由外面逻辑来决定提交或回滚
 

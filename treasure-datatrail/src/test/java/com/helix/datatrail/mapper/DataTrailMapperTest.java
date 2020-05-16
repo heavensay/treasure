@@ -19,7 +19,7 @@ public class DataTrailMapperTest{
 //        Mapper test = sqlSession.getMapper(Mapper.class);
         DataTrailMapper dataTrailMapper = sqlSession.getMapper(DataTrailMapper.class);
 //        System.out.println(test.countByExample(new Example()));
-        Map map = dataTrailMapper.getObjectTableRecord("t_user",1L,"id");
+        Map map = dataTrailMapper.getObjectTableRecord("user",1L,"id");
 
         System.out.println(JSON.toJSONString(map));
         MybatisUtil.closeSession(sqlSession);

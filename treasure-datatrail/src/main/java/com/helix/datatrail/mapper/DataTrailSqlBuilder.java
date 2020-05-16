@@ -13,28 +13,10 @@ import java.util.Map;
  */
 public class DataTrailSqlBuilder {
 
-//    public String buildGetOpsHistoryById(final Map<String, Object> params) {
-//        return new SQL() {
-//            {
-//                SELECT("id,ops_time,ops_object_name,ops_object_id,ops_object_content");
-//                FROM(params.get("tableName").toString());
-//
-//                if (params.get("opsObjectId") != null) {
-//                    WHERE("ops_object_id = " + params.get("opsObjectId"));
-//                } else {
-//                    WHERE("ops_search_id = " + params.get("opsSearchId"));
-//                }
-//                AND().WHERE("ops_object_name = '" + params.get("opsObjectName") + "'");
-//                AND().WHERE("ops_time <="+params.get("opsTime"));
-//                ORDER_BY(" ops_time desc ");
-//            }
-//        }.toString();
-//    }
-
     public String buildGetOpsHistoryById(final Map<String, Object> params) {
         return new SQL() {
             {
-                SELECT("id,ops_time,ops_object_name,ops_object_id,ops_object_content");
+                SELECT("id,ops_time,ops_object_name,ops_object_id,ops_object_content,create_time,modify_time");
                 FROM(params.get("tableName").toString());
 
                 if (params.get("opsObjectId") != null) {
