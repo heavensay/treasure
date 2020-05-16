@@ -1,4 +1,4 @@
-package com.helix.demo.openapi;
+package com.helix.demo.openapi.alibaba;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

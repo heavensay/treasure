@@ -1,8 +1,5 @@
-package com.helix.demo.openapi;
+package com.helix.demo.openapi.baiwang;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.helix.common.PDF2Util;
 import com.helix.common.PDFUtils;
 import com.helix.common.freemarker.FreemarkerUtil;
@@ -13,9 +10,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**

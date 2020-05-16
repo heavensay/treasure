@@ -6,7 +6,6 @@ import com.helix.datatrail.mapper.DataTrailMapper;
 import com.helix.datatrail.spring.SpringMybatisContextHolder;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,9 +39,6 @@ public class DataTrailSqlSessionManager {
             logger.info("非spring环境或spring ApplicationContext没有注入到组件中");
         }
 
-        //1 是springboot项目，优先从配置项中获取；
-
-
         //2 是spring项目，从springfactory中获取；
         if(SpringMybatisContextHolder.obtainSqlSessionFactory() != null){
             return SpringMybatisContextHolder.obtainSqlSessionFactory();
@@ -61,11 +57,7 @@ public class DataTrailSqlSessionManager {
 //        if(DataTrailDBConfig.sqlSessionFactory != null){
 //            return DataTrailDBConfig.sqlSessionFactory;
 //        }
-
-        //1 是springboot项目，优先从配置项中获取；
-
-
-        //2 是spring项目，从springfactory中获取；
+        //spring或springboot项目，从springfactory中获取；
         if(isSpringMybatisEnv()){
             logger.debug("support spring mybatis");
             sqlSession = SqlSessionUtils.getSqlSession(obtainSqlSessionFactory());
@@ -91,7 +83,7 @@ public class DataTrailSqlSessionManager {
      * 初始化Datatrail需要的环境配置
      * @param sqlSessionFactory
      */
-    public static void initDataTrailConfig(SqlSessionFactory sqlSessionFactory){
+    public static void registerDataTrailConfig(SqlSessionFactory sqlSessionFactory){
         if(DataTrailSqlSessionManager.sqlSessionFactory == null){
             logger.debug("init SqlSessionFactory,register DataTrailMapper,DataTrailInterceptor");
             DataTrailSqlSessionManager.sqlSessionFactory = sqlSessionFactory;
@@ -110,7 +102,7 @@ public class DataTrailSqlSessionManager {
         if(SpringMybatisContextHolder.isInjectApplicationContext() && SpringMybatisContextHolder.obtainSqlSessionFactory() != null){
             try {
                 Class.forName("org.mybatis.spring.SqlSessionFactoryBean");
-                Object bean = SpringMybatisContextHolder.getBean(SqlSessionFactoryBean.class);
+                Object bean = SpringMybatisContextHolder.obtainSqlSessionFactory();
                 return bean != null;
             } catch (ClassNotFoundException e) {
                 logger.debug("org.mybatis.spring.SqlSessionFactoryBean is not found，非spring和mybatis环境");
@@ -120,5 +112,4 @@ public class DataTrailSqlSessionManager {
             return false;
         }
     }
-
 }

@@ -1,2 +1,7 @@
-# 如果有多个XxxxxAutoConfiguration，用逗号分隔
+# Initializers
+org.springframework.context.ApplicationContextInitializer=com.helix.datatrail.spring.SpringMybatisContextInitializer
+
+# EnableAutoConfiguration
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.helix.datatrail.springboot.autoconfigure.DataTrailAutoConfiguration
+
+# ApplicationEvent

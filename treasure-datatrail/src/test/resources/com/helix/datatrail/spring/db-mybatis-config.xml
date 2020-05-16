@@ -13,7 +13,7 @@
     </plugins>
 
     <!-- mybatis的mapper文件，每个xml配置文件对应一个接口 -->
-    <mappers>
-        <mapper resource="sqlmapper/UserMapper.xml"/>
-    </mappers>
+<!--    <mappers>-->
+<!--        <mapper resource="sqlmapper/UserMapper.xml"/>-->
+<!--    </mappers>-->
 </configuration>

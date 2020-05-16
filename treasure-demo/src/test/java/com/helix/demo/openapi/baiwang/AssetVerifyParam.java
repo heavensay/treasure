@@ -1,4 +1,4 @@
-package com.helix.demo.openapi;
+package com.helix.demo.openapi.baiwang;
 
 /**
  * @author ljy

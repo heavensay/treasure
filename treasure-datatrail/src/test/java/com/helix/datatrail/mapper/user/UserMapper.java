@@ -1,10 +1,7 @@
 package com.helix.datatrail.mapper.user;
 
 import com.helix.datatrail.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @author lijianyu
@@ -15,7 +12,7 @@ public interface UserMapper {
 
     User getUserById(@Param("id") Long id);
 
-    @Insert("        INSERT INTO user(name,age,create_date)\n" +
-            "          values(#{name},#{age},#{createDate})")
+    @Insert("INSERT INTO user(name,age,create_date) values(#{name},#{age},#{createDate})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int createUser(User user);
 }

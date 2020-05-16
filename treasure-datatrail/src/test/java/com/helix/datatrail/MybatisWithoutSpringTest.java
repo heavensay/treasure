@@ -24,7 +24,7 @@ public class MybatisWithoutSpringTest {
     public void triggerDataTrail() {
         try {
             SqlSessionFactory sqlSessionFactory = MybatisUtil.getSqlSessionFactory();
-            DataTrailSqlSessionManager.initDataTrailConfig(sqlSessionFactory);
+            DataTrailSqlSessionManager.registerDataTrailConfig(sqlSessionFactory);
             SqlSession sqlSession = sqlSessionFactory.openSession();
             ThreadLocalSqlSession.put(sqlSession);
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
@@ -50,7 +50,7 @@ public class MybatisWithoutSpringTest {
     @Test
     public void autoCommitDataTrail() throws Exception{
         SqlSessionFactory sqlSessionFactory = MybatisUtil.getSqlSessionFactory();
-        DataTrailSqlSessionManager.initDataTrailConfig(sqlSessionFactory);
+        DataTrailSqlSessionManager.registerDataTrailConfig(sqlSessionFactory);
 
         SqlSession sqlSession = sqlSessionFactory.openSession();
         sqlSession.getConnection().setAutoCommit(true);

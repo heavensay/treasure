@@ -92,7 +92,7 @@ public class DataTrailInterceptor implements Interceptor {
             opsObjectId = (Long)entity.getClass().getMethod("get"+toFirstUpperCase(objectIdName)).invoke(entity,null);
         }
         if(opsObjectId == null){
-            throw new DataTrailException("opsObjectId，opsSearchId不能同时为空");
+            throw new DataTrailException("opsObjectId value can not be null");
         }
 
         SerializeConfig config = new SerializeConfig();

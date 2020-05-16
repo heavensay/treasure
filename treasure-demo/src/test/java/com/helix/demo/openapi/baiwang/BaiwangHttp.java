@@ -1,11 +1,9 @@
-package com.helix.demo.openapi;
+package com.helix.demo.openapi.baiwang;
 
 import com.alibaba.fastjson.JSON;
-import com.helix.common.http.HttpUtil;
+import com.helix.demo.openapi.alibaba.OpenApiHttp;
 import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -15,8 +13,6 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -5,9 +5,11 @@ import com.helix.datatrail.mapper.user.UserMapper;
 import com.helix.datatrail.util.ThreadLocalSqlSession;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -18,6 +20,8 @@ import java.util.Random;
 /**
  * spring结合mybatis环境下，使用DataTrail组件测试
  */
+
+@RunWith(SpringJUnit4ClassRunner.class)
 public class SpringContextTest {
 
     /**

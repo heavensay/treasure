@@ -20,12 +20,8 @@ public class SpringMybatisContextHolder implements ApplicationContextAware {
         return context.getBean(SqlSessionFactory.class);
     }
 
-    public static Object getBean(Class clazz){
-        return context.getBean(clazz);
-    }
-
-    public static Object getBean(String beanName){
-        return context.getBean(beanName);
+    public static void assignApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        context = applicationContext;
     }
 
     @Override
