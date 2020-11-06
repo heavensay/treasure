@@ -39,6 +39,7 @@
         <module>treasure-spring</module>
         <module>treasure-package</module>
         <module>treasure-dict</module>
+        <module>treasure-design-pattern</module>
     </modules>
 
     <dependencies>
