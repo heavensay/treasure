@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Strategy Pattern策略模式联系
+ * Strategy Pattern策略模式
  * 场景：在web访问中，会针对url请求进行路由，路由算法会有多种实现，采用不同算法，就会选择不同的服务器
  * 关键点：变化的策略提取出来，各种子类实现各自策略算法；主类Has a 各种策略，就实现了策略模式
  */
