@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LambaTest {
 
@@ -42,4 +43,17 @@ public class LambaTest {
         distinctStrs.forEach(System.out::println);
     }
 
+    @Test
+    public void reduce(){
+        Stream<String> stream = Stream.of("a", "b", "c", "d", "e", "f");
+        String reduce = stream.reduce("", (s, s2) -> {
+            System.out.println(s + "===" + s2);
+            return s + s2;
+        }, (s, s2) -> {
+            System.out.println(s + "=>>>=" + s2);
+            return null;
+        });
+        System.out.println(reduce);
+
+    }
 }
