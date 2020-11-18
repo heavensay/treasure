@@ -1,4 +1,4 @@
-package com.helix.demo;
+package com.helix.demo.lambda;
 
 import org.junit.Test;
 
@@ -54,6 +54,36 @@ public class LambaTest {
             return null;
         });
         System.out.println(reduce);
-
     }
+
+    /**
+     * 定义匿名函数
+     */
+    @Test
+    public void anomyousTest(){
+        /**
+         *IHello hello = new Ihello(){
+         *       public void sayHello(String str){
+         *           System.out.println(str);
+         *       }
+         *}
+         *hello.sayHello("world");
+         */
+        IHello hello = s -> System.out.println(s);
+        hello.sayHello("world");
+    }
+
+    /**
+     * ObjectRef::methodName
+     * 所引用的方法其实是Lambda表达式的方法体的实现
+     *
+     * 引用静态方法调用
+     */
+    @Test
+    public void refStaticMethodTest(){
+        IHello hello = System.out::println;
+        hello.sayHello(" ref static method ");
+    }
+
+
 }
