@@ -13,6 +13,8 @@
     <properties>
         <drools.version>7.5.0.Final</drools.version>
         <skip_maven_deploy>true</skip_maven_deploy>
+        <protobuf.version>3.11.0</protobuf.version>
+        <grpc.version>1.26.0</grpc.version>
     </properties>
 
     <dependencies>
@@ -157,18 +159,18 @@
             <version>3.3.1</version>
         </dependency>
 
-        <!-- JMH 基准测试-->
-        <dependency>
-            <groupId>org.openjdk.jmh</groupId>
-            <artifactId>jmh-core</artifactId>
-            <version>1.26</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjdk.jmh</groupId>
-            <artifactId>jmh-generator-annprocess</artifactId>
-            <version>1.26</version>
-            <scope>provided</scope>
-        </dependency>
+<!--        &lt;!&ndash; JMH 基准测试&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.openjdk.jmh</groupId>-->
+<!--            <artifactId>jmh-core</artifactId>-->
+<!--            <version>1.26</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.openjdk.jmh</groupId>-->
+<!--            <artifactId>jmh-generator-annprocess</artifactId>-->
+<!--            <version>1.26</version>-->
+<!--&lt;!&ndash;            <scope>provided</scope>&ndash;&gt;-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/com.netflix.hystrix/hystrix-core
             熔断、降级、限流工具
@@ -194,10 +196,60 @@
         </dependency>
 
 
+        <!-- Protobuf Dependency -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf.version}</version>
+        </dependency>
+        <!-- gRPC Dependency Start -->
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+            <version>${grpc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-protobuf</artifactId>
+            <version>${grpc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-stub</artifactId>
+            <version>${grpc.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java-util -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+            <version>3.13.0</version>
+        </dependency>
+
+        <!-- gRPC Dependency End -->
+
+
+        <!-- google自定义搜索api jar包 -->
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-customsearch</artifactId>
+            <version>v1-rev86-1.25.0</version>
+        </dependency>
+        <!-- google自定义搜索api jar包 -->
+
     </dependencies>
 
 
     <build>
+        <!-- grpc proto用到 -->
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.6.2</version>
+            </extension>
+        </extensions>
+        <!-- grpc proto用到 -->
+
         <plugins>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
@@ -239,30 +291,61 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.codehaus.mojo</groupId>-->
+<!--                <artifactId>exec-maven-plugin</artifactId>-->
+<!--                <version>1.6.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>run-benchmarks</id>-->
+<!--                        <phase>integration-test</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>exec</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <classpathScope>test</classpathScope>-->
+<!--                            <executable>java</executable>-->
+<!--                            <arguments>-->
+<!--                                <argument>-classpath</argument>-->
+<!--                                <classpath />-->
+<!--                                <argument>org.openjdk.jmh.Main</argument>-->
+<!--                                <argument>.*</argument>-->
+<!--                            </arguments>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--             jmh测试所需插件，目前没起作用-->
+
+            <!-- grpc proto代码生成 -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.5.1</version>
+                <configuration>
+                    <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+                    <pluginId>grpc-java</pluginId>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+                    <!-- 自动生成的代码在 </outputDirectory>/generated-<test>-sources/下面 -->
+<!--                    <outputDirectory>${project.build.sourceDirectory}</outputDirectory>-->
+                    <clearOutputDirectory>false</clearOutputDirectory>
+<!--                    <protoSourceRoot>${basedir}/src/java/com/helix/demo/rpc/grpc/proto</protoSourceRoot>-->
+                    <protoTestSourceRoot>src/test/resources/com/helix/demo/rpc/grpc/proto</protoTestSourceRoot>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>run-benchmarks</id>
-                        <phase>integration-test</phase>
                         <goals>
-                            <goal>exec</goal>
+                            <!-- for protobuf -->
+                            <goal>compile</goal>
+                            <!-- for grpc -->
+                            <goal>compile-custom</goal>
+                            <goal>test-compile</goal>
+                            <goal>test-compile-custom</goal>
                         </goals>
-                        <configuration>
-                            <classpathScope>test</classpathScope>
-                            <executable>java</executable>
-                            <arguments>
-                                <argument>-classpath</argument>
-                                <classpath />
-                                <argument>org.openjdk.jmh.Main</argument>
-                                <argument>.*</argument>
-                            </arguments>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!-- jmh测试所需插件，目前没起作用 -->
+            <!-- grpc proto代码生成 -->
         </plugins>
     </build>
 </project>
