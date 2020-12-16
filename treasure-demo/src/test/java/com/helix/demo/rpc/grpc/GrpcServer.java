@@ -4,6 +4,10 @@ import io.grpc.Server;
 import io.grpc.ServerBuilder;
 
 /**
+ * grpc 简单demo；
+ *
+ * grpc server和client代码由maven plug:protobuf-maven-plugin自动生成；目录在target/generate-test-resources/protobuf下面
+ *
  * @author lijianyu@yunloan.net
  * @date 2020-11-18 17:40
  */
