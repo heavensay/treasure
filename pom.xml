@@ -23,7 +23,7 @@
         <project.build.sourceEncoding>${charset.common}</project.build.sourceEncoding>
 
         <!-- Test libs -->
-        <junit_version>4.12</junit_version>
+        <junit_version>4.13.1</junit_version>
         <jmockit.version>1.49</jmockit.version>
 
 
