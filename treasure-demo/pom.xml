@@ -159,18 +159,18 @@
             <version>3.3.1</version>
         </dependency>
 
-<!--        &lt;!&ndash; JMH 基准测试&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.openjdk.jmh</groupId>-->
-<!--            <artifactId>jmh-core</artifactId>-->
-<!--            <version>1.26</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.openjdk.jmh</groupId>-->
-<!--            <artifactId>jmh-generator-annprocess</artifactId>-->
-<!--            <version>1.26</version>-->
-<!--&lt;!&ndash;            <scope>provided</scope>&ndash;&gt;-->
-<!--        </dependency>-->
+        <!--        &lt;!&ndash; JMH 基准测试&ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.openjdk.jmh</groupId>-->
+        <!--            <artifactId>jmh-core</artifactId>-->
+        <!--            <version>1.26</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.openjdk.jmh</groupId>-->
+        <!--            <artifactId>jmh-generator-annprocess</artifactId>-->
+        <!--            <version>1.26</version>-->
+        <!--&lt;!&ndash;            <scope>provided</scope>&ndash;&gt;-->
+        <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/com.netflix.hystrix/hystrix-core
             熔断、降级、限流工具
@@ -291,31 +291,31 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.codehaus.mojo</groupId>-->
-<!--                <artifactId>exec-maven-plugin</artifactId>-->
-<!--                <version>1.6.0</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>run-benchmarks</id>-->
-<!--                        <phase>integration-test</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>exec</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <classpathScope>test</classpathScope>-->
-<!--                            <executable>java</executable>-->
-<!--                            <arguments>-->
-<!--                                <argument>-classpath</argument>-->
-<!--                                <classpath />-->
-<!--                                <argument>org.openjdk.jmh.Main</argument>-->
-<!--                                <argument>.*</argument>-->
-<!--                            </arguments>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-<!--             jmh测试所需插件，目前没起作用-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.codehaus.mojo</groupId>-->
+            <!--                <artifactId>exec-maven-plugin</artifactId>-->
+            <!--                <version>1.6.0</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>run-benchmarks</id>-->
+            <!--                        <phase>integration-test</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>exec</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            <classpathScope>test</classpathScope>-->
+            <!--                            <executable>java</executable>-->
+            <!--                            <arguments>-->
+            <!--                                <argument>-classpath</argument>-->
+            <!--                                <classpath />-->
+            <!--                                <argument>org.openjdk.jmh.Main</argument>-->
+            <!--                                <argument>.*</argument>-->
+            <!--                            </arguments>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
+            <!--             jmh测试所需插件，目前没起作用-->
 
             <!-- grpc proto代码生成 -->
             <plugin>
@@ -323,13 +323,15 @@
                 <artifactId>protobuf-maven-plugin</artifactId>
                 <version>0.5.1</version>
                 <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+                    <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
+                    </protocArtifact>
                     <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
+                    </pluginArtifact>
                     <!-- 自动生成的代码在 </outputDirectory>/generated-<test>-sources/下面 -->
-<!--                    <outputDirectory>${project.build.sourceDirectory}</outputDirectory>-->
+                    <!--                    <outputDirectory>${project.build.sourceDirectory}</outputDirectory>-->
                     <clearOutputDirectory>false</clearOutputDirectory>
-<!--                    <protoSourceRoot>${basedir}/src/java/com/helix/demo/rpc/grpc/proto</protoSourceRoot>-->
+                    <!--                    <protoSourceRoot>${basedir}/src/java/com/helix/demo/rpc/grpc/proto</protoSourceRoot>-->
                     <protoTestSourceRoot>src/test/resources/com/helix/demo/rpc/grpc/proto</protoTestSourceRoot>
                 </configuration>
                 <executions>
