@@ -26,7 +26,7 @@
         <!-- dependency version -->
         <spring.version>5.0.5.RELEASE</spring.version>
         <spring.boot.version>2.0.2.RELEASE</spring.boot.version>
-        <fastjson.version>1.2.56</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <freeemarker.vaersion>2.3.22</freeemarker.vaersion>
         <dozer.version>5.5.1</dozer.version>
         <mysql.version>8.0.13</mysql.version>
