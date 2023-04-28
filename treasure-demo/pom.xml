@@ -17,6 +17,119 @@
         <grpc.version>1.26.0</grpc.version>
     </properties>
 
+    <build>
+        <!-- grpc proto用到 -->
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.6.2</version>
+            </extension>
+        </extensions>
+        <!-- grpc proto用到 -->
+
+        <plugins>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <configuration>
+                    <!--配置文件的位置-->
+                    <configurationFile>src/main/resources/mybatis-generate-config.xml</configurationFile>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>Generate MyBatis Artifacts</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!-- jmh测试所需插件，目前没起作用 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.openjdk.jmh</groupId>
+                            <artifactId>jmh-generator-annprocess</artifactId>
+                            <version>1.26</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.codehaus.mojo</groupId>-->
+            <!--                <artifactId>exec-maven-plugin</artifactId>-->
+            <!--                <version>1.6.0</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>run-benchmarks</id>-->
+            <!--                        <phase>integration-test</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>exec</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            <classpathScope>test</classpathScope>-->
+            <!--                            <executable>java</executable>-->
+            <!--                            <arguments>-->
+            <!--                                <argument>-classpath</argument>-->
+            <!--                                <classpath />-->
+            <!--                                <argument>org.openjdk.jmh.Main</argument>-->
+            <!--                                <argument>.*</argument>-->
+            <!--                            </arguments>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
+            <!--             jmh测试所需插件，目前没起作用-->
+
+            <!-- grpc proto代码生成 -->
+            <plugin>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.5.1</version>
+                <configuration>
+                    <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
+                    </protocArtifact>
+                    <pluginId>grpc-java</pluginId>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
+                    </pluginArtifact>
+                    <!-- 自动生成的代码在 </outputDirectory>/generated-<test>-sources/下面 -->
+                    <!--                    <outputDirectory>${project.build.sourceDirectory}</outputDirectory>-->
+                    <clearOutputDirectory>false</clearOutputDirectory>
+                    <!--                    <protoSourceRoot>${basedir}/src/java/com/helix/demo/rpc/grpc/proto</protoSourceRoot>-->
+                    <protoTestSourceRoot>src/test/resources/com/helix/demo/rpc/grpc/proto</protoTestSourceRoot>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!-- for protobuf -->
+                            <goal>compile</goal>
+                            <!-- for grpc -->
+                            <goal>compile-custom</goal>
+                            <goal>test-compile</goal>
+                            <goal>test-compile-custom</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- grpc proto代码生成 -->
+        </plugins>
+    </build>
+
+
     <dependencies>
         <dependency>
             <groupId>com.github.heavensay</groupId>
@@ -236,118 +349,23 @@
         </dependency>
         <!-- google自定义搜索api jar包 -->
 
+
+        <!-- 流程引擎flowable -->
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-engine</artifactId>
+            <version>6.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <!-- 流程引擎flowable -->
+
     </dependencies>
-
-
-    <build>
-        <!-- grpc proto用到 -->
-        <extensions>
-            <extension>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>1.6.2</version>
-            </extension>
-        </extensions>
-        <!-- grpc proto用到 -->
-
-        <plugins>
-            <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <configuration>
-                    <!--配置文件的位置-->
-                    <configurationFile>src/main/resources/mybatis-generate-config.xml</configurationFile>
-                    <verbose>true</verbose>
-                    <overwrite>true</overwrite>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>Generate MyBatis Artifacts</id>
-                        <phase>none</phase>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>${mysql.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
-            <!-- jmh测试所需插件，目前没起作用 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.openjdk.jmh</groupId>
-                            <artifactId>jmh-generator-annprocess</artifactId>
-                            <version>1.26</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>org.codehaus.mojo</groupId>-->
-            <!--                <artifactId>exec-maven-plugin</artifactId>-->
-            <!--                <version>1.6.0</version>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <id>run-benchmarks</id>-->
-            <!--                        <phase>integration-test</phase>-->
-            <!--                        <goals>-->
-            <!--                            <goal>exec</goal>-->
-            <!--                        </goals>-->
-            <!--                        <configuration>-->
-            <!--                            <classpathScope>test</classpathScope>-->
-            <!--                            <executable>java</executable>-->
-            <!--                            <arguments>-->
-            <!--                                <argument>-classpath</argument>-->
-            <!--                                <classpath />-->
-            <!--                                <argument>org.openjdk.jmh.Main</argument>-->
-            <!--                                <argument>.*</argument>-->
-            <!--                            </arguments>-->
-            <!--                        </configuration>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
-            <!--             jmh测试所需插件，目前没起作用-->
-
-            <!-- grpc proto代码生成 -->
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.5.1</version>
-                <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
-                    </protocArtifact>
-                    <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
-                    </pluginArtifact>
-                    <!-- 自动生成的代码在 </outputDirectory>/generated-<test>-sources/下面 -->
-                    <!--                    <outputDirectory>${project.build.sourceDirectory}</outputDirectory>-->
-                    <clearOutputDirectory>false</clearOutputDirectory>
-                    <!--                    <protoSourceRoot>${basedir}/src/java/com/helix/demo/rpc/grpc/proto</protoSourceRoot>-->
-                    <protoTestSourceRoot>src/test/resources/com/helix/demo/rpc/grpc/proto</protoTestSourceRoot>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!-- for protobuf -->
-                            <goal>compile</goal>
-                            <!-- for grpc -->
-                            <goal>compile-custom</goal>
-                            <goal>test-compile</goal>
-                            <goal>test-compile-custom</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- grpc proto代码生成 -->
-        </plugins>
-    </build>
 </project>
