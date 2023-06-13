@@ -2,6 +2,7 @@ package com.helix.demo.lambda;
 
 import org.junit.Test;
 
+import java.lang.invoke.SerializedLambda;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -85,5 +86,15 @@ public class LambaTest {
         hello.sayHello(" ref static method ");
     }
 
-
+    /**
+     * 获取lambda定义的信息，方法名、参数、数据类型等
+     */
+    @Test
+    public void lambdaInfo() throws Exception{
+        FuncationBean<Bean2,?> fb = Bean2::getName;
+        SerializedLambda serializedLambda = LambdaUtil.getSerializedLambda(fb);
+        System.out.println(serializedLambda.getImplMethodName());
+        System.out.println(serializedLambda.getInstantiatedMethodType());
+//        System.out.println(serializedLambda.getCapturedArg(0));
+    }
 }
