@@ -43,6 +43,7 @@
         <module>treasure-package</module>
         <module>treasure-dict</module>
         <module>treasure-design-pattern</module>
+        <module>treasure-demo-module</module>
     </modules>
 
     <dependencies>

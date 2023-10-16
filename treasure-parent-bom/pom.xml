@@ -233,7 +233,7 @@
                     phase=none：不参与实际构建流程，只用于手工生成上述文件 -->
                 <plugin>
                     <groupId>org.mybatis.generator</groupId>
-                    <artifactId>mybatis-generator-maven-plugin</artifactId>
+                    <artifactId>mybatis-generaflatten.maven.versiontor-maven-plugin</artifactId>
                     <version>${mybatis.generator.maven.version}</version>
                     <configuration>
                         <!--配置文件的位置-->
