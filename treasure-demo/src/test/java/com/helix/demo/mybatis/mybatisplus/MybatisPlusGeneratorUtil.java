@@ -19,6 +19,8 @@ public class MybatisPlusGeneratorUtil {
 //        String[] addInclude = {"im_receive_message"};
 //        String[] addInclude = {"im_group_member"};
 //        String[] addInclude = {"im_receive_system_notice","im_send_system_notice"};
+//        String[] addInclude = {"im_watcher"};
+//        String[] addInclude = {"im_group"};
         String[] addInclude = {"im_send_system_notice"};
 
         // 0、数据库配置【数据库连接、用户名、密码】
@@ -38,6 +40,7 @@ public class MybatisPlusGeneratorUtil {
 //        String parent = "cn.bifrosttech.talkback.center";
         String parent = "cn.bifrosttech.im.imservice";
         String moduleName = "message";
+//        String moduleName = "watcher";
 //        String moduleName = "group";
         String entityPODir = "model.entity";
         String serviceDir = "service";
