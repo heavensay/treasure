@@ -2,13 +2,10 @@ package com.helix.demo.mybatis.mybatisplus;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
-import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.fill.Column;
 
-import java.util.Collections;
-
-public class MybatisPlusGeneratorUtil {
+public class MybatisPlusGeneratorUtil2 {
 
     // TODO 注意：未来每次只需要修改TODO部分
     public static void main(String[] args) {
@@ -21,25 +18,26 @@ public class MybatisPlusGeneratorUtil {
 //        String[] addInclude = {"im_receive_system_notice","im_send_system_notice"};
 //        String[] addInclude = {"im_watcher"};
 //        String[] addInclude = {"im_group"};
-//        String[] addInclude = {"im_send_system_notice"};
-        String[] addInclude = {"im_user"};
-
+//        String[] addInclude = {"talkback_signal_register"};
+        String[] addInclude = {"talkback_location"};
         // 0、数据库配置【数据库连接、用户名、密码】
 //        String dbUrl = "jdbc:mysql://localhost:3306/im?useSSL=false&useUnicode=true&characterEncoding=utf-8";
 //        String userName = "root";
 //        String password = "123456";
-        String dbUrl = "jdbc:mysql://172.25.11.51:3306/im?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false";
+        String dbUrl = "jdbc:mysql://172.25.11.51:3306/talkback?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false";
         String userName = "root";
         String password = "abcABC123!";
+        String projectDir = "/Users/liyu/Desktop/work/全能数字/mybatisplus-generate";
+        String projectName = "talkback";
 
         // 1、globalConfig【作者、输出目录】
         String author = "lijianyu";
 //        String outputDir = "/Users/liyu/Desktop/work/全能数字/mybatisplus-generate/talkback" + "/src/main/java";
-        String outputDir = "/Users/liyu/Desktop/work/全能数字/mybatisplus-generate/imserver" + "/src/main/java";
+        String outputDir = projectDir+"/"+projectName + "/src/main/java";
 
         // 2、packageConfig【父包名、父包模块名、实体类PO生成路径、Mapper接口生成路径、Mapper.xml生成路径】
 //        String parent = "cn.bifrosttech.talkback.center";
-        String parent = "cn.bifrosttech.im.imservice";
+        String parent = "cn.bifrosttech.talkback.core";
         String moduleName = "user";
 //        String moduleName = "watcher";
 //        String moduleName = "group";
@@ -57,7 +55,7 @@ public class MybatisPlusGeneratorUtil {
                 new Column("update_time", FieldFill.INSERT_UPDATE),
                 new Column("update_by", FieldFill.INSERT_UPDATE),
                 new Column("create_by", FieldFill.INSERT),
-                new Column("valid_state", FieldFill.INSERT)};
+                new Column("del", FieldFill.INSERT)};
 
         FastAutoGenerator
             // 数据库配置
