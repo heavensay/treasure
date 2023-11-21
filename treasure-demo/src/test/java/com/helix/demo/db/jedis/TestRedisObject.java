@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.helix.demo.java.lang.io.serializable.util.ObjectsTranscoder;
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 在redis中测试Object的存取
@@ -15,7 +16,7 @@ import org.junit.Test;
  */
 public class TestRedisObject {
 
-    Logger log = Logger.getLogger(TestRedisObject.class);
+    private static Logger log = LoggerFactory.getLogger(TestRedisObject.class);
 
     @Test
     public void test() {

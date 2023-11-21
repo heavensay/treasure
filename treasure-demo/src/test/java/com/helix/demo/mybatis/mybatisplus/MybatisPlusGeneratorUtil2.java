@@ -19,7 +19,7 @@ public class MybatisPlusGeneratorUtil2 {
 //        String[] addInclude = {"im_watcher"};
 //        String[] addInclude = {"im_group"};
 //        String[] addInclude = {"talkback_signal_register"};
-        String[] addInclude = {"talkback_location"};
+        String[] addInclude = {"talkback_user_login_log"};
         // 0、数据库配置【数据库连接、用户名、密码】
 //        String dbUrl = "jdbc:mysql://localhost:3306/im?useSSL=false&useUnicode=true&characterEncoding=utf-8";
 //        String userName = "root";

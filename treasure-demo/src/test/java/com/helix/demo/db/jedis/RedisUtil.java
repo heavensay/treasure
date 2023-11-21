@@ -1,7 +1,8 @@
 package com.helix.demo.db.jedis;
 
-import org.apache.log4j.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -11,7 +12,7 @@ import redis.clients.jedis.JedisPoolConfig;
  */
 public class RedisUtil {
 
-    protected static Logger logger = Logger.getLogger(RedisUtil.class);
+    protected static Logger logger = LoggerFactory.getLogger(RedisUtil.class);
 
 
     // Redis服务器IP
@@ -115,8 +116,6 @@ public class RedisUtil {
 
     /**
      * 释放jedis资源
-     *
-     * @param jedis
      */
     public static JedisPool getPool() {
         return jedisPool;
