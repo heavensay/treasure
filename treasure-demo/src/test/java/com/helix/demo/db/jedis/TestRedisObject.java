@@ -1,13 +1,13 @@
 package com.helix.demo.db.jedis;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.helix.demo.java.lang.io.serializable.util.ObjectsTranscoder;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 在redis中测试Object的存取

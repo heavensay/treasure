@@ -1,6 +1,5 @@
 package com.helix.demo.db.postgres;
 
-import org.apache.http.util.Asserts;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,8 +7,6 @@ import org.junit.Test;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * 测试sqlserver相关的一些功能

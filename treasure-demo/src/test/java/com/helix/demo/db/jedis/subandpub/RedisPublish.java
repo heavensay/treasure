@@ -2,7 +2,6 @@ package com.helix.demo.db.jedis.subandpub;
 
 import com.helix.demo.db.jedis.RedisUtil;
 import org.junit.Test;
-
 import redis.clients.jedis.Jedis;
 
 public class RedisPublish {

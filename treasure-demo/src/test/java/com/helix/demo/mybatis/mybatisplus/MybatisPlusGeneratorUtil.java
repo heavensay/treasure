@@ -15,14 +15,14 @@ public class MybatisPlusGeneratorUtil {
         // TODO 【每次必须要改】
 //        String[] addInclude = {"talkback_group","im_user","im_group","im_group_member","im_send_message",
 //                "im_receive_message","im_conversation",};
-
+        String[] addInclude = {"im_conversation"};
 //        String[] addInclude = {"im_receive_message"};
 //        String[] addInclude = {"im_group_member"};
 //        String[] addInclude = {"im_receive_system_notice","im_send_system_notice"};
 //        String[] addInclude = {"im_watcher"};
 //        String[] addInclude = {"im_group"};
 //        String[] addInclude = {"im_send_system_notice"};
-        String[] addInclude = {"im_user"};
+//        String[] addInclude = {"im_user"};
 
         // 0、数据库配置【数据库连接、用户名、密码】
 //        String dbUrl = "jdbc:mysql://localhost:3306/im?useSSL=false&useUnicode=true&characterEncoding=utf-8";
@@ -40,7 +40,8 @@ public class MybatisPlusGeneratorUtil {
         // 2、packageConfig【父包名、父包模块名、实体类PO生成路径、Mapper接口生成路径、Mapper.xml生成路径】
 //        String parent = "cn.bifrosttech.talkback.center";
         String parent = "cn.bifrosttech.im.imservice";
-        String moduleName = "user";
+//        String moduleName = "user";
+        String moduleName = "conversation";
 //        String moduleName = "watcher";
 //        String moduleName = "group";
         String entityPODir = "model.entity";

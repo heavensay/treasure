@@ -19,7 +19,8 @@ public class MybatisPlusGeneratorUtil2 {
 //        String[] addInclude = {"im_watcher"};
 //        String[] addInclude = {"im_group"};
 //        String[] addInclude = {"talkback_signal_register"};
-        String[] addInclude = {"talkback_user_login_log"};
+//        String[] addInclude = {"talkback_frequent_show"};
+        String[] addInclude = {"talkback_not_monitor"};
         // 0、数据库配置【数据库连接、用户名、密码】
 //        String dbUrl = "jdbc:mysql://localhost:3306/im?useSSL=false&useUnicode=true&characterEncoding=utf-8";
 //        String userName = "root";
@@ -38,7 +39,8 @@ public class MybatisPlusGeneratorUtil2 {
         // 2、packageConfig【父包名、父包模块名、实体类PO生成路径、Mapper接口生成路径、Mapper.xml生成路径】
 //        String parent = "cn.bifrosttech.talkback.center";
         String parent = "cn.bifrosttech.talkback.core";
-        String moduleName = "user";
+//        String moduleName = "user";
+        String moduleName = "signal";
 //        String moduleName = "watcher";
 //        String moduleName = "group";
         String entityPODir = "model.entity";

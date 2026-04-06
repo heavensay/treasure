@@ -12,6 +12,7 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +39,7 @@ public class FastJsonTest {
             student  = new Student();
             student.setName("tom");
             student.setOpenTime(new Date());
+            student.setCloseTime(LocalDateTime.now());
 
             Address address1 = new Address();
             address1.setStreet("s1");
@@ -279,6 +281,13 @@ public class FastJsonTest {
         list.add(recycle);
         System.out.println(JSON.toJSONString(list));
     }
+
+    @Test
+    public void timeFormat(){
+
+        System.out.println(JSON.toJSONString(student));
+        System.out.println(JSON.toJSONStringWithDateFormat(student,"yyyy-MM-hh"));
+    }
 }
 
 class Student{
@@ -287,6 +296,8 @@ class Student{
     private List<Home> homes;
 
     private Date openTime;
+
+    private LocalDateTime closeTime;
 
     public String getName() {
         return name;
@@ -310,6 +321,14 @@ class Student{
 
     public void setOpenTime(Date openTime) {
         this.openTime = openTime;
+    }
+
+    public LocalDateTime getCloseTime() {
+        return closeTime;
+    }
+
+    public void setCloseTime(LocalDateTime closeTime) {
+        this.closeTime = closeTime;
     }
 }
 

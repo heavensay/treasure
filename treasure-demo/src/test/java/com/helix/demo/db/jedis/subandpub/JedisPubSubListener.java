@@ -3,7 +3,6 @@ package com.helix.demo.db.jedis.subandpub;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import redis.clients.jedis.JedisPubSub;
 
 public class JedisPubSubListener extends JedisPubSub {

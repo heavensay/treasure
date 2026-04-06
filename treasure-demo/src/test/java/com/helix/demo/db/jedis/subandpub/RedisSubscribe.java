@@ -2,7 +2,6 @@ package com.helix.demo.db.jedis.subandpub;
 
 import com.helix.demo.db.jedis.RedisUtil;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPubSub;
 
 public class RedisSubscribe {
 

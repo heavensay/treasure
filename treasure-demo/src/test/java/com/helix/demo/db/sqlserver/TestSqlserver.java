@@ -1,12 +1,12 @@
 package com.helix.demo.db.sqlserver;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * 测试sqlserver相关的一些功能

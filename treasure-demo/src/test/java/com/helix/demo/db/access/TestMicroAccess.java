@@ -1,8 +1,8 @@
 package com.helix.demo.db.access;
 
-import java.sql.*;
-
 import org.junit.Test;
+
+import java.sql.*;
 
 public class TestMicroAccess {
 

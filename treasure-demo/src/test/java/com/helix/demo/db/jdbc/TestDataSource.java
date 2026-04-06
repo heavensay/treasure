@@ -1,12 +1,12 @@
 package com.helix.demo.db.jdbc;
 
+import org.apache.commons.lang.RandomStringUtils;
+import org.junit.Test;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Savepoint;
-
-import org.apache.commons.lang.RandomStringUtils;
-import org.junit.Test;
 
 public class TestDataSource {
 

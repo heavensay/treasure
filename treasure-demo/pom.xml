@@ -240,11 +240,11 @@
 <!--            <version>1.7.13</version>-->
 <!--        </dependency>-->
 <!--        &lt;!&ndash; java.util.logging->slf4j->具体日志实现类 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>jul-to-slf4j</artifactId>-->
-<!--            <version>1.7.21</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>1.7.21</version>
+        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -412,10 +412,16 @@
             <artifactId>lombok</artifactId>
             <version>1.18.26</version>
         </dependency>
+
         <dependency>
             <groupId>org.eclipse.paho</groupId>
             <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
             <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.paho</groupId>
+            <artifactId>org.eclipse.paho.mqttv5.client</artifactId>
+            <version>1.2.5</version>
         </dependency>
 
         <!-- minio s3协议 oss服务 -->

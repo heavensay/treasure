@@ -1,17 +1,11 @@
 package com.helix.demo.db.jedis;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.junit.Test;
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.SortingParams;
+
+import java.util.*;
 
 /**
  * redis基本使用

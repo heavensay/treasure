@@ -79,5 +79,6 @@
     </root>
 
     <logger name="org.apache.http" level="info"/>
+    <logger name="org.eclipse.paho.mqttv5" level="trace"/>
 
 </configuration>

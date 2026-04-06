@@ -52,7 +52,7 @@ public class App {
 
             client.disconnect();
 
-            message.setPayload((content+":===").getBytes());
+            message.setPayload((content + ":===").getBytes());
             System.out.println("Disconnected");
 
             client.publish(pubTopic, message);
