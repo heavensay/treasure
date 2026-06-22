@@ -34,3 +34,8 @@ Thumbs.db
 
 #other ignore
 *.ttc
+
+# 拦截所有环境配置文件
+#.env
+.env.local
+.env.*.local

@@ -11,5 +11,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>treasure-demo-websocket</module>
+        <module>treasure-demo-ai</module>
     </modules>
 </project>

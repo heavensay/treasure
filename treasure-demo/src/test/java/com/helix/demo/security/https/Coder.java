@@ -1,8 +1,5 @@
 package com.helix.demo.security.https;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
 import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
@@ -41,7 +38,8 @@ public abstract class Coder {
      * @throws Exception
      */
     public static byte[] decryptBASE64(String key) throws Exception {
-        return (new BASE64Decoder()).decodeBuffer(key);
+        return (java.util.Base64.getDecoder()).decode(key);
+
     }
 
     /**
@@ -52,7 +50,7 @@ public abstract class Coder {
      * @throws Exception
      */
     public static String encryptBASE64(byte[] key) throws Exception {
-        return (new BASE64Encoder()).encodeBuffer(key);
+        return (java.util.Base64.getEncoder()).encodeToString(key);
     }
 
     /**

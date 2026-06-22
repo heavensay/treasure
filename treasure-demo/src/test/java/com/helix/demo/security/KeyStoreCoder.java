@@ -1,8 +1,5 @@
 package com.helix.demo.security;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
 import javax.crypto.Cipher;
 import java.io.FileInputStream;
 import java.security.KeyFactory;
@@ -11,6 +8,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 
 public class KeyStoreCoder {
 
@@ -88,7 +86,7 @@ public class KeyStoreCoder {
     public static String getStrPublicKey(String keyStorePath, String alias,
                                          String storePass) throws Exception {
         PublicKey key = getPublicKey(keyStorePath, alias, storePass);
-        String strKey = (new BASE64Encoder()).encodeBuffer(key.getEncoded());
+        String strKey = Base64.getEncoder().encodeToString(key.getEncoded());
         return strKey;
     }
 
@@ -107,7 +105,7 @@ public class KeyStoreCoder {
                                           String storePass, String keyPass) throws Exception {
 
         PrivateKey key = getPrivateKey(keyStorePath, alias, storePass, keyPass);
-        String strKey = (new BASE64Encoder()).encodeBuffer(key.getEncoded());
+        String strKey = Base64.getEncoder().encodeToString(key.getEncoded());
         return strKey;
     }
 
@@ -123,7 +121,7 @@ public class KeyStoreCoder {
     public static String encryptByPublicKey(String publicKey, String srcData)
             throws Exception {
         // 解密
-        byte[] pk = (new BASE64Decoder()).decodeBuffer(publicKey);
+        byte[] pk = Base64.getDecoder().decode(publicKey);
         X509EncodedKeySpec spec = new X509EncodedKeySpec(pk);
         KeyFactory kf = KeyFactory.getInstance("RSA");
         // 获取公钥
@@ -134,7 +132,7 @@ public class KeyStoreCoder {
         cipher.init(Cipher.ENCRYPT_MODE, pubKey);
 
         byte[] doFinal = cipher.doFinal(srcData.getBytes());
-        return (new BASE64Encoder()).encodeBuffer(doFinal);
+        return Base64.getEncoder().encodeToString(doFinal);
     }
 
     /**
@@ -149,9 +147,9 @@ public class KeyStoreCoder {
     public static String descryptByPrivateKey(String privateKey, String data)
             throws Exception {
         // BASE64转码解密私钥
-        byte[] pk = (new BASE64Decoder()).decodeBuffer(privateKey);
+        byte[] pk = Base64.getDecoder().decode(privateKey);
         // BASE64转码解密密文
-        byte[] text = (new BASE64Decoder()).decodeBuffer(data);
+        byte[] text = Base64.getDecoder().decode(data);
         PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(pk);
         KeyFactory kf = KeyFactory.getInstance("RSA");
         // 获取私钥

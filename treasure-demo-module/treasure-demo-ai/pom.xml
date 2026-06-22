@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.github.heavensay</groupId>
+        <artifactId>treasure-demo-module</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>treasure-demo-ai</artifactId>
+    <packaging>jar</packaging>
+
+    <name>treasure-demo-ai</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dashscope-sdk-java</artifactId>
+            <version>2.22.23</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <!-- 使用 1.4+ 或 1.9+ 的稳定版本，确保包含 copyInto 方法 -->
+            <version>1.9.22</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <!-- 使用 2.10 以上的稳定版本，绝对包含 ToNumberStrategy 接口 -->
+            <version>2.10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.heavensay</groupId>
+            <artifactId>treasure-common</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
+</project>
