@@ -11,7 +11,7 @@
 
     <artifactId>treasure-demo</artifactId>
     <properties>
-        <drools.version>7.5.0.Final</drools.version>
+        <drools.version>7.60.0.Final</drools.version>
         <skip_maven_deploy>true</skip_maven_deploy>
         <protobuf.version>3.11.0</protobuf.version>
         <grpc.version>1.26.0</grpc.version>
